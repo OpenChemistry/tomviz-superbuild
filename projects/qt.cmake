@@ -66,7 +66,7 @@ if ((NOT 64bit_build) AND UNIX AND (NOT APPLE))
   add_external_project_step(qt-patch-configure
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
                               ${SuperBuild_PROJECTS_DIR}/patches/qt.configure
-			      <SOURCE_DIR>/configure
+                              <SOURCE_DIR>/configure
     DEPENDEES patch
     DEPENDERS configure)
 endif()

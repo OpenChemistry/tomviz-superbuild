@@ -1,32 +1,21 @@
-include(velodyneviewer.bundle.common)
+include(tem.bundle.common)
 
 #------------------------------------------------------------------------------
 # set NSIS install specific stuff.
 
 set (CPACK_NSIS_MENU_LINKS
-  "bin/VeloView.exe" "VeloView"
-  "doc/VeloView_Developer_Guide.pdf" "Developer Guide")
+  "bin/TEMTomography.exe" "VeloView")
+  #"doc/VeloView_Developer_Guide.pdf" "Developer Guide")
 
-set(CPACK_PACKAGE_EXECUTABLES "VeloView" "VeloView" ${CPACK_PACKAGE_EXECUTABLES})
-set(CPACK_CREATE_DESKTOP_LINKS "VeloView" ${CPACK_CREATE_DESKTOP_LINKS})
+set(CPACK_PACKAGE_EXECUTABLES "TEMTomography" "TEMTomography" ${CPACK_PACKAGE_EXECUTABLES})
+set(CPACK_CREATE_DESKTOP_LINKS "TEMTomography" ${CPACK_CREATE_DESKTOP_LINKS})
 set(CPACK_NSIS_MODIFY_PATH OFF)
 
-set(AppName VeloView)
+set(AppName TEMTomography)
 
 install(DIRECTORY "${install_location}/bin/"
         DESTINATION "bin"
         COMPONENT ${AppName})
-
-if(0)
-SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS 
-  "MessageBox MB_YESNO \\\"Setup will now download/install WinPCAP. Do you want to install WinPCAP? It is needed for VeloView to work.\\\" /SD IDYES IDNO endActiveSync
-NSISdl::download http://www.winpcap.org/install/bin/WinPcap_4_1_2.exe $INSTDIR\\\\WinPcap_4_1_2.exe
-ExecWait \\\"$INSTDIR\\\\WinPcap_4_1_2.exe\\\"
-Delete \\\"$INSTDIR\\\\WinPcap_4_1_2.exe\\\"
-Goto endActiveSync
-endActiveSync:
-")
-endif()
 
 # install python since (since python dlls are not in the install location)
 if (python_ENABLED AND NOT USE_SYSTEM_python)
@@ -61,17 +50,13 @@ endif()
 install(DIRECTORY "${install_location}/lib/paraview-3.98"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
-        COMPONENT ${AppName} 
+        COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
 
-install(FILES "${wpcap_library_dir}/wpcap.dll"  "${wpcap_library_dir}/Packet.dll"
-        DESTINATION "bin"
-        COMPONENT ${AppName})
-
-install(FILES "${SuperBuild_BINARY_DIR}/velodyneviewer/src/velodyneviewer/Documentation/VeloView_Developer_Guide.pdf"
-        DESTINATION "doc"
-        COMPONENT ${AppName})
+#install(FILES "${SuperBuild_BINARY_DIR}/velodyneviewer/src/velodyneviewer/Documentation/VeloView_Developer_Guide.pdf"
+#        DESTINATION "doc"
+#        COMPONENT ${AppName})
 
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")

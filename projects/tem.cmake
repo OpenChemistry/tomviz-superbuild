@@ -1,5 +1,5 @@
-add_external_project(velodyneviewer
-  DEPENDS paraview qt pcap boost
+add_external_project(tem
+  DEPENDS paraview qt
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
