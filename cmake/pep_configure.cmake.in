@@ -19,9 +19,11 @@ foreach (arg IN ITEMS ${environment})
   endif()
 endforeach()
 
-execute_process(COMMAND ${command}
-  RESULT_VARIABLE rv)
+if (command)
+  execute_process(COMMAND ${command}
+    RESULT_VARIABLE rv)
 
-if (NOT "${rv}" STREQUAL "0")
-  message(FATAL_ERROR "Failed!!!")
-endif()
+  if (NOT "${rv}" STREQUAL "0")
+    message(FATAL_ERROR "Failed!!!")
+  endif()
+endif ()

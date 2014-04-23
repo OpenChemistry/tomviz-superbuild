@@ -1,5 +1,5 @@
 add_external_project(paraview
-  DEPENDS qt python pythonqt
+  DEPENDS qt python
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
@@ -22,6 +22,7 @@ add_external_project(paraview
     -DPARAVIEW_BUILD_PLUGIN_PointSprite:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_PrismPlugin:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_pvblot:BOOL=FALSE
+    -DPARAVIEW_BUILD_PLUGIN_PythonQt:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_QuadView:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_SLACTools:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_SciberQuestToolKit:BOOL=FALSE
@@ -30,9 +31,8 @@ add_external_project(paraview
     -DPARAVIEW_BUILD_PLUGIN_UncertaintyRendering:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_VRPlugin:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_VaporPlugin:BOOL=FALSE
-
-    -DPARAVIEW_BUILD_PLUGIN_PythonQt:BOOL=TRUE
-    -DPYTHONQT_DIR:PATH=<INSTALL_DIR>
+    -DPQWIDGETS_DISABLE_QTWEBKIT:BOOL=ON
+    -DModule_vtkGUISupportQtWebkit:BOOL=OFF
 
     # specify the apple app install prefix. No harm in specifying it for all
     # platforms.

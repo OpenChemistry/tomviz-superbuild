@@ -25,6 +25,6 @@ add_external_project_or_use_system(
                     -xmlpatterns
                     -I <INSTALL_DIR>/include
                     -L <INSTALL_DIR>/lib
-  BUILD_COMMAND     ${NMAKE_PATH} 
+  BUILD_COMMAND     ${NMAKE_PATH}
   INSTALL_COMMAND   ${NMAKE_PATH} install
-) 
+)

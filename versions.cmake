@@ -13,16 +13,12 @@ add_revision(python
   URL_MD5 "2cf641732ac23b18d139be077bd906cd")
 
 add_revision(qt
-  URL "http://releases.qt-project.org/qt4/source/qt-everywhere-opensource-src-4.8.2.tar.gz"
+  URL "http://download.qt-project.org/archive/qt/4.8/4.8.2/qt-everywhere-opensource-src-4.8.2.tar.gz"
   URL_MD5 3c1146ddf56247e16782f96910a8423b)
 
-add_revision(pythonqt
-  GIT_REPOSITORY git://github.com/commontk/PythonQt.git
-  GIT_TAG patched-3)
-
 add_revision(paraview
-  GIT_REPOSITORY git://github.com/patmarion/ParaView.git
-  GIT_TAG PythonQtPlugin)
+  GIT_REPOSITORY git://github.com/Kitware/ParaView.git
+  GIT_TAG 4386042d5d7ef7b7cac12e96660a7dc5a6c5191a) # lookup_table_cleanup
 
 add_revision(tem
   GIT_REPOSITORY git://kwsource.kitwarein.com/miscellaneousprojectsuda/temtomography.git

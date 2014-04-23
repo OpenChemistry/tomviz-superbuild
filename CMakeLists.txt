@@ -121,7 +121,6 @@ set (CM_PROJECTS_ALL)
 # Some of these allow using system libraries too.
 include(qt)
 include(python)
-include(pythonqt)
 include(paraview)
 include(tem)
 
