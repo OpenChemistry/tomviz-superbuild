@@ -1,17 +1,17 @@
-include(tem.bundle.common)
+include(matviz.bundle.common)
 
 #------------------------------------------------------------------------------
 # set NSIS install specific stuff.
 
 set (CPACK_NSIS_MENU_LINKS
-  "bin/TEMTomography.exe" "VeloView")
+  "bin/matviz.exe" "VeloView")
   #"doc/VeloView_Developer_Guide.pdf" "Developer Guide")
 
-set(CPACK_PACKAGE_EXECUTABLES "TEMTomography" "TEMTomography" ${CPACK_PACKAGE_EXECUTABLES})
-set(CPACK_CREATE_DESKTOP_LINKS "TEMTomography" ${CPACK_CREATE_DESKTOP_LINKS})
+set(CPACK_PACKAGE_EXECUTABLES "matviz" "matviz" ${CPACK_PACKAGE_EXECUTABLES})
+set(CPACK_CREATE_DESKTOP_LINKS "matviz" ${CPACK_CREATE_DESKTOP_LINKS})
 set(CPACK_NSIS_MODIFY_PATH OFF)
 
-set(AppName TEMTomography)
+set(AppName matviz)
 
 install(DIRECTORY "${install_location}/bin/"
         DESTINATION "bin"

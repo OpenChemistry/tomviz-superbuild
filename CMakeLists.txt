@@ -122,10 +122,10 @@ set (CM_PROJECTS_ALL)
 include(qt)
 include(python)
 include(paraview)
-include(tem)
+include(matviz)
 
 process_dependencies()
 
-if (tem_ENABLED)
-  include(tem.bundle OPTIONAL)
+if (matviz_ENABLED)
+  include(matviz.bundle OPTIONAL)
 endif()

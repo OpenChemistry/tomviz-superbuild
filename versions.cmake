@@ -20,6 +20,6 @@ add_revision(paraview
   GIT_REPOSITORY git://github.com/Kitware/ParaView.git
   GIT_TAG 4386042d5d7ef7b7cac12e96660a7dc5a6c5191a) # lookup_table_cleanup
 
-add_revision(tem
-  GIT_REPOSITORY git://kwsource.kitwarein.com/miscellaneousprojectsuda/temtomography.git
+add_revision(matviz
+  GIT_REPOSITORY https://github.com/cryos/matviz
   GIT_TAG master)

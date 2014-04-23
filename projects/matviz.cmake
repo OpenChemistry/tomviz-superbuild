@@ -1,4 +1,4 @@
-add_external_project(tem
+add_external_project(matvis
   DEPENDS paraview qt
 
   CMAKE_ARGS
