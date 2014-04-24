@@ -28,4 +28,4 @@ add_revision(paraview
 
 add_revision(matviz
   GIT_REPOSITORY https://github.com/mathstuf/matviz
-  GIT_TAG 1d5045b60dbf289a3b021d3f49bee5ccbc783c23) # install rules
+  GIT_TAG dev/add-install-rules)
