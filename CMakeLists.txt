@@ -7,10 +7,10 @@ if (APPLE)
   endif()
 endif()
 
-project(TEMSuperBuild)
+project(MatVizSuperBuild)
 set (SuperBuild_CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set (SuperBuild_PROJECTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/projects")
-set (SuperBuild_BINARY_DIR ${TEMSuperBuild_BINARY_DIR})
+set (SuperBuild_BINARY_DIR ${MatVizSuperBuild_BINARY_DIR})
 
 include(CMakeDependentOption)
 

@@ -4,8 +4,7 @@ include(matviz.bundle.common)
 # set NSIS install specific stuff.
 
 set (CPACK_NSIS_MENU_LINKS
-  "bin/matviz.exe" "VeloView")
-  #"doc/VeloView_Developer_Guide.pdf" "Developer Guide")
+  "bin/matviz.exe" "MatViz")
 
 set(CPACK_PACKAGE_EXECUTABLES "matviz" "matviz" ${CPACK_PACKAGE_EXECUTABLES})
 set(CPACK_CREATE_DESKTOP_LINKS "matviz" ${CPACK_CREATE_DESKTOP_LINKS})
@@ -47,16 +46,12 @@ if (python_ENABLED AND NOT USE_SYSTEM_python)
 endif()
 
 # install paraview python modules and others.
-install(DIRECTORY "${install_location}/lib/paraview-3.98"
+install(DIRECTORY "${install_location}/lib/paraview-4.1"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
-
-#install(FILES "${SuperBuild_BINARY_DIR}/velodyneviewer/src/velodyneviewer/Documentation/VeloView_Developer_Guide.pdf"
-#        DESTINATION "doc"
-#        COMPONENT ${AppName})
 
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")
