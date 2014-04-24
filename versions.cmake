@@ -23,7 +23,7 @@ add_revision(qt
   URL_MD5 3c1146ddf56247e16782f96910a8423b)
 
 add_revision(paraview
-  GIT_REPOSITORY git://github.com/Kitware/ParaView.git
+  GIT_REPOSITORY git://paraview.org/stage/ParaView.git
   GIT_TAG 4386042d5d7ef7b7cac12e96660a7dc5a6c5191a) # lookup_table_cleanup
 
 add_revision(matviz
