@@ -2,7 +2,7 @@
 
 
 #App="$1" # argument is the application to fixup
-#LibrariesPrefix="Contents/Libraries"
+#LibrariesPrefix="Contents/Libraries/"
 #echo ""
 #echo "Fixing up $App"
 #echo "All required frameworks/libraries will be placed under $App/$LibrariesPrefix"
@@ -82,7 +82,11 @@ class Library(object):
     else:
       if not fakeCopy:
         print "Copying %s ==> %s" % (self.RealPath, ".../Contents/Libraries/%s" % os.path.basename(self.RealPath))
-        shutil.copy(self.RealPath, os.path.join(app, "Contents/Libraries"))
+        try:
+          os.makedirs(os.path.join(app, "Contents/Libraries"))
+        except:
+          pass
+        shutil.copy(self.RealPath, os.path.join(app, "Contents/Libraries/"))
       self.Id = "@executable_path/../Libraries/%s" % os.path.basename(self.RealPath)
       if not fakeCopy:
         commands.getoutput('install_name_tool -id "%s" %s' % (self.Id,
@@ -149,7 +153,7 @@ if __name__ == "__main__":
     QtPluginsDir = sys.argv[4]
   else:
     QtPluginsDir = None
-  LibrariesPrefix = "Contents/Libraries"
+  LibrariesPrefix = "Contents/Libraries/"
 
   print "------------------------------------------------------------"
   print "Fixing up ",App

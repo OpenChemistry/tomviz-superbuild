@@ -1,7 +1,5 @@
 include(matviz.bundle.common)
 
-include(paraview.bundle)
-
 set (CPACK_GENERATOR DragNDrop)
 include(CPack)
 

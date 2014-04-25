@@ -148,7 +148,7 @@ def fixExecutables(dir, copyLibs=True):
 
 print "Patch bundle", path_bundle_to_fix
 
-lib_dir = path_bundle_to_fix + "/Contents/Libraries"
+lib_dir = path_bundle_to_fix + "/Contents/Libraries/"
 frameworks_dir = path_bundle_to_fix + "/Contents/Frameworks"
 bin_dir = path_bundle_to_fix + "/Contents/bin"
 pv_dir = path_bundle_to_fix + "/Contents/MacOS"
