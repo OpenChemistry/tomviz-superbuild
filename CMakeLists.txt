@@ -114,6 +114,14 @@ endif()
 include (ParaViewModules)
 include (versions)
 
+#------------------------------------------------------------------------------
+# enable testing support.
+include(CTest)
+configure_file(
+  "${SuperBuild_CMAKE_DIR}/CTestCustom.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake" @ONLY)
+#------------------------------------------------------------------------------
+
 #-----------------------------------------------------------------------------
 set (CM_PROJECTS_ALL)
 
