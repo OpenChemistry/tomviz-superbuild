@@ -8,7 +8,7 @@
 set(CTEST_NIGHTLY_START_TIME "21:00:00 EDT")
 
 set(CTEST_DROP_METHOD "http")
-set(CTEST_DROP_SITE "www.cdash.org")
-#set(CTEST_DROP_LOCATION "/CDash/submit.php?project=ParaView")
+set(CTEST_DROP_SITE "open.cdash.org")
+#set(CTEST_DROP_LOCATION "/CDash/submit.php?project=MatViz")
 set(CTEST_DROP_LOCATION "/CDash/submit.php")
 set(CTEST_DROP_SITE_CDASH TRUE)
