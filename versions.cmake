@@ -24,7 +24,7 @@ add_revision(qt
 
 add_revision(paraview
   GIT_REPOSITORY git://paraview.org/stage/ParaView.git
-  GIT_TAG lookup_table_cleanup)
+  GIT_TAG master)
 
 add_revision(matviz
   GIT_REPOSITORY https://github.com/cryos/matviz
