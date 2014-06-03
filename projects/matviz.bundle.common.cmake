@@ -1,7 +1,7 @@
 # We hardcode the version numbers since we cannot determine versions during
 # configure stage.
-set (matviz_version_major 1)
-set (matviz_version_minor 0)
+set (matviz_version_major 0)
+set (matviz_version_minor 1)
 set (matviz_version_patch 0)
 set (matviz_version_suffix)
 set (matviz_version "${matviz_version_major}.${matviz_version_minor}.${matviz_version_patch}")
