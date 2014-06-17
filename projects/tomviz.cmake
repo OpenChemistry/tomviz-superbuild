@@ -1,4 +1,4 @@
-add_external_project(matviz
+add_external_project(tomviz
   DEPENDS paraview qt
 
   CMAKE_ARGS

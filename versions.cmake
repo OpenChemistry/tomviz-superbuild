@@ -26,6 +26,6 @@ add_revision(paraview
   GIT_REPOSITORY git://paraview.org/stage/ParaView.git
   GIT_TAG master)
 
-add_revision(matviz
+add_revision(tomviz
   GIT_REPOSITORY https://github.com/cryos/matviz
   GIT_TAG master)

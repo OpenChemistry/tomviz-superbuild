@@ -1,16 +1,16 @@
-include(matviz.bundle.common)
+include(tomviz.bundle.common)
 
 #------------------------------------------------------------------------------
 # set NSIS install specific stuff.
 
 set (CPACK_NSIS_MENU_LINKS
-  "bin/matviz.exe" "MatViz")
+  "bin/tomviz.exe" "TomViz")
 
-set(CPACK_PACKAGE_EXECUTABLES "matviz" "matviz" ${CPACK_PACKAGE_EXECUTABLES})
-set(CPACK_CREATE_DESKTOP_LINKS "matviz" ${CPACK_CREATE_DESKTOP_LINKS})
+set(CPACK_PACKAGE_EXECUTABLES "tomviz" "tomviz" ${CPACK_PACKAGE_EXECUTABLES})
+set(CPACK_CREATE_DESKTOP_LINKS "tomviz" ${CPACK_CREATE_DESKTOP_LINKS})
 set(CPACK_NSIS_MODIFY_PATH OFF)
 
-set(AppName matviz)
+set(AppName tomviz)
 
 install(DIRECTORY "${install_location}/bin/"
         DESTINATION "bin"

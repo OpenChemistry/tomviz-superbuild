@@ -7,10 +7,10 @@ if (APPLE)
   endif()
 endif()
 
-project(MatVizSuperBuild)
+project(TomVizSuperBuild)
 set (SuperBuild_CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set (SuperBuild_PROJECTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/projects")
-set (SuperBuild_BINARY_DIR ${MatVizSuperBuild_BINARY_DIR})
+set (SuperBuild_BINARY_DIR ${TomVizSuperBuild_BINARY_DIR})
 
 include(CMakeDependentOption)
 
@@ -95,7 +95,7 @@ string (STRIP "${cxxflags}" cxxflags)
 string (STRIP "${cflags}"  cflags)
 #-----------------------------------------------------------------------------
 ## Top-level options. These must be limited to a commonly used subset with
-## default values being used for building MatViz binaries.
+## default values being used for building TomViz binaries.
 #option(PV_COMMAND_LINE_TOOLS_ONLY
 #  "Turn this ON to build command lines tools alone." OFF)
 
@@ -130,10 +130,10 @@ set (CM_PROJECTS_ALL)
 include(qt)
 include(python)
 include(paraview)
-include(matviz)
+include(tomviz)
 
 process_dependencies()
 
-if (matviz_ENABLED)
-  include(matviz.bundle OPTIONAL)
+if (tomviz_ENABLED)
+  include(tomviz.bundle OPTIONAL)
 endif()
