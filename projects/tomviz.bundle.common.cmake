@@ -1,7 +1,7 @@
 # We hardcode the version numbers since we cannot determine versions during
 # configure stage.
 set (tomviz_version_major 0)
-set (tomviz_version_minor 1)
+set (tomviz_version_minor 2)
 set (tomviz_version_patch 0)
 set (tomviz_version_suffix)
 set (tomviz_version "${tomviz_version_major}.${tomviz_version_minor}.${tomviz_version_patch}")
