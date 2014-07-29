@@ -52,6 +52,12 @@ install(DIRECTORY "${install_location}/lib/paraview-4.1"
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
+# install tomviz Python modules and others
+install(DIRECTORY "${install_location}/lib/tomviz-${tomviz_version}"
+        DESTINATION "lib"
+        USE_SOURCE_PERMISSIONS
+        COMPONENT ${AppName}
+        PATTERN "*.lib" EXCLUDE)
 
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")
