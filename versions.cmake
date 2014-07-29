@@ -18,6 +18,10 @@ else()
     URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
 endif()
 
+add_revision(numpy
+  URL "http://paraview.org/files/dependencies/numpy-1.6.2.tar.gz"
+  URL_MD5 95ed6c9dcc94af1fc1642ea2a33c1bba)
+
 add_revision(qt
   URL "http://download.qt-project.org/archive/qt/4.8/4.8.2/qt-everywhere-opensource-src-4.8.2.tar.gz"
   URL_MD5 3c1146ddf56247e16782f96910a8423b)
