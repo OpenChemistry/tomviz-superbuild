@@ -59,6 +59,15 @@ install(DIRECTORY "${install_location}/lib/tomviz-${tomviz_version}"
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
+# install all extra Python modules/packages.
+if (numpy_ENABLED)
+  # on Windows, all Python packages simply go under bin/Lib/site-packages"
+  install(DIRECTORY "${install_location}/lib/site-packages/"
+    DESTINATION "bin/Lib/site-packages"
+    USE_SOURCE_PERMISSIONS
+    COMPONENT ${AppName})
+endif()
+
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")
 
