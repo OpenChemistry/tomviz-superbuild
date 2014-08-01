@@ -43,8 +43,11 @@ add_external_project_or_use_system(
                       -no-xinerama
                       -no-scripttools
                       -no-svg
+                      -no-declarative
                       -no-declarative-debug
                       -no-xvideo
+                      -no-script
+                      -no-cups
                       -opensource
                       -qt-libjpeg
                       -qt-libtiff
