@@ -46,7 +46,7 @@ if (python_ENABLED AND NOT USE_SYSTEM_python)
 endif()
 
 # install paraview python modules and others.
-install(DIRECTORY "${install_location}/lib/paraview-4.1"
+install(DIRECTORY "${install_location}/lib/paraview-4.2"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
