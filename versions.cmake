@@ -28,6 +28,10 @@ foreach (fftw3kind float double long quad)
     URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
 endforeach ()
 
+add_revision(pyfftw
+  URL "https://pypi.python.org/packages/source/p/pyFFTW/pyFFTW-0.9.2.tar.gz"
+  URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+
 add_revision(qt
   URL "http://download.qt-project.org/archive/qt/4.8/4.8.2/qt-everywhere-opensource-src-4.8.2.tar.gz"
   URL_MD5 3c1146ddf56247e16782f96910a8423b)
