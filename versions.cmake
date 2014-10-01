@@ -22,6 +22,16 @@ add_revision(numpy
   URL "http://paraview.org/files/dependencies/numpy-1.6.2.tar.gz"
   URL_MD5 95ed6c9dcc94af1fc1642ea2a33c1bba)
 
+foreach (fftw3kind float double long quad)
+  add_revision(fftw3${fftw3kind}
+    URL "http://www.fftw.org/fftw-3.3.4.tar.gz"
+    URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
+endforeach ()
+
+add_revision(pyfftw
+  URL "https://pypi.python.org/packages/source/p/pyFFTW/pyFFTW-0.9.2.tar.gz"
+  URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+
 add_revision(qt
   URL "http://download.qt-project.org/archive/qt/4.8/4.8.2/qt-everywhere-opensource-src-4.8.2.tar.gz"
   URL_MD5 3c1146ddf56247e16782f96910a8423b)
