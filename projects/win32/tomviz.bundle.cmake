@@ -4,7 +4,7 @@ include(tomviz.bundle.common)
 # set NSIS install specific stuff.
 
 set (CPACK_NSIS_MENU_LINKS
-  "bin/tomviz.exe" "TomViz")
+  "bin/tomviz.exe" "tomviz")
 
 set(CPACK_PACKAGE_EXECUTABLES "tomviz" "tomviz" ${CPACK_PACKAGE_EXECUTABLES})
 set(CPACK_CREATE_DESKTOP_LINKS "tomviz" ${CPACK_CREATE_DESKTOP_LINKS})
