@@ -13,6 +13,11 @@ install(CODE "
     # install all python modules/packages from paraview.
     file(INSTALL DESTINATION \"\ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python\"
          USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+         \"${install_location}/lib/python2.7/site-packages/\")
+
+    # install all python modules/packages from paraview.
+    file(INSTALL DESTINATION \"\ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python\"
+         USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
          \"${install_location}/Applications/paraview.app/Contents/Python/\")
 
     # install all other libraries from paraview (this is needed for the PythonD-*.dylib files
