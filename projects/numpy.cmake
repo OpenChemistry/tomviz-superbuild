@@ -8,8 +8,9 @@ endif()
 add_external_project(numpy
   DEPENDS python
   CONFIGURE_COMMAND ""
-  INSTALL_COMMAND ""
+  INSTALL_COMMAND
+    ${pv_python_executable} setup.py install --prefix=${_install_location}
   BUILD_IN_SOURCE 1
   BUILD_COMMAND
-    ${pv_python_executable} setup.py install --prefix=${_install_location}
+    ${pv_python_executable} setup.py build --fcompiler=no
 )
