@@ -16,6 +16,12 @@ install(DIRECTORY "${install_location}/bin/"
         DESTINATION "bin"
         COMPONENT ${AppName})
 
+if(tomviz_data_DIR)
+  install(DIRECTORY "${install_location}/share/"
+          DESTINATION "share"
+          COMPONENT ${AppName})
+endif()
+
 # install python since (since python dlls are not in the install location)
 if (python_ENABLED AND NOT USE_SYSTEM_python)
   # install the Python's modules.
