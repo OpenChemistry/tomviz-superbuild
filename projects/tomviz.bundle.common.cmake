@@ -8,7 +8,7 @@ set (tomviz_version "${tomviz_version_major}.${tomviz_version_minor}.${tomviz_ve
 
 # Enable CPack packaging.
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "tomviz")
-set(CPACK_PACKAGE_NAME "TomViz")
+set(CPACK_PACKAGE_NAME "tomviz")
 set(CPACK_PACKAGE_VENDOR "Kitware")
 set(CPACK_PACKAGE_VERSION_MAJOR ${tomviz_version_major})
 set(CPACK_PACKAGE_VERSION_MINOR ${tomviz_version_minor})
