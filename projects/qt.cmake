@@ -3,7 +3,7 @@ set (patch_command)
 if (NOT APPLE AND UNIX)
   list (APPEND qt_options
                -qt-libpng
-               -qt-libzlib
+               -qt-zlib
                -I <INSTALL_DIR>/include/freetype2
                -I <INSTALL_DIR>/include/fontconfig)
   # Fix Qt build failure with GCC 4.1.
