@@ -35,3 +35,11 @@ install(CODE "
          \"${install_location}/lib/python2.7/site-packages/\")
    "
    COMPONENT superbuild)
+
+add_test(GenerateTomVizPackage
+        ${CMAKE_CPACK_COMMAND} -G DragNDrop -V
+        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
+
+set_tests_properties(GenerateTomVizPackage
+                     PROPERTIES
+                     TIMEOUT 3600)

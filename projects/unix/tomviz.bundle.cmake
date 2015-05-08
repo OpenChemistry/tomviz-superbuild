@@ -35,3 +35,11 @@ foreach(executable tomviz)
     DESTINATION "bin"
     COMPONENT superbuild)
 endforeach()
+
+add_test(GenerateTomVizPackage
+        ${CMAKE_CPACK_COMMAND} -G TGZ -V
+        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
+
+set_tests_properties(GenerateTomVizPackage
+                     PROPERTIES
+                     TIMEOUT 3600)
