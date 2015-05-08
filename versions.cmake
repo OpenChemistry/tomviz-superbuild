@@ -9,9 +9,15 @@
 # endif()
 
 if (WIN32)
-  add_revision(python
-    URL "http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz"
-    URL_MD5 "2cf641732ac23b18d139be077bd906cd")
+  if (64bit_build)
+    add_revision(python
+      URL "http://www.paraview.org/files/dependencies/python+deps.tar.bz2"
+      URL_MD5 "4318b8f771eda5606d9ce7f0be9f82e1")
+  else ()
+    add_revision(python
+      URL "http://www.paraview.org/files/dependencies/python+deps-x32.tar.bz2"
+      URL_MD5 "6ba441784a672e08379d23ddd61146f0")
+  endif ()
 else()
   add_revision(python
     URL "http://paraview.org/files/v3.98/dependencies/Python-2.7.2.tgz"
