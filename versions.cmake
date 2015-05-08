@@ -33,8 +33,8 @@ add_revision(pyfftw
   URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
 
 add_revision(qt
-  URL "http://download.qt-project.org/archive/qt/4.8/4.8.2/qt-everywhere-opensource-src-4.8.2.tar.gz"
-  URL_MD5 3c1146ddf56247e16782f96910a8423b)
+  URL "http://download.qt-project.org/archive/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz"
+  URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
 add_revision(paraview
   GIT_REPOSITORY git://paraview.org/stage/ParaView.git
