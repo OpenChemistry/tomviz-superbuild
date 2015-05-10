@@ -35,22 +35,10 @@ if (python_ENABLED AND NOT USE_SYSTEM_python)
           USE_SOURCE_PERMISSIONS
           COMPONENT ${AppName}
           FILES_MATCHING PATTERN "python*.dll")
-
-  # install python pyd objects (python dlls).
-  # For 64 bit builds, these are in an amd64/ subdir
-  set(PYTHON_PCBUILD_SUBDIR "")
-  if(CMAKE_CL_64)
-    set(PYTHON_PCBUILD_SUBDIR "amd64/")
-  endif()
-  install(DIRECTORY "${SuperBuild_BINARY_DIR}/python/src/python/PCbuild/${PYTHON_PCBUILD_SUBDIR}"
-          DESTINATION "bin/Lib"
-          USE_SOURCE_PERMISSIONS
-          COMPONENT ${AppName}
-          FILES_MATCHING PATTERN "*.pyd")
 endif()
 
 # install paraview python modules and others.
-install(DIRECTORY "${install_location}/lib/paraview-4.2"
+install(DIRECTORY "${install_location}/lib/paraview-4.3"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
@@ -62,15 +50,6 @@ install(DIRECTORY "${install_location}/lib/tomviz-${tomviz_version}"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
-
-# install all extra Python modules/packages.
-if (numpy_ENABLED)
-  # on Windows, all Python packages simply go under bin/Lib/site-packages"
-  install(DIRECTORY "${install_location}/lib/site-packages/"
-    DESTINATION "bin/Lib/site-packages"
-    USE_SOURCE_PERMISSIONS
-    COMPONENT ${AppName})
-endif()
 
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")

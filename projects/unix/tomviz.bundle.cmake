@@ -2,7 +2,7 @@ include(tomviz.bundle.common)
 include(CPack)
 
 # install all ParaView's shared libraries.
-install(DIRECTORY "${install_location}/lib/paraview-4.2"
+install(DIRECTORY "${install_location}/lib/paraview-4.3"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
