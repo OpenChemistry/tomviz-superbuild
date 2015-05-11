@@ -48,6 +48,7 @@ add_external_project_or_use_system(
                       -no-xvideo
                       -no-script
                       -no-cups
+                      -stl
                       -opensource
                       -qt-libjpeg
                       -qt-libtiff
