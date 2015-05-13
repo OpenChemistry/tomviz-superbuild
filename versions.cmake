@@ -43,9 +43,9 @@ add_revision(qt
   URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
 add_revision(paraview
-  GIT_REPOSITORY git://paraview.org/stage/ParaView.git
+  GIT_REPOSITORY https://gitlab.kitware.com/paraview/paraview.git
   GIT_TAG master)
 
 add_revision(tomviz
-  GIT_REPOSITORY https://github.com/cryos/matviz
+  GIT_REPOSITORY https://github.com/OpenChemistry/matviz
   GIT_TAG master)
