@@ -1,5 +1,5 @@
 add_external_project(paraview
-  DEPENDS qt python
+  DEPENDS qt python ffmpeg
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
@@ -33,6 +33,7 @@ add_external_project(paraview
     -DPARAVIEW_BUILD_PLUGIN_VaporPlugin:BOOL=FALSE
     -DPARAVIEW_BUILD_PLUGIN_RGBZView:BOOL=OFF
     -DPQWIDGETS_DISABLE_QTWEBKIT:BOOL=ON
+    -DPARAVIEW_ENABLE_FFMPEG:BOOL=ON
     -DModule_vtkGUISupportQtWebkit:BOOL=OFF
 
     # specify the apple app install prefix. No harm in specifying it for all

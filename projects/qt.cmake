@@ -29,6 +29,7 @@ set(qt_EXTRA_CONFIGURATION_OPTIONS ""
 
 add_external_project_or_use_system(
     qt
+    DEPENDS zlib
     CONFIGURE_COMMAND <SOURCE_DIR>/configure
                       -prefix <INSTALL_DIR>
                       -confirm-license

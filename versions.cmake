@@ -8,6 +8,26 @@
 #   ..
 # endif()
 
+add_revision(zlib
+  URL "http://www.paraview.org/files/dependencies/zlib-1.2.7.tar.gz"
+  URL_MD5 60df6a37c56e7c1366cca812414f7b85)
+
+if (WIN32)
+  if (64bit_build)
+    add_revision(ffmpeg
+      URL "http://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win64.tar.bz2"
+      URL_MD5 887217ae04ee9004e2ec121442553259)
+  else ()
+    add_revision(ffmpeg
+      URL "http://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win32.tar.bz2"
+      URL_MD5 b8b3068699e272789ca02df5c132c05c)
+  endif ()
+else ()
+  add_revision(ffmpeg
+    URL "http://paraview.org/files/dependencies/ffmpeg-2.3.3.tar.bz2"
+    URL_MD5 72361d3b8717b6db3ad2b9da8df7af5e)
+endif ()
+
 if (WIN32)
   if (64bit_build)
     add_revision(python
