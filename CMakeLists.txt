@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.8)
 
+enable_language(Fortran)
+
 if(APPLE)
   if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     message(WARNING "Ensure that CMAKE_OSX_SYSROOT, CMAKE_OSX_DEPLOYMENT_TARGET are set correctly")
@@ -141,6 +143,8 @@ include(ffmpeg)
 include(qt)
 include(python)
 include(numpy)
+include(lapack)
+include(scipy)
 if(NOT WIN32)
   include(fftw)
   include(pyfftw)
