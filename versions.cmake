@@ -69,3 +69,11 @@ add_revision(paraview
 add_revision(tomviz
   GIT_REPOSITORY https://github.com/OpenChemistry/matviz
   GIT_TAG master)
+
+add_revision(lapack
+  URL "http://paraview.org/files/dependencies/lapack-3.4.2.tgz"
+  URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
+
+add_revision(scipy
+    URL "http://softlayer-dal.dl.sourceforge.net/project/scipy/scipy/0.15.1/scipy-0.15.1.tar.gz"
+    URL_MD5 be56cd8e60591d6332aac792a5880110)

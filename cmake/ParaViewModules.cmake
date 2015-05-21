@@ -310,6 +310,12 @@ function(add_external_project_internal name)
       LD_LIBRARY_PATH "${ld_library_path}")
   endif ()
 
+  set(ldflags_argument)
+  list(APPEND ldflags_argument LDFLAGS "${ldflags}")
+  if (SKIP_LDFLAGS_FOR_BUILD)
+    set(ldflags_argument)
+    set(SKIP_LDFLAGS_FOR_BUILD PARENT_SCOPE)
+  endif()
 
   #args needs to be quoted so that empty list items aren't removed
   #if that happens options like INSTALL_COMMAND "" won't work
@@ -323,7 +329,7 @@ function(add_external_project_internal name)
     ${${name}_revision}
 
     PROCESS_ENVIRONMENT
-      LDFLAGS "${ldflags}"
+      ${ldflags_argument}
       CPPFLAGS "${cppflags}"
       CXXFLAGS "${project_cxx_flags}"
       CFLAGS "${project_c_flags}"
