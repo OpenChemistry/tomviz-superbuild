@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.8)
 
 if(NOT WIN32)
-    enable_language(Fortran)
+  enable_language(Fortran)
 endif()
 
 if(APPLE)
