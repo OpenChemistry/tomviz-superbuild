@@ -9,6 +9,56 @@ macro(add_revision name)
 endmacro()
 
 #------------------------------------------------------------------------------
+# Use this macro instead of the add_revision() macro when adding
+# a source repo to add advanced options for the user to change the default
+# selections. Currently advanced options are added for
+# CVS_REPOSITORY, CVS_MODULE, CVS_TAG, SVN_REVISION, SVN_REVISION,
+# GIT_REPOSITORY, GIT_TAG, HG_REPOSITORY, HG_TAG, URL, URL_HASH, and URL_MD5.
+#------------------------------------------------------------------------------
+function(add_customizable_revision name)
+  # ExternalProject_Add arguments
+  #[CVS_REPOSITORY cvsroot]    # CVSROOT of CVS repository
+  #[CVS_MODULE mod]            # Module to checkout from CVS repo
+  #[CVS_TAG tag]               # Tag to checkout from CVS repo
+  #[SVN_REPOSITORY url]        # URL of Subversion repo
+  #[SVN_REVISION rev]          # Revision to checkout from Subversion repo
+  #[SVN_USERNAME john ]        # Username for Subversion checkout and update
+  #[SVN_PASSWORD doe ]         # Password for Subversion checkout and update
+  #[SVN_TRUST_CERT 1 ]         # Trust the Subversion server site certificate
+  #[GIT_REPOSITORY url]        # URL of git repo
+  #[GIT_TAG tag]               # Git branch name, commit id or tag
+  #[GIT_SUBMODULES modules...] # Git submodules that shall be updated, all if empty
+  #[HG_REPOSITORY url]         # URL of mercurial repo
+  #[HG_TAG tag]                # Mercurial branch name, commit id or tag
+  #[URL /.../src.tgz]          # Full path or URL of source
+  #[URL_HASH ALGO=value]       # Hash of file at URL
+  #[URL_MD5 md5]               # Equivalent to URL_HASH MD5=md5
+  #[SOURCE_DIR]                # Source dir to be used for build
+
+  set (args
+    CVS_REPOSITORY CVS_MODULE CVS_TAG
+    SVN_REVISION SVN_REVISION
+    GIT_REPOSITORY GIT_TAG
+    HG_REPOSITORY HG_TAG
+    URL URL_HASH URL_MD5
+    SOURCE_DIR)
+  cmake_parse_arguments(_args "" "${args}" "" ${ARGN})
+  set (CUSTOMIZED_ARGN)
+  string(TOUPPER "${name}" name_UPPER)
+  foreach (key IN LISTS args)
+    if (_args_${key})
+      set (option_name "${name_UPPER}_${key}")
+      set (option_default "${_args_${key}}")
+      set(${option_name} "${option_default}" CACHE STRING "${key} for project '${name}'")
+      mark_as_advanced(${option_name})
+      list(APPEND CUSTOMIZED_ARGN ${key} ${${option_name}})
+    endif()
+  endforeach()
+
+  set (${name}_revision ${CUSTOMIZED_ARGN} ${_args_UNPARSED_ARGUMENTS} PARENT_SCOPE)
+endfunction()
+
+#------------------------------------------------------------------------------
 macro(add_external_project _name)
   project_check_name(${_name})
   set(cm-project ${_name})
@@ -183,6 +233,7 @@ macro(process_dependencies)
     elseif(${cm-project}_IS_DUMMY_PROJECT)
       #this project isn't built, just used as a graph node to
       #represent a group of dependencies
+      include(${cm-project})
       add_external_dummy_project_internal(${cm-project})
     else()
       include(${cm-project})
@@ -274,18 +325,33 @@ function(add_external_project_internal name)
   set(arg_DEPENDS)
   get_project_depends(${name} arg)
   foreach(dependency IN LISTS arg_DEPENDS)
-		get_property(args GLOBAL PROPERTY ${dependency}_CMAKE_ARGS)
+    get_property(args GLOBAL PROPERTY ${dependency}_CMAKE_ARGS)
     list(APPEND cmake_params ${args})
   endforeach()
 
   # get extra flags added using append_flags(), if any.
   set (extra_c_flags)
   set (extra_cxx_flags)
+  set (extra_ld_flags)
+
+  # scan project flags.
+  set (_tmp)
+  get_property(_tmp GLOBAL PROPERTY ${name}_APPEND_PROJECT_ONLY_FLAGS_CMAKE_C_FLAGS)
+  set (extra_c_flags ${extra_c_flags} ${_tmp})
+  get_property(_tmp GLOBAL PROPERTY ${name}_APPEND_PROJECT_ONLY_FLAGS_CMAKE_CXX_FLAGS)
+  set (extra_cxx_flags ${extra_cxx_flags} ${_tmp})
+  get_property(_tmp GLOBAL PROPERTY ${name}_APPEND_PROJECT_ONLY_FLAGS_LDFLAGS)
+  set (extra_ld_flags ${extra_ld_flags} ${_tmp})
+  unset(_tmp)
+
+  # scan dependecy flags.
   foreach(dependency IN LISTS arg_DEPENDS)
     get_property(_tmp GLOBAL PROPERTY ${dependency}_APPEND_FLAGS_CMAKE_C_FLAGS)
     set (extra_c_flags ${extra_c_flags} ${_tmp})
     get_property(_tmp GLOBAL PROPERTY ${dependency}_APPEND_FLAGS_CMAKE_CXX_FLAGS)
     set (extra_cxx_flags ${extra_cxx_flags} ${_tmp})
+    get_property(_tmp GLOBAL PROPERTY ${dependency}_APPEND_FLAGS_LDFLAGS)
+    set (extra_ld_flags ${extra_ld_flags} ${_tmp})
   endforeach()
 
   set (project_c_flags "${cflags}")
@@ -296,11 +362,12 @@ function(add_external_project_internal name)
   if (extra_cxx_flags)
     set (project_cxx_flags "${cxxflags} ${extra_cxx_flags}")
   endif()
+  set (project_ld_flags "${ldflags}")
+  if (extra_ld_flags)
+    set (project_ld_flags "${ldflags} ${extra_ld_flags}")
+  endif()
 
-
-#if (name STREQUAL "paraview")
-#  message("${ARGN}")
-#endif()
+  #message("ARGS ${name} ${ARGN}")
 
   # refer to documentation for PASS_LD_LIBRARY_PATH_FOR_BUILDS in
   # in root CMakeLists.txt.
@@ -310,12 +377,6 @@ function(add_external_project_internal name)
       LD_LIBRARY_PATH "${ld_library_path}")
   endif ()
 
-  set(ldflags_argument)
-  list(APPEND ldflags_argument LDFLAGS "${ldflags}")
-  if (SKIP_LDFLAGS_FOR_BUILD)
-    set(ldflags_argument)
-    set(SKIP_LDFLAGS_FOR_BUILD PARENT_SCOPE)
-  endif()
 
   #args needs to be quoted so that empty list items aren't removed
   #if that happens options like INSTALL_COMMAND "" won't work
@@ -329,7 +390,7 @@ function(add_external_project_internal name)
     ${${name}_revision}
 
     PROCESS_ENVIRONMENT
-      ${ldflags_argument}
+      LDFLAGS "${project_ld_flags}"
       CPPFLAGS "${cppflags}"
       CXXFLAGS "${project_cxx_flags}"
       CFLAGS "${project_c_flags}"
@@ -342,8 +403,10 @@ function(add_external_project_internal name)
       -DCMAKE_PREFIX_PATH:PATH=${prefix_path}
       -DCMAKE_C_FLAGS:STRING=${project_c_flags}
       -DCMAKE_CXX_FLAGS:STRING=${project_cxx_flags}
-      -DCMAKE_SHARED_LINKER_FLAGS:STRING=${ldflags}
+      -DCMAKE_SHARED_LINKER_FLAGS:STRING=${project_ld_flags}
       ${cmake_params}
+
+    LIST_SEPARATOR "${ep_list_separator}"
     )
 
   get_property(additional_steps GLOBAL PROPERTY ${name}_STEPS)
@@ -371,22 +434,41 @@ endmacro()
 # in case of OpenMPI on Windows, for example, we need to pass extra compiler
 # flags when building projects that use MPI. This provides an experimental
 # mechanism for the same.
-macro(append_flags key value)
-  if (NOT "${key}" STREQUAL "CMAKE_CXX_FLAGS" AND NOT "${key}" STREQUAL "CMAKE_C_FLAGS")
+# There are two kinds for flags, flag to use to build to the project itself, or
+# those to use to build any dependencies. The default is latter. For former,
+# pass in an optional argument PROJECT_ONLY.
+function(append_flags key value)
+  if (NOT "x${key}" STREQUAL "xCMAKE_CXX_FLAGS" AND
+      NOT "x${key}" STREQUAL "xCMAKE_C_FLAGS" AND
+      NOT "x${key}" STREQUAL "xLDFLAGS")
     message(AUTHOR_WARNING
-      "Currently, only CMAKE_CXX_FLAGS and CMAKE_C_FLAGS are supported.")
+      "Currently, only CMAKE_CXX_FLAGS, CMAKE_C_FLAGS, and LDFLAGS are supported.")
   endif()
+  set (project_only FALSE)
+  foreach (arg IN LISTS ARGN)
+    if ("${arg}" STREQUAL "PROJECT_ONLY")
+      set (project_only TRUE)
+    else()
+      message(AUTHOR_WARNING "Unknown argument to append_flags(), ${arg}.")
+    endif()
+  endforeach()
+
   if (build-projects)
     if (NOT cm-project)
       message(AUTHOR_WARNING "add_extra_cmake_args called an incorrect stage.")
       return()
     endif()
-    set_property(GLOBAL APPEND PROPERTY
-      ${cm-project}_APPEND_FLAGS_${key} "${value}")
+    if (project_only)
+      set_property(GLOBAL APPEND PROPERTY
+        ${cm-project}_APPEND_PROJECT_ONLY_FLAGS_${key} "${value}")
+    else ()
+      set_property(GLOBAL APPEND PROPERTY
+        ${cm-project}_APPEND_FLAGS_${key} "${value}")
+    endif()
   else()
     # nothing to do.
   endif()
-endmacro()
+endfunction()
 #------------------------------------------------------------------------------
 
 
@@ -401,4 +483,12 @@ macro(add_external_project_step name)
   else()
     # nothing to do.
   endif()
+endmacro()
+
+#------------------------------------------------------------------------------
+# When passing string with ";" to add_external_project() macros, we need to
+# ensure that the -+- is replaced with the LIST_SEPARATOR.
+macro(sanitize_lists_in_string out_var_prefix var)
+  string(REPLACE ";" "${ep_list_separator}" command "${${var}}")
+  set (${out_var_prefix}${var} "${command}")
 endmacro()
