@@ -101,6 +101,7 @@ macro(add_external_project _name)
     set(${cm-project}_DEPENDS_ANY "")
     set(${cm-project}_DEPENDS_OPTIONAL "")
     set(${cm-project}_CAN_USE_SYSTEM 0)
+    set(${cm-project}_ENABLED_DEFAULT OFF)
     set (doing "")
 
     set (project_arguments "${ARGN}") #need quotes to keep empty list items
@@ -109,17 +110,22 @@ macro(add_external_project _name)
         set (doing "DEPENDS")
       elseif ("${arg}" MATCHES "^DEPENDS_OPTIONAL$")
         set (doing "DEPENDS_OPTIONAL")
+      elseif ("${arg}" MATCHES "^ENABLED_DEFAULT$")
+        set (doing "ENABLED_DEFAULT")
       elseif ("${arg}" MATCHES "${_ep_keywords_ExternalProject_Add}")
         set (doing "")
       elseif (doing STREQUAL "DEPENDS")
         list(APPEND ${cm-project}_DEPENDS "${arg}")
       elseif (doing STREQUAL "DEPENDS_OPTIONAL")
         list(APPEND ${cm-project}_DEPENDS_OPTIONAL "${arg}")
+      elseif (doing STREQUAL "ENABLED_DEFAULT")
+        set(${cm-project}_ENABLED_DEFAULT "${arg}")
       endif()
 
     endforeach()
 
-    option(ENABLE_${cm-project} "Request to build project ${cm-project}" OFF)
+    option(ENABLE_${cm-project} "Request to build project ${cm-project}"
+      ${${cm-project}_ENABLED_DEFAULT})
     set_property(CACHE ENABLE_${cm-project} PROPERTY TYPE BOOL)
     list(APPEND CM_PROJECTS_ALL "${cm-project}")
 
