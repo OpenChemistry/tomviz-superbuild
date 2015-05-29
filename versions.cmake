@@ -66,9 +66,24 @@ add_revision(paraview
   GIT_REPOSITORY https://gitlab.kitware.com/paraview/paraview.git
   GIT_TAG master)
 
-add_revision(tomviz
-  GIT_REPOSITORY https://github.com/OpenChemistry/matviz
-  GIT_TAG master)
+option(tomviz_FROM_GIT "If enabled then the repository is fetched from git" ON)
+cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
+  "Enable to use existing TomViz source."
+  "NOT tomviz_FROM_GIT" OFF)
+
+if (tomviz_FROM_GIT)
+  # Download TomViz from GIT
+  add_customizable_revision(tomviz
+    GIT_REPOSITORY https://github.com/OpenChemistry/tomviz.git
+    GIT_TAG "master")
+else()
+  if (tomviz_FROM_SOURCE_DIR)
+    add_customizable_revision(tomviz
+      SOURCE_DIR "TomVizSource")
+  else()
+    message(FATAL_ERROR "No stable source tarball URL")
+  endif()
+endif()
 
 add_revision(lapack
   URL "http://paraview.org/files/dependencies/lapack-3.4.2.tgz"
