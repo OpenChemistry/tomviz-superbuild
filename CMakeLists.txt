@@ -126,6 +126,7 @@ endif()
 #-----------------------------------------------------------------------------
 include(ParaViewModules)
 include(versions)
+include(DetermineTomVizVersion)
 
 #------------------------------------------------------------------------------
 # enable testing support.

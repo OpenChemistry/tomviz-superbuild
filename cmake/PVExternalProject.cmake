@@ -7,6 +7,12 @@
 
 include(ExternalProject)
 
+# Because of the wrapped and nested way that "make" needs to get called, it's
+# not able to utilize the top level make jobserver so it's -j level must be
+# manually controlled.
+set(PV_MAKE_NCPUS 5 CACHE STRING "Number of make jobs to use for compiling ParaView itself")
+mark_as_advanced(PV_MAKE_NCPUS)
+
 string(REPLACE ")" "|PROCESS_ENVIRONMENT)"
   _ep_keywords_PVExternalProject_Add "${_ep_keywords_ExternalProject_Add}")
 
@@ -98,8 +104,15 @@ function (PVExternalProject_Add name)
     if("${build_cmd}" MATCHES "^\\$\\(MAKE\\)")
       # GNU make recognizes the string "$(MAKE)" as recursive make, so
       # ensure that it appears directly in the makefile.
-      string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j5" build_cmd "${build_cmd}")
+      if (CROSS_BUILD_STAGE STREQUAL "HOST")
+        string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j${PV_MAKE_NCPUS}" build_cmd "${build_cmd}")
+      else()
+        # Don't do parallel 'make' when cross compiling or building tools for
+        # cross compiling.
+        string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j1" build_cmd "${build_cmd}")
+      endif()
       set_property(TARGET pv-${name} PROPERTY _EP_BUILD_COMMAND "${build_cmd}")
+
     endif()
     set(has_build_command 1)
   endif()
@@ -149,6 +162,11 @@ function (PVExternalProject_Add name)
   get_target_property(process_environment pv-${name}
     _EP_PROCESS_ENVIRONMENT)
   _ep_replace_location_tags(${name} process_environment)
+
+  option(SUPPRESS_${name}_OUTPUT "Suppress output for ${name}" OFF)
+  mark_as_advanced(SUPPRESS_${name}_OUTPUT)
+
+  set(suppress "${SUPPRESS_${name}_OUTPUT}")
 
   if (has_configure_command)
     get_target_property(step_command pv-${name} _EP_CONFIGURE_COMMAND)
