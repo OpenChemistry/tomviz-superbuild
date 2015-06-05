@@ -62,9 +62,17 @@ add_revision(qt
   URL "http://download.qt-project.org/archive/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz"
   URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
+# Default to build from a known ParaView revision
+option(USE_PARAVIEW_MASTER "Use ParaView master instead of known ref" OFF)
+if(USE_PARAVIEW_MASTER)
+  set(_paraview_revision "master")
+else()
+  # Test the revision with OpenGL2 rendering before updating, update often!
+  set(_paraview_revision "28dfcd039338a2d369672cae51a9ecfc6fbd8ff3")
+endif()
 add_revision(paraview
-  GIT_REPOSITORY https://gitlab.kitware.com/paraview/paraview.git
-  GIT_TAG master)
+  GIT_REPOSITORY "https://gitlab.kitware.com/paraview/paraview.git"
+  GIT_TAG "${_paraview_revision}")
 
 option(tomviz_FROM_GIT "If enabled then the repository is fetched from git" ON)
 cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
