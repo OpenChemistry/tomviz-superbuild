@@ -68,7 +68,7 @@ if(USE_PARAVIEW_MASTER)
   set(_paraview_revision "master")
 else()
   # Test the revision with OpenGL2 rendering before updating, update often!
-  set(_paraview_revision "6787c17c5887c87abc2fb796e11d2e125b0aae7b")
+  set(_paraview_revision "c496c7184960c86758c79230c576f2b86884d35f")
 endif()
 add_revision(paraview
   GIT_REPOSITORY "https://gitlab.kitware.com/paraview/paraview.git"
