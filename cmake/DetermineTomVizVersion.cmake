@@ -18,7 +18,7 @@ function(_set_version_vars versiontext)
     set(patch ${CMAKE_MATCH_3})
     set(patch_extra ${CMAKE_MATCH_4})
 
-    set(tomviz_version "${major}.${minor}" PARENT_SCOPE)
+    set(tomviz_version "${major}.${minor}.${patch}" PARENT_SCOPE)
     set(tomviz_version_major ${major} PARENT_SCOPE)
     set(tomviz_version_minor ${minor} PARENT_SCOPE)
     set(tomviz_version_patch ${patch} PARENT_SCOPE)
