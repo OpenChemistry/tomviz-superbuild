@@ -50,16 +50,16 @@ add_revision(numpy
 
 foreach (fftw3kind float double long quad)
   add_revision(fftw3${fftw3kind}
-    URL "http://www.fftw.org/fftw-3.3.4.tar.gz"
+    URL "http://www.paraview.org/files/dependencies/fftw-3.3.4.tar.gz"
     URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
 endforeach ()
 
 add_revision(pyfftw
-  URL "https://pypi.python.org/packages/source/p/pyFFTW/pyFFTW-0.9.2.tar.gz"
+  URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
   URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
 
 add_revision(qt
-  URL "http://download.qt-project.org/archive/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz"
+  URL "http://www.paraview.org/files/dependencies/qt-everywhere-opensource-src-4.8.6.tar.gz"
   URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
 # Default to build from a known ParaView revision
@@ -98,5 +98,5 @@ add_revision(lapack
   URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
 
 add_revision(scipy
-    URL "http://softlayer-dal.dl.sourceforge.net/project/scipy/scipy/0.15.1/scipy-0.15.1.tar.gz"
+    URL "http://www.paraview.org/files/dependencies/scipy-0.15.1.tar.gz"
     URL_MD5 be56cd8e60591d6332aac792a5880110)
