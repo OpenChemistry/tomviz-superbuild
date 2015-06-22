@@ -16,6 +16,8 @@ set(SuperBuild_CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(SuperBuild_PROJECTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/projects")
 set(SuperBuild_BINARY_DIR ${TomVizSuperBuild_BINARY_DIR})
 
+set(BUILD_SHARED_LIBS ON  CACHE BOOL "Enable shared libraries")
+
 include(CMakeDependentOption)
 
 #-----------------------------------------------------------------------------
