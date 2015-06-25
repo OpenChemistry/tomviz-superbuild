@@ -1,5 +1,5 @@
 # This needs to set a the following variables which are using in various
-# bundling codes to determine TomViz version.
+# bundling codes to determine tomviz version.
 #   tomviz_version_major
 #   tomviz_version_minor
 #   tomviz_version_patch
@@ -32,19 +32,19 @@ if(TomViz_FROM_SOURCE_DIR)
 
   # First, set the vars using the hard coded version if everything fails.
   _set_version_vars(${hardcoded_tomviz_version})
-  include("${TOMVIZ_SOURCE_DIR}/Utilities/Git/Git.cmake" OPTIONAL)
-  include("${TOMVIZ_SOURCE_DIR}/CMake/TomVizDetermineVersion.cmake" OPTIONAL
+  include("${TOMVIZ_SOURCE_DIR}/cmake/Git.cmake" OPTIONAL)
+  include("${TOMVIZ_SOURCE_DIR}/cmake/tomvizDetermineVersion.cmake" OPTIONAL
     RESULT_VARIABLE status)
   if (status)
-    message(STATUS "Using git-describe to determine TomViz version")
-    # the TomViz module was correctly imported.
+    message(STATUS "Using git-describe to determine tomviz version")
+    # the tomviz module was correctly imported.
     determine_version("${TOMVIZ_SOURCE_DIR}" "${GIT_EXECUTABLE}" "__TMP")
     if (__TMP_VERSION_FULL)
       _set_version_vars(${__TMP_VERSION_FULL})
     endif()
   endif()
 
-  # make the TomViz_VERSION variable internal to avoid confusion.
+  # make the TOMVIZ_VERSION variable internal to avoid confusion.
   set (TOMVIZ_VERSION "${hardcoded_tomviz_version}" CACHE INTERNAL "")
 else()
   # The user has to specify the version to use.
@@ -54,4 +54,4 @@ else()
   _set_version_vars(${TOMVIZ_VERSION})
 endif()
 
-message(STATUS "Using TomViz Version: ${tomviz_version_long} (${tomviz_version_major}|${tomviz_version_minor}|${tomviz_version_patch}|${tomviz_version_suffix})")
+message(STATUS "Using tomviz Version: ${tomviz_version_long} (${tomviz_version_major}|${tomviz_version_minor}|${tomviz_version_patch}|${tomviz_version_suffix})")
