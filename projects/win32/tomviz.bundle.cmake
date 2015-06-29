@@ -45,7 +45,7 @@ install(DIRECTORY "${install_location}/lib/paraview-4.3"
         PATTERN "*.lib" EXCLUDE)
 
 # install tomviz Python modules and others
-install(DIRECTORY "${install_location}/lib/tomviz-${tomviz_version}"
+install(DIRECTORY "${install_location}/lib/tomviz"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
