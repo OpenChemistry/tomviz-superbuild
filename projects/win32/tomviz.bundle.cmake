@@ -63,15 +63,15 @@ set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION "bin")
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
-add_test(GenerateTomVizPackage-NSIS
-        ${CMAKE_CPACK_COMMAND} -G NSIS -V
+add_test(GenerateTomvizPackage-NSIS
+        ${CMAKE_CPACK_COMMAND} -G NSIS
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
-add_test(GenerateTomVizPackage-ZIP
+add_test(GenerateTomvizPackage-ZIP
         ${CMAKE_CPACK_COMMAND} -G ZIP -V
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
-set_tests_properties(GenerateTomVizPackage-NSIS
-                     GenerateTomVizPackage-ZIP
+set_tests_properties(GenerateTomvizPackage-NSIS
+                     GenerateTomvizPackage-ZIP
                      PROPERTIES
                      TIMEOUT 1200)
