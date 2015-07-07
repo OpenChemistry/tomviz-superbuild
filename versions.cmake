@@ -44,10 +44,6 @@ else()
     URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
 endif()
 
-add_revision(numpy
-  URL "http://paraview.org/files/dependencies/numpy-1.8.1+cmake+static.tar.bz2"
-  URL_MD5 1974dbb4bfa1509e492791a8cd225774)
-
 foreach (fftw3kind float double long quad)
   add_revision(fftw3${fftw3kind}
     URL "http://www.paraview.org/files/dependencies/fftw-3.3.4.tar.gz"
@@ -97,6 +93,34 @@ add_revision(lapack
   URL "http://paraview.org/files/dependencies/lapack-3.4.2.tgz"
   URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
 
-add_revision(scipy
+if (WIN32)
+  if (64bit_build)
+    add_revision(numpy
+      URL "http://www.paraview.org/files/dependencies/numpy-1.8.1-intel-win64.zip"
+      URL_MD5 "b50c54abca1e2422fec408a4a56529ec")
+    add_revision(scipy
+      URL "http://www.paraview.org/files/dependencies/scipy-0.15.1-intel-win64.zip"
+      URL_MD5 "39bc38f18703219a73cec496fc557c64")
+    add_revision(intelredist
+      URL "http://paraview.org/files/dependencies/intel-psxe2015-64-bit-redist.zip"
+      URL_MD5 1920a6c593c454ce0f4258aabf5aefe5)
+  else ()
+    add_revision(numpy
+      URL "http://www.paraview.org/files/dependencies/numpy-1.8.1-intel-win32.zip"
+      URL_MD5 "1a436259d025f0b8272d6539e0444e76")
+    add_revision(scipy
+      URL "http://www.paraview.org/files/dependencies/scipy-0.15.1-intel-win32.zip"
+      URL_MD5 "52fadb6cc8f04c1505996df8d361a686")
+    add_revision(intelredist
+      URL "http://paraview.org/files/dependencies/intel-psxe2015-32-bit-redist.zip"
+      URL_MD5 a35b9f31ffeb395861680815a59a2077)
+  endif ()
+else()
+  add_revision(numpy
+    URL "http://paraview.org/files/dependencies/numpy-1.8.1+cmake+static.tar.bz2"
+    URL_MD5 1974dbb4bfa1509e492791a8cd225774)
+
+  add_revision(scipy
     URL "http://www.paraview.org/files/dependencies/scipy-0.15.1.tar.gz"
     URL_MD5 be56cd8e60591d6332aac792a5880110)
+endif()
