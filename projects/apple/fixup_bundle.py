@@ -122,6 +122,12 @@ def _getdependencies(path):
   return val.split()
 
 def isexcluded(id):
+  # we don't consider the gcc libraries as system libraries on MacOS because
+  # Apple no longer distributes gcc.  If these are there they were installed by
+  # the user.  They will probably be there as we typically use gfortran to compile
+  # scipy and we need to pull them into the bundle for scipy to be redistributable.
+  if re.match(r".*/gcc/.*", id):
+    return False;
   if re.match(r"^/System/Library", id):
     return True
   if re.match(r"^/usr/lib", id):
@@ -178,7 +184,7 @@ if __name__ == "__main__":
   # ITS NOT THIS SCRIPT'S JOB TO FIX BROKEN INSTALL RULES.
 
   external_libraries = commands.getoutput(
-    'find %s | xargs file | grep "Mach-O" | sed "s/:.*//" | xargs otool -l | grep " name" | sort | uniq | sed "s/name\ //" | grep -v "@" | sed "s/ (offset.*)//"' % App)
+    'find %s | xargs file | grep "Mach-O" | sed "s/:.*//" | cut -d\\  -f1 | xargs otool -l | grep " name" | sort | uniq | sed "s/name\ //" | grep -v "@" | sed "s/ (offset.*)//"' % App)
 
   mLibraries = set()
   for lib in external_libraries.split():

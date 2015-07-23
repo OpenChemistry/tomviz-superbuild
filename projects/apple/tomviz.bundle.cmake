@@ -21,6 +21,11 @@ install(CODE "
          USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
          \"${install_location}/Applications/paraview.app/Contents/Libraries/\")
 
+    # install all python modules/packages for numpy and pyfftw.
+    file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\"
+         USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+         \"${install_location}/lib/python2.7/site-packages/\")
+
     # at this point, the installed bundle should have the libraries that need to
     # be 'fixed' using otool.
     execute_process(
@@ -28,11 +33,6 @@ install(CODE "
                \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app\"
                \"${install_location}/lib\"
                \"${install_location}/plugins\")
-
-    # install all python modules/packages for numpy and pyfftw.
-    file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\"
-         USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
-         \"${install_location}/lib/python2.7/site-packages/\")
    "
    COMPONENT superbuild)
 
