@@ -7,7 +7,7 @@
 #   tomviz_version
 #   tomviz_version_long
 
-set (hardcoded_tomviz_version "0.6.0")
+set(hardcoded_tomviz_version "0.6.0")
 
 function(_set_version_vars versiontext)
   string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)[-]*(.*)" version_matches "${versiontext}")
@@ -35,17 +35,17 @@ if(TomViz_FROM_SOURCE_DIR)
   include("${TOMVIZ_SOURCE_DIR}/cmake/Git.cmake" OPTIONAL)
   include("${TOMVIZ_SOURCE_DIR}/cmake/tomvizDetermineVersion.cmake" OPTIONAL
     RESULT_VARIABLE status)
-  if (status)
+  if(status)
     message(STATUS "Using git-describe to determine tomviz version")
     # the tomviz module was correctly imported.
     determine_version("${TOMVIZ_SOURCE_DIR}" "${GIT_EXECUTABLE}" "__TMP")
-    if (__TMP_VERSION_FULL)
+    if(__TMP_VERSION_FULL)
       _set_version_vars(${__TMP_VERSION_FULL})
     endif()
   endif()
 
   # make the TOMVIZ_VERSION variable internal to avoid confusion.
-  set (TOMVIZ_VERSION "${hardcoded_tomviz_version}" CACHE INTERNAL "")
+  set(TOMVIZ_VERSION "${hardcoded_tomviz_version}" CACHE INTERNAL "")
 else()
   # The user has to specify the version to use.
   set(TOMVIZ_VERSION "${hardcoded_tomviz_version}" CACHE STRING
