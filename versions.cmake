@@ -135,4 +135,8 @@ if (WIN32)
       URL "http://www.tomviz.org/files/itk-4.8.0-windows-32bit.zip"
       URL_MD5 "f558278476ab0db74225c73bab709118")
   endif()
+elseif(APPLE)
+  add_revision(itk
+    URL "http://www.tomviz.org/files/itk-4.8.0-macosx10.8.tar.gz"
+    URL_MD5 "87230132c8ccb4cdb189dc7ef9904a6c")
 endif()
