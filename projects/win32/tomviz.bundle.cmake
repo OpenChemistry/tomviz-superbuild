@@ -51,6 +51,13 @@ install(DIRECTORY "${install_location}/lib/tomviz"
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
+if(itk_ENABLED)
+install(DIRECTORY "${install_location}/lib/itk"
+        DESTINATION "lib"
+	USE_SOURCE_PERMISSIONS
+	COMPONENT ${AppName})
+endif()
+
 #------------------------------------------------------------------------------
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")
 
