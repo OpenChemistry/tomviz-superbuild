@@ -26,10 +26,12 @@ install(CODE "
          USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
          \"${install_location}/lib/python2.7/site-packages/\")
 
-    message(\"Installing ITK\")
-    file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Libraries\"
-         USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
-         \"${install_location}/lib/itk/\")
+    if(${itk_ENABLED})
+        message(\"Installing ITK\")
+        file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Libraries\"
+             USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+             \"${install_location}/lib/itk/\")
+    endif()
 
     # at this point, the installed bundle should have the libraries that need to
     # be 'fixed' using otool.
