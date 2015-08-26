@@ -75,7 +75,7 @@ add_test(GenerateTomvizPackage-NSIS
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
 add_test(GenerateTomvizPackage-ZIP
-        ${CMAKE_CPACK_COMMAND} -G ZIP -V
+        ${CMAKE_CPACK_COMMAND} -G ZIP
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
 set_tests_properties(GenerateTomvizPackage-NSIS
