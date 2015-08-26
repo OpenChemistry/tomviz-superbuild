@@ -38,7 +38,7 @@ if (python_ENABLED AND NOT USE_SYSTEM_python)
 endif()
 
 # install paraview python modules and others.
-install(DIRECTORY "${install_location}/lib/paraview-4.3"
+install(DIRECTORY "${install_location}/lib/paraview-4.4"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
@@ -75,7 +75,7 @@ add_test(GenerateTomvizPackage-NSIS
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
 add_test(GenerateTomvizPackage-ZIP
-        ${CMAKE_CPACK_COMMAND} -G ZIP -V
+        ${CMAKE_CPACK_COMMAND} -G ZIP
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
 set_tests_properties(GenerateTomvizPackage-NSIS
