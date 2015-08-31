@@ -3,10 +3,17 @@ Making ITK binaries for tomviz superbuild:
 ***
 Windows:
 ***
+
+First have a build of the superbuild without ITK built.  You need to point ITK at
+the correct numpy headers.
+
 Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
 -DITK_LEGACY_REMOVE=ON -DITK_WRAP_PYTHON=ON -DBUILD_EXAMPLES=OFF
 -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
--DCMAKE_INSTALL_PREFIX=temp/install/dir`
+-DCMAKE_INSTALL_PREFIX=temp/install/dir
+-DModule_BridgeNumPy=ON
+-DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/bin/Lib/site-packages/numpy/core/include
+`
 
 You may have to add `-DGIT_EXECUTABLE=/path/to/git.exe` depending on your
 install of git.
@@ -32,7 +39,9 @@ with tomviz superbuild.
 OSX:
 ***
 
-Check out ITK release or >= 4.9 for compiling for older Mac OS X support.
+First have a build of the superbuild without ITK built.  You need to point ITK at
+the correct numpy headers.
+Check out ITK release branch or >= 4.9 for compiling for older Mac OS X support.
 
 Configure ITK with
 ```
@@ -50,6 +59,8 @@ Configure ITK with
 -DCMAKE_SKIP_INSTALL_RPATH=OFF
 -DCMAKE_SKIP_RPATH=OFF
 -DCMAKE_INSTALL_RPATH=@executable_path/../Libraries:@executable_path/../Libraries/ITK-4.8/Python
+-DModule_BridgeNumPy=ON
+-DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/lib/python2.7/site-packages/numpy/core/include
 ```
 
 Build ITK and install it to `temp/install/dir`.
