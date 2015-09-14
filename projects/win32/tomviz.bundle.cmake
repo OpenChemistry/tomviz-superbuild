@@ -51,6 +51,11 @@ install(DIRECTORY "${install_location}/lib/tomviz"
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
+# install tomviz custom PV plugin
+install(FILES "${install_location}/lib/tomvizExtensions.dll"
+        DESTINATION "bin"
+	COMPONENT ${AppName})
+
 if(itk_ENABLED)
 install(DIRECTORY "${install_location}/lib/itk"
         DESTINATION "lib"
