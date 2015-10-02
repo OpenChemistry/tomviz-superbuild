@@ -27,7 +27,7 @@ function(_set_version_vars versiontext)
   endif()
 endfunction()
 
-if(TomViz_FROM_SOURCE_DIR)
+if(tomviz_FROM_SOURCE_DIR)
   # We can use GitDescribe in this case, so let's use it.
 
   # First, set the vars using the hard coded version if everything fails.
