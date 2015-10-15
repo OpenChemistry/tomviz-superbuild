@@ -4,6 +4,7 @@ set(CPACK_GENERATOR DragNDrop)
 include(CPack)
 
 install(CODE "
+    cmake_policy(VERSION 2.8.8)
     # Install the app first.
     file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}\" USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
          \"${install_location}/Applications/tomviz.app\")
