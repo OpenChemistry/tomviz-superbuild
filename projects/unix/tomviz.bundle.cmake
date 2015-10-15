@@ -8,7 +8,7 @@ install(DIRECTORY "${install_location}/lib/paraview-4.4"
   COMPONENT superbuild)
 
 # install all tomviz libraries
-install(DIRECTORY "${install_location}/lib/tomviz-${tomviz_version}"
+install(DIRECTORY "${install_location}/lib/tomviz"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
@@ -19,7 +19,7 @@ if (qt_ENABLED AND NOT USE_SYSTEM_qt)
     # FIXME: we can reconfigure Qt to be built with inbuilt sqllite support to
     # avoid the need for plugins.
     "${install_location}/plugins/"
-    DESTINATION "lib/tomviz-${tomviz_version}"
+    DESTINATION "lib/tomviz"
     COMPONENT superbuild
     PATTERN "*.a" EXCLUDE
     PATTERN "tomviz-${tomviz_version}" EXCLUDE
