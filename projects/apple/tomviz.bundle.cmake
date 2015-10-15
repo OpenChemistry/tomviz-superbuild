@@ -3,12 +3,6 @@ include(tomviz.bundle.common)
 set(CPACK_GENERATOR DragNDrop)
 include(CPack)
 
-if(itk_ENABLED)
-  set(itk_condition_variable 1)
-else()
-  set(itk_condition_variable 0)
-endif()
-
 install(CODE "
     # Install the app first.
     file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}\" USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
@@ -32,7 +26,7 @@ install(CODE "
          USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
          \"${install_location}/lib/python2.7/site-packages/\")
 
-    if(${itk_condition_variable})
+    if(${itk_ENABLED})
         message(\"Installing ITK\")
         file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Libraries\"
              USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
