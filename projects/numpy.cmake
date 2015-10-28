@@ -7,7 +7,7 @@ endif()
 
 set(NUMPY_PROCESS_ENVIRONMENT)
 if(lapack_ENABLED)
-  if(NOT LAPACK_FOUND)
+  if(USE_SYSTEM_lapack AND NOT LAPACK_FOUND)
     find_package(LAPACK REQUIRED)
   endif()
   list(APPEND NUMPY_PROCESS_ENVIRONMENT
