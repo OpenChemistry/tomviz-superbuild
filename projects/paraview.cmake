@@ -37,6 +37,7 @@ add_external_project(paraview
     -DPQWIDGETS_DISABLE_QTWEBKIT:BOOL=ON
     -DPARAVIEW_ENABLE_FFMPEG:BOOL=ON
     -DModule_vtkGUISupportQtWebkit:BOOL=OFF
+    -DCMAKE_CXX_STANDARD_REQUIRED:STRING=11
 
     # specify the apple app install prefix. No harm in specifying it for all
     # platforms.
