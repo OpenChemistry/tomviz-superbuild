@@ -7,9 +7,25 @@ install(DIRECTORY "${install_location}/lib/paraview-4.4"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
 
+install(DIRECTORY "${install_location}/lib/python2.7"
+  DESTINATION "lib"
+  USE_SOURCE_PERMISSIONS
+  COMPONENT superbuild)
+
+FILE(GLOB shared_libs "${install_location}/lib/*.so")
+
+install(FILES ${shared_libs}
+  DESTINATION "lib"
+  COMPONENT superbuild)
+
 # install all tomviz libraries
 install(DIRECTORY "${install_location}/lib/tomviz"
   DESTINATION "lib"
+  USE_SOURCE_PERMISSIONS
+  COMPONENT superbuild)
+
+install(DIRECTORY "${install_location}/share"
+  DESTINATION "share"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
 
@@ -27,6 +43,13 @@ if (qt_ENABLED AND NOT USE_SYSTEM_qt)
     PATTERN "*.jar" EXCLUDE
     PATTERN "*.debug.*" EXCLUDE
     PATTERN "libboost*" EXCLUDE)
+endif()
+
+if(itk_ENABLED)
+install(DIRECTORY "${install_location}/lib/itk"
+        DESTINATION "lib"
+	USE_SOURCE_PERMISSIONS
+	COMPONENT superbuild)
 endif()
 
 # install executables
