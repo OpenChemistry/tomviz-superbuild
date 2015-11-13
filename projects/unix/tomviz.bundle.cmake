@@ -52,6 +52,13 @@ install(DIRECTORY "${install_location}/lib/itk"
 	COMPONENT superbuild)
 endif()
 
+file(GLOB libraries RELATIVE "${install_location}/lib" "*.so")
+foreach(library ${libraries})
+  install(FILES "${install_location}/lib/${library}"
+    DESTINATION "lib"
+    COMPONENT superbuild)
+endforeach()
+
 # install executables
 foreach(executable tomviz)
   install(PROGRAMS "${install_location}/bin/${executable}"
