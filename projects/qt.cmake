@@ -27,6 +27,24 @@ endif()
 set(qt_EXTRA_CONFIGURATION_OPTIONS ""
     CACHE STRING "Extra arguments to be passed to Qt when configuring.")
 
+cmake_dependent_option(qt4_WORK_AROUND_BROKEN_ASSISTANT_BUILD
+  "Work around a build issue in Qt. Use this if you see linker errors with QtHelp and QCLucene." OFF
+    "NOT WIN32" OFF)
+mark_as_advanced(qt4_WORK_AROUND_BROKEN_ASSISTANT_BUILD)
+
+set(qt4_build_commands
+  BUILD_COMMAND   make
+  INSTALL_COMMAND "make install")
+if (qt4_WORK_AROUND_BROKEN_ASSISTANT_BUILD)
+  # This hack is required because Qt's build gets mucked up when we set
+  # LDFLAGS, CXXFLAGS, etc. Installing things makes it work because the files
+  # get placed into the install tree which has rpaths so they get found. Since
+  # it is such a hack, it is an option which off and hidden by default.
+  set(qt4_build_commands
+    BUILD_COMMAND   make install
+    INSTALL_COMMAND "")
+endif ()
+
 add_external_project_or_use_system(
     qt
     DEPENDS zlib
@@ -61,6 +79,7 @@ add_external_project_or_use_system(
                       ${qt_options}
                       ${qt_EXTRA_CONFIGURATION_OPTIONS}
     ${patch_command}
+    ${qt4_build_commands}
 )
 
 if ((NOT 64bit_build) AND UNIX AND (NOT APPLE))

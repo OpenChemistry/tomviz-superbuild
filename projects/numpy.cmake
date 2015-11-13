@@ -7,7 +7,7 @@ endif()
 
 set(NUMPY_PROCESS_ENVIRONMENT)
 if(lapack_ENABLED)
-  if(NOT LAPACK_FOUND)
+  if(USE_SYSTEM_lapack AND NOT LAPACK_FOUND)
     find_package(LAPACK REQUIRED)
   endif()
   list(APPEND NUMPY_PROCESS_ENVIRONMENT
@@ -27,6 +27,11 @@ endif()
 if(NUMPY_PROCESS_ENVIRONMENT)
   list(INSERT NUMPY_PROCESS_ENVIRONMENT 0 PROCESS_ENVIRONMENT)
 endif()
+
+# The numpy build system has this amazing "feature" where if LDFLAGS is in the environment
+# the value of the variable *overrides* the internal settings for LDFLAGS.  Even necessary
+# ones like -shared or -lgfortran.
+set(SKIP_LDFLAGS_FOR_BUILD TRUE)
 
 add_external_project(numpy
   DEPENDS python ${numpy_extra_depends}
