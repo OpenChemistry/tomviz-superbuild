@@ -12,29 +12,17 @@ install(DIRECTORY "${install_location}/lib/python2.7"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
 
-# GLOB is performed at configure time, before the compiled
-# libraries exist.  I'm listing them out manually for now.
-#FILE(GLOB shared_libs "${install_location}/lib/*.so")
-set(shared_libs
-  "${install_location}/lib/libavcodec.so"
-  "${install_location}/lib/libavutil.so"
-  "${install_location}/lib/libavfilter.so"
-  "${install_location}/lib/libavformat.so"
-  "${install_location}/lib/libswscale.so"
-  "${install_location}/lib/libpython2.7.so"
-  "${install_location}/lib/libswresample.so"
-  "${install_location}/lib/libtomvizExtensions.so"
-  "${install_location}/lib/libz.so"
-)
-
-install(FILES ${shared_libs}
-  DESTINATION "lib"
-  COMPONENT superbuild)
-
-# install all tomviz libraries
-install(DIRECTORY "${install_location}/lib/tomviz"
-  DESTINATION "lib"
-  USE_SOURCE_PERMISSIONS
+install(CODE
+  "
+  file(GLOB shared_libs \"${install_location}/lib/*.so\")
+  message(\"\${CMAKE_INSTALL_PREFIX}/lib\")
+  foreach( lib \${shared_libs})
+    message(\${lib})
+    file(INSTALL \${lib}
+      DESTINATION \"\${CMAKE_INSTALL_PREFIX}/lib\"
+      USE_SOURCE_PERMISSIONS)
+  endforeach()
+  " 
   COMPONENT superbuild)
 
 install(DIRECTORY "${install_location}/share"
