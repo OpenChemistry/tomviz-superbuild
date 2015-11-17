@@ -19,7 +19,7 @@ install(CODE
   foreach( lib \${shared_libs})
     if (IS_SYMLINK \${lib})
       get_filename_component(resolved_link \"\${lib}\" REALPATH)
-      set(\${lib} \${resolved_link})
+      set(lib \${resolved_link})
     endif()
     message(\${lib})
     file(INSTALL \${lib}
