@@ -17,6 +17,10 @@ install(CODE
   file(GLOB shared_libs \"${install_location}/lib/*.so\")
   message(\"\${CMAKE_INSTALL_PREFIX}/lib\")
   foreach( lib \${shared_libs})
+    if (IS_SYMLINK ${lib})
+      get_filename_component(resolved_link "${lib}" REALPATH)
+      set(${lib} ${resolved_link})
+    endif()
     message(\${lib})
     file(INSTALL \${lib}
       DESTINATION \"\${CMAKE_INSTALL_PREFIX}/lib\"
