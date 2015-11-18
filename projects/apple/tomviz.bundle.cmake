@@ -28,6 +28,9 @@ install(CODE "
          \"${install_location}/lib/python2.7/site-packages/\")
 
     if(${itk_ENABLED})
+        execute_process(
+          COMMAND ${CMAKE_CURRENT_LIST_DIR}/fixup_itk.py
+                  \"${install_location}/lib/itk\")
         message(\"Installing ITK\")
         file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Libraries\"
              USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
