@@ -50,9 +50,21 @@ foreach (fftw3kind float double long quad)
     URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
 endforeach ()
 
-add_revision(pyfftw
-  URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
-  URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+if (WIN32)
+  if (64bit_build)
+    add_revision(pyfftw
+      URL "http://www.tomviz.org/files/pyFFTW-0.9.2-win64.zip"
+      URL_MD5 "")
+  else()
+    add_revision(pyfftw
+      URL "http://www.tomviz.org/files/pyFFTW-0.9.2-win32.zip"
+      URL_MD5 "")
+  endif()
+else()
+  add_revision(pyfftw
+    URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
+    URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+endif()
 
 add_revision(qt
   URL "http://www.paraview.org/files/dependencies/qt-everywhere-opensource-src-4.8.6.tar.gz"
