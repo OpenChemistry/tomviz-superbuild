@@ -50,9 +50,21 @@ foreach (fftw3kind float double long quad)
     URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
 endforeach ()
 
-add_revision(pyfftw
-  URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
-  URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+if (WIN32)
+  if (64bit_build)
+    add_revision(pyfftw
+      URL "http://www.tomviz.org/files/pyFFTW-0.9.2-win64.zip"
+      URL_MD5 "")
+  else()
+    add_revision(pyfftw
+      URL "http://www.tomviz.org/files/pyFFTW-0.9.2-win32.zip"
+      URL_MD5 "")
+  endif()
+else()
+  add_revision(pyfftw
+    URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
+    URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+endif()
 
 add_revision(qt
   URL "http://www.paraview.org/files/dependencies/qt-everywhere-opensource-src-4.8.6.tar.gz"
@@ -128,12 +140,18 @@ endif()
 if (WIN32)
   if (64bit_build)
     add_revision(itk
-      URL "http://www.tomviz.org/files/itk-4.8.0-windows-64bit.zip"
-      URL_MD5 "695ce635adcacb1ae5dadcc67dae2056")
+      URL "http://www.tomviz.org/files/itk-4.8.2-windows-64bit.zip"
+      URL_MD5 "93f07c9cad4514d1bd0f29261f14ccf7")
+    add_revision(fftw
+      URL "http://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
+      URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
   else()
     add_revision(itk
-      URL "http://www.tomviz.org/files/itk-4.8.0-windows-32bit.zip"
-      URL_MD5 "a7e4bba989253da4fde17d6c44eabbd2")
+      URL "http://www.tomviz.org/files/itk-4.8.2-windows-32bit.zip"
+      URL_MD5 "ac2c96df3e844173ef7f8dbd0b21f4c5")
+    add_revision(fftw
+      URL "http://www.tomviz.org/files/fftw-3.3.4-windows-32bit.zip"
+      URL_MD5 "9f58e109b8e7dcdd5640f9397735dd26")
   endif()
 elseif(APPLE)
   add_revision(itk

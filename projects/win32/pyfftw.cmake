@@ -1,4 +1,4 @@
-add_external_project(itk
+add_external_project(pyfftw
   DEPENDS fftw
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND ""
@@ -6,4 +6,4 @@ add_external_project(itk
   INSTALL_COMMAND
     "${CMAKE_COMMAND}"
       "-Dinstall_dir:PATH=<INSTALL_DIR>"
-      -P "${CMAKE_CURRENT_LIST_DIR}/itk.install.cmake")
+      -P "${CMAKE_CURRENT_LIST_DIR}/pyfftw.install.cmake")
