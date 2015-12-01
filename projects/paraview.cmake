@@ -1,5 +1,11 @@
+set(VTK_SMP_IMPLEMENTATION_TYPE "Sequential")
+if (tbb_ENABLED)
+  set(VTK_SMP_IMPLEMENTATION_TYPE "TBB")
+endif ()
+
 add_external_project(paraview
   DEPENDS qt python ffmpeg
+  DEPENDS_OPTIONAL tbb
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
@@ -38,6 +44,7 @@ add_external_project(paraview
     -DPARAVIEW_ENABLE_FFMPEG:BOOL=ON
     -DModule_vtkGUISupportQtWebkit:BOOL=OFF
     -DCMAKE_CXX_STANDARD_REQUIRED:STRING=11
+    -DVTK_SMP_IMPLEMENTATION_TYPE:STRING=${VTK_SMP_IMPLEMENTATION_TYPE}
 
     # specify the apple app install prefix. No harm in specifying it for all
     # platforms.
