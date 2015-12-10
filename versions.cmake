@@ -162,3 +162,20 @@ elseif(UNIX)
     URL "http://www.tomviz.org/files/itk-4.8.1-linux-64bit.tar.gz"
     URL_MD5 "e0ceef7aee666704036c7ecc1f532015")
 endif()
+
+set(tbb_ver "44_20150728oss")
+if (WIN32)
+  set(tbb_file "tbb${tbb_ver}_win.zip")
+  set(tbb_md5 "e7bbf293cdb5a50ca81347c80168956d")
+elseif (APPLE)
+  set(tbb_file "tbb${tbb_ver}_osx.tgz")
+  set(tbb_md5 "a767d7a8b375e6b054e44e2317d806b8")
+else ()
+  set(tbb_file "tbb${tbb_ver}_lin_0.tgz")
+  set(tbb_md5 "ab5df80a65adf423b14637a1f35814b2")
+endif ()
+
+add_revision(tbb
+  URL "http://www.paraview.org/files/dependencies/${tbb_file}"
+  URL_MD5 "${tbb_md5}")
+
