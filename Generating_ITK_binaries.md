@@ -5,7 +5,7 @@ Windows:
 ***
 
 First have a build of the superbuild without ITK built.  You need to point ITK at
-the correct numpy headers.
+the correct numpy and fftw headers.
 
 Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
 -DITK_LEGACY_REMOVE=ON -DITK_WRAP_PYTHON=ON -DBUILD_EXAMPLES=OFF
@@ -13,6 +13,12 @@ Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
 -DCMAKE_INSTALL_PREFIX=temp/install/dir
 -DModule_BridgeNumPy=ON
 -DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/bin/Lib/site-packages/numpy/core/include
+-DITK_USE_FFTWD=ON
+-DITK_USE_FFTWF=ON
+-DITK_USE_SYSTEM_FFTW=ON
+-DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3.lib
+-DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f.lib
+-DFFTW_INCLUDE_PATH=superbuild/build/dir/install/include
 `
 
 You may have to add `-DGIT_EXECUTABLE=/path/to/git.exe` depending on your
@@ -40,7 +46,7 @@ OSX:
 ***
 
 First have a build of the superbuild without ITK built.  You need to point ITK at
-the correct numpy headers.
+the correct numpy and fftw headers.
 Check out ITK release branch or >= 4.9 for compiling for older Mac OS X support.
 
 Configure ITK with
@@ -58,9 +64,16 @@ Configure ITK with
 -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
 -DCMAKE_SKIP_INSTALL_RPATH=OFF
 -DCMAKE_SKIP_RPATH=OFF
--DCMAKE_INSTALL_RPATH=@executable_path/../Libraries:@executable_path/../Libraries/ITK-4.8/Python
 -DModule_BridgeNumPy=ON
 -DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/lib/python2.7/site-packages/numpy/core/include
+-DITK_USE_FFTWD=ON
+-DITK_USE_FFTWF=ON
+-DITK_USE_SYSTEM_FFTW=ON
+-DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3.a
+-DFFTWD_THREADS_LIB=superbuild/build/dir/install/lib/libfftw3_threads.a
+-DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f.a
+-DFFTWF_THREADS_LIB=superbuild/build/dir/install/lib/libfftw3f_threads.a
+-DFFTW_INCLUDE_PATH=superbuild/build/dir/install/include
 ```
 
 Build ITK and install it to `temp/install/dir`.
@@ -81,3 +94,5 @@ Then create an archive of the install dir.  Either use zip or:
 ```
 tar czf my-tar-file.tar.gz install-of-itk
 ```
+
+For Linux, use these instructions but leave out the CMAKE_OSX variables and the RPATH variables
