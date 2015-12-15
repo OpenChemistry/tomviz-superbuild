@@ -155,12 +155,12 @@ if (WIN32)
   endif()
 elseif(APPLE)
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.8.0-macosx10.8.tar.gz"
-    URL_MD5 "904a0e8c7ebe986deddceb4984bf455d")
+    URL "http://www.tomviz.org/files/itk-4.8.2-macosx10.8.tar.gz"
+    URL_MD5 "39e75f16fb430818ade23a0439334cd0")
 elseif(UNIX)
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.8.1-linux-64bit.tar.gz"
-    URL_MD5 "e0ceef7aee666704036c7ecc1f532015")
+    URL "http://www.tomviz.org/files/itk-4.8.2-linux-64bit.tar.gz"
+    URL_MD5 "5830edef507874ab531b6e33eb3e79d7")
 endif()
 
 set(tbb_ver "44_20150728oss")
