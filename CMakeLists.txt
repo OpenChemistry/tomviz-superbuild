@@ -11,10 +11,10 @@ if(APPLE)
   endif()
 endif()
 
-project(TomVizSuperBuild)
+project(TomvizSuperbuild)
 set(SuperBuild_CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(SuperBuild_PROJECTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/projects")
-set(SuperBuild_BINARY_DIR ${TomVizSuperBuild_BINARY_DIR})
+set(SuperBuild_BINARY_DIR ${TomvizSuperbuild_BINARY_DIR})
 
 set(BUILD_SHARED_LIBS ON  CACHE BOOL "Enable shared libraries")
 

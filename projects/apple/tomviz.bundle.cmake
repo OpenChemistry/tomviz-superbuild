@@ -47,10 +47,10 @@ install(CODE "
    "
    COMPONENT superbuild)
 
-add_test(GenerateTomVizPackage
-        ${CMAKE_CPACK_COMMAND} -G DragNDrop -V
+add_test(GenerateTomvizPackage
+        ${CMAKE_CPACK_COMMAND} -G DragNDrop
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
-set_tests_properties(GenerateTomVizPackage
+set_tests_properties(GenerateTomvizPackage
                      PROPERTIES
                      TIMEOUT 3600)

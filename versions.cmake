@@ -84,18 +84,18 @@ add_revision(paraview
 
 option(tomviz_FROM_GIT "If enabled then the repository is fetched from git" ON)
 cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
-  "Enable to use existing TomViz source."
+  "Enable to use existing tomviz source."
   "NOT tomviz_FROM_GIT" OFF)
 
 if (tomviz_FROM_GIT)
-  # Download TomViz from GIT
+  # Download tomviz from GIT
   add_customizable_revision(tomviz
     GIT_REPOSITORY https://github.com/OpenChemistry/tomviz.git
     GIT_TAG "master")
 else()
   if (tomviz_FROM_SOURCE_DIR)
     add_customizable_revision(tomviz
-      SOURCE_DIR "TomVizSource")
+      SOURCE_DIR "TomvizSource")
   else()
     message(FATAL_ERROR "No stable source tarball URL")
   endif()
