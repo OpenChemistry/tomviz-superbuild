@@ -12,6 +12,22 @@ add_revision(zlib
   URL "http://www.paraview.org/files/dependencies/zlib-1.2.7.tar.gz"
   URL_MD5 60df6a37c56e7c1366cca812414f7b85)
 
+add_revision(png
+  URL "http://paraview.org/files/dependencies/libpng-1.4.8.tar.gz"
+  URL_MD5 49c6e05be5fa88ed815945d7ca7d4aa9)
+
+add_revision(freetype
+  URL "http://paraview.org/files/dependencies/freetype-2.4.8.tar.gz"
+  URL_MD5 "5d82aaa9a4abc0ebbd592783208d9c76")
+
+add_revision(fontconfig
+  URL "http://paraview.org/files/dependencies/fontconfig-2.8.0.tar.gz"
+  URL_MD5 77e15a92006ddc2adbb06f840d591c0e)
+
+add_revision(libxml2
+  URL "http://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
+  URL_MD5 8127a65e8c3b08856093099b52599c86)
+
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
@@ -67,8 +83,8 @@ else()
 endif()
 
 add_revision(qt
-  URL "http://www.paraview.org/files/dependencies/qt-everywhere-opensource-src-4.8.6.tar.gz"
-  URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
+  URL "http://download.qt.io/official_releases/qt/5.5/5.5.1/single/qt-everywhere-opensource-src-5.5.1.tar.gz"
+  URL_MD5 59f0216819152b77536cf660b015d784)
 
 # Default to build from a known ParaView revision
 option(USE_PARAVIEW_MASTER "Use ParaView master instead of known ref" OFF)
@@ -90,8 +106,8 @@ cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
 if (tomviz_FROM_GIT)
   # Download tomviz from GIT
   add_customizable_revision(tomviz
-    GIT_REPOSITORY https://github.com/OpenChemistry/tomviz.git
-    GIT_TAG "master")
+    GIT_REPOSITORY https://github.com/openchemistry/tomviz.git
+    GIT_TAG "qt5-porting")
 else()
   if (tomviz_FROM_SOURCE_DIR)
     add_customizable_revision(tomviz
