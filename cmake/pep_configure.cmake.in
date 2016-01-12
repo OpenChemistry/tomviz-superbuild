@@ -24,6 +24,6 @@ if (command)
     RESULT_VARIABLE rv)
 
   if (NOT "${rv}" STREQUAL "0")
-    message(FATAL_ERROR "Failed!!!")
+    message(FATAL_ERROR "Failed for command: '${command}'")
   endif()
 endif ()
