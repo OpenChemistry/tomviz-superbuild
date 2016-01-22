@@ -28,21 +28,9 @@ else ()
     URL_MD5 72361d3b8717b6db3ad2b9da8df7af5e)
 endif ()
 
-if (WIN32)
-  if (64bit_build)
-    add_revision(python
-      URL "http://www.paraview.org/files/dependencies/python+deps.tar.bz2"
-      URL_MD5 "4318b8f771eda5606d9ce7f0be9f82e1")
-  else ()
-    add_revision(python
-      URL "http://www.paraview.org/files/dependencies/python+deps-x32.tar.bz2"
-      URL_MD5 "6ba441784a672e08379d23ddd61146f0")
-  endif ()
-else()
-  add_revision(python
-    URL "http://paraview.org/files/v3.98/dependencies/Python-2.7.2.tgz"
-    URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
-endif()
+add_revision(python
+  GIT_REPOSITORY "https://github.com/python-cmake-buildsystem/python-cmake-buildsystem.git"
+  GIT_TAG "b012e1e718250b8d94256beca97dcbca24d463db")
 
 foreach (fftw3kind float double long quad)
   add_revision(fftw3${fftw3kind}
