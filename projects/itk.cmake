@@ -1,4 +1,4 @@
-set(fftw_targets fftw3double fftw3float fftw3long)
+set(fftw_targets fftw3double fftw3float)
 if (WIN32)
   set(fftw_targets fftw)
 endif()
