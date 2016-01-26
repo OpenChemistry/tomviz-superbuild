@@ -44,11 +44,15 @@ if (qt4_WORK_AROUND_BROKEN_ASSISTANT_BUILD)
     BUILD_COMMAND   make install
     INSTALL_COMMAND "")
 endif ()
+set(qt4_configure_env)
+if (UNIX)
+  list(APPEND qt4_configure_env env "LD=${CMAKE_CXX_COMPILER}")
+endif()
 
 add_external_project_or_use_system(
     qt
     DEPENDS zlib
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure
+    CONFIGURE_COMMAND ${qt4_configure_env} <SOURCE_DIR>/configure
                       -prefix <INSTALL_DIR>
                       -confirm-license
                       -release
