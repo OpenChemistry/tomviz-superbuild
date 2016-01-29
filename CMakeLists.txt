@@ -5,9 +5,52 @@ if(NOT WIN32)
 endif()
 
 if(APPLE)
+  if(NOT CMAKE_OSX_ARCHITECTURES)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "By default, build for 64-bit")
+  endif()
+
+  if(NOT CMAKE_OSX_SDK)
+    execute_process(
+      COMMAND xcrun
+              --show-sdk-version
+      OUTPUT_VARIABLE
+              SDK_VERSION
+      RESULT_VARIABLE
+              res
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(res)
+      message(FATAL_ERROR "failed to detect CMAKE_OSX_SDK; please set manually (e.g. \"macosx10.10\")")
+    endif()
+    SET(CMAKE_OSX_SDK macosx${SDK_VERSION})
+  endif()
+
+  if(NOT CMAKE_OSX_SYSROOT)
+    execute_process(
+      COMMAND xcodebuild
+              -sdk ${CMAKE_OSX_SDK}
+              -version Path
+      OUTPUT_VARIABLE
+              CMAKE_OSX_SYSROOT
+      RESULT_VARIABLE
+              res
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(res)
+      message(FATAL_ERROR "Cannot determine SDK path for SDK: ${CMAKE_OSX_SDK}")
+    endif()
+  endif()
   if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-    message(WARNING "Ensure that CMAKE_OSX_SYSROOT, CMAKE_OSX_DEPLOYMENT_TARGET are set correctly")
-    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "By default, build for 64-bit Leopard")
+    execute_process(
+      COMMAND xcodebuild
+              -sdk ${CMAKE_OSX_SDK}
+              -version SDKVersion
+      OUTPUT_VARIABLE
+              CMAKE_OSX_DEPLOYMENT_TARGET
+      RESULT_VARIABLE
+              res
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(res)
+      message(FATAL_ERROR "Cannot determine SDK version for SDK: ${CMAKE_OSX_SDK}")
+    endif()
   endif()
 endif()
 
@@ -32,11 +75,11 @@ endif()
 
 set(platform)
 if(APPLE)
-  set(platform "apple")
+  set(platform "apple" "apple-unix")
   option(APPLY_MOUNTAIN_LION_FIX "Apply Mountain Lion bundle fix" OFF)
   mark_as_advanced(APPLY_MOUNTAIN_LION_FIX)
 elseif(UNIX)
-  set(platform "unix")
+  set(platform "unix" "apple-unix")
 elseif(WIN32)
   set(platform "win32")
 endif()
@@ -53,8 +96,12 @@ endif()
 #-----------------------------------------------------------------------------
 # Setup CMAKE_MODULE_PATH so that platform specific configurations are processed
 # before the generic ones.
+set(tomviz_MODULE_PATH)
+foreach(p IN LISTS platform)
+  list(APPEND tomviz_MODULE_PATH "${SuperBuild_PROJECTS_DIR}/${p}")
+endforeach()
 set(CMAKE_MODULE_PATH
-  "${SuperBuild_PROJECTS_DIR}/${platform}"
+  ${tomviz_MODULE_PATH}
   "${SuperBuild_PROJECTS_DIR}/common"
   "${SuperBuild_PROJECTS_DIR}"
   "${SuperBuild_CMAKE_DIR}"
@@ -144,6 +191,12 @@ set(CM_PROJECTS_ALL)
 # Include all optional projects. These are the ones user can pick and choose.
 # Some of these allow using system libraries too.
 include(zlib)
+if(UNIX AND NOT APPLE)
+  include(freetype)
+  include(fontconfig)
+  include(png)
+endif()
+include(libxml2)
 include(ffmpeg)
 include(qt)
 include(python)
