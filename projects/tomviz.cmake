@@ -4,6 +4,11 @@ if (UNIX AND NOT APPLE)
     -DCMAKE_INSTALL_RPATH:STRING=$ORIGIN/../lib:$ORIGIN/../lib/paraview-5.0:$ORIGIN/../lib/itk
   )
 endif()
+if (QT_XMLPATTERNS_EXECUTABLE)
+  list(APPEND tomviz_extra_cmake_args
+    -DQT_XMLPATTERNS_EXECUTABLE:FILEPATH=${QT_XMLPATTERNS_EXECUTABLE})
+endif()
+
 add_external_project(tomviz
   DEPENDS paraview qt
 
