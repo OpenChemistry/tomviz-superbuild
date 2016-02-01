@@ -3,6 +3,16 @@ if (tbb_ENABLED)
   set(VTK_SMP_IMPLEMENTATION_TYPE "TBB")
 endif ()
 
+set(paraview_extra_cmake_args)
+if (QT_HELP_GENERATOR)
+  list(APPEND paraview_extra_cmake_args
+    -DQT_HELP_GENERATOR:FILEPATH=${QT_HELP_GENERATOR})
+endif()
+if (QT_XMLPATTERNS_EXECUTABLE)
+  list(APPEND paraview_extra_cmake_args
+    -DQT_XMLPATTERNS_EXECUTABLE:FILEPATH=${QT_XMLPATTERNS_EXECUTABLE})
+endif()
+
 add_external_project(paraview
   DEPENDS qt python ffmpeg
   DEPENDS_OPTIONAL tbb
@@ -46,6 +56,8 @@ add_external_project(paraview
     -DModule_vtkGUISupportQtWebkit:BOOL=OFF
     -DCMAKE_CXX_STANDARD_REQUIRED:STRING=11
     -DVTK_SMP_IMPLEMENTATION_TYPE:STRING=${VTK_SMP_IMPLEMENTATION_TYPE}
+
+    ${paraview_extra_cmake_args}
 
     # specify the apple app install prefix. No harm in specifying it for all
     # platforms.
