@@ -107,7 +107,7 @@ if (tomviz_FROM_GIT)
   # Download tomviz from GIT
   add_customizable_revision(tomviz
     GIT_REPOSITORY https://github.com/openchemistry/tomviz.git
-    GIT_TAG "qt5-porting")
+    GIT_TAG "master")
 else()
   if (tomviz_FROM_SOURCE_DIR)
     add_customizable_revision(tomviz
