@@ -1,7 +1,7 @@
 set(tomviz_extra_cmake_args)
 if (UNIX AND NOT APPLE)
   list(APPEND tomviz_extra_cmake_args
-    -DCMAKE_INSTALL_RPATH:STRING=$ORIGIN/../lib:$ORIGIN/../lib/paraview-5.0:$ORIGIN/../lib/itk
+    -DCMAKE_INSTALL_RPATH:STRING=$ORIGIN/../lib:$ORIGIN/../lib/paraview:$ORIGIN/../lib/itk
   )
 endif()
 if (QT_HELP_GENERATOR)
