@@ -2,7 +2,7 @@
 
 
 #App="$1" # argument is the application to fixup
-#LibrariesPrefix="Contents/Libraries/"
+#LibrariesPrefix="Contents/Libraries"
 #echo ""
 #echo "Fixing up $App"
 #echo "All required frameworks/libraries will be placed under $App/$LibrariesPrefix"
@@ -41,8 +41,11 @@ class Library(object):
     # This is the actual path to a physical file
     self.RealPath = None
 
-   # This is the id for shared library.
+    # This is the id for shared library.
     self.Id = None
+
+    # These are names for symbolic links to this file.
+    self.SymLinks = []
 
     self.__depencies = None
     pass
@@ -61,8 +64,7 @@ class Library(object):
       return self.__depencies
     collection = set()
     for dep in _getdependencies(self.RealPath):
-      if not isexcluded(dep):
-        collection.add(Library.createFromReference(dep, exepath))
+      collection.add(Library.createFromReference(dep, exepath))
     self.__depencies = collection
     return self.__depencies
 
@@ -82,15 +84,22 @@ class Library(object):
     else:
       if not fakeCopy:
         print "Copying %s ==> %s" % (self.RealPath, ".../Contents/Libraries/%s" % os.path.basename(self.RealPath))
-        try:
-          os.makedirs(os.path.join(app, "Contents/Libraries"))
-        except:
-          pass
-        shutil.copy(self.RealPath, os.path.join(app, "Contents/Libraries/"))
+        shutil.copy(self.RealPath, os.path.join(app, "Contents/Libraries"))
       self.Id = "@executable_path/../Libraries/%s" % os.path.basename(self.RealPath)
       if not fakeCopy:
         commands.getoutput('install_name_tool -id "%s" %s' % (self.Id,
                             os.path.join(app, "Contents/Libraries/%s" % os.path.basename(self.RealPath))))
+
+      # Create symlinks for this copied file in the install location
+      # as were present in the source dir.
+      destdir = os.path.join(app, "Contents/Libraries")
+      # sourcefile is the file we copied already into the app bundle. We need to create symlink
+      # to it itself in the app bundle.
+      sourcefile = os.path.basename(self.RealPath)
+      for symlink in self.SymLinks:
+        print "Creating Symlink %s ==> .../Contents/Libraries/%s" % (symlink, os.path.basename(self.RealPath))
+        if not fakeCopy:
+          commands.getoutput("ln -s %s %s" % (sourcefile, os.path.join(destdir, symlink)))
 
   @classmethod
   def createFromReference(cls, ref, exepath):
@@ -101,11 +110,26 @@ class Library(object):
 
   @classmethod
   def createFromPath(cls, path):
+    print "XXX: ", path, "YYY"
     if not os.path.exists(path):
       raise RuntimeError, "%s is not a filename" % path
     lib = Library()
     lib.RealPath = os.path.realpath(path)
     lib.Id = _getid(path)
+    # locate all symlinks to this file in the containing directory. These are used when copying.
+    # We ensure that we copy all symlinks too.
+    dirname = os.path.dirname(lib.RealPath)
+    symlinks = commands.getoutput("find -L %s -samefile %s" % (dirname, lib.RealPath))
+    symlinks = symlinks.split()
+    try:
+      symlinks.remove(lib.RealPath)
+    except ValueError:
+      pass
+    linknames = []
+    for link in symlinks:
+      linkname = os.path.basename(link)
+      linknames.append(linkname)
+    lib.SymLinks = linknames
     return lib
 
 
@@ -122,12 +146,10 @@ def _getdependencies(path):
   return val.split()
 
 def isexcluded(id):
-  # we don't consider the gcc libraries as system libraries on MacOS because
-  # Apple no longer distributes gcc.  If these are there they were installed by
-  # the user.  They will probably be there as we typically use gfortran to compile
-  # scipy and we need to pull them into the bundle for scipy to be redistributable.
-  if re.match(r".*/gcc/.*", id):
-    return False;
+  # we don't consider the libgfortran or libquadmath a system library since
+  # it will rarely be on the installed machine
+  if re.match(r".*libgfortran.*", id) or re.match(r".*libquadmath.*", id):
+    return False
   if re.match(r"^/System/Library", id):
     return True
   if re.match(r"^/usr/lib", id):
@@ -146,27 +168,34 @@ def _find(ref):
   name = os.path.basename(ref)
   for loc in SearchLocations:
     output = commands.getoutput('find "%s" -name "%s"' % (loc, name)).strip()
+    if output and output.contains('\n'):
+      files = output.split('\n')
+      libfiles = [ f for f in files if len(commands.getoutput('file %s | grep -i "Mach-O.*shared library"')) > 0]
+      print libfiles
+      return libfiles[0] # And hope it is the right one
     if output:
       return output
   return ref
 
 SearchLocations = []
 if __name__ == "__main__":
-  App = sys.argv[1]
-  SearchLocations = [sys.argv[2]]
-  SearchLocations.append (sys.argv[3])
-  if len(sys.argv) > 4:
-    QtPluginsDir = sys.argv[4]
-  else:
-    QtPluginsDir = None
-  LibrariesPrefix = "Contents/Libraries/"
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--exe', dest='app', required=True, help="The executable to fixup")
+  parser.add_argument('--search', dest='searchPaths', required=True, action='append', help='Paths to search for libraries not in the bundle')
+  parser.add_argument('--plugins',  dest='pluginDir', help='Directory that contains Qt plugins')
+  config = parser.parse_args()
+  App = config.app
+  SearchLocations = config.searchPaths
+  QtPluginsDir = config.pluginDir
+  LibrariesPrefix = "Contents/Libraries"
 
   print "------------------------------------------------------------"
   print "Fixing up ",App
   print "All required frameworks/libraries will be placed under %s/%s" % (App, LibrariesPrefix)
   print ""
 
-  executables = commands.getoutput('find %s -type f| xargs file | grep -i "Mach-O.*executable" | sed "s/:.*//" | sort' % App)
+  executables = commands.getoutput('find %s -type f| xargs file | grep -i "Mach-O.*executable" | sed "s/:.*//" | cut -d\\  -f1 | sort' % App)
   executables = executables.split()
   print "------------------------------------------------------------"
   print "Found executables : "
@@ -176,7 +205,7 @@ if __name__ == "__main__":
 
 
   # Find libraries inside the package already.
-  libraries = commands.getoutput('find %s -type f | xargs file | grep -i "Mach-O.*shared library" | sed "s/:.*//" | sort' % App)
+  libraries = commands.getoutput('find %s -type f | xargs file | grep -i "Mach-O.*shared library" | sed "s/:.*//" | cut -d\\  -f1 | sort' % App)
   libraries = libraries.split()
   print "Found %d libraries within the package." % len(libraries)
 
@@ -240,7 +269,7 @@ if __name__ == "__main__":
   print ""
   # Run the command for all libraries and executables.
   # The --separator for file allows helps use locate the file name accurately.
-  binaries_to_fix = commands.getoutput('find %s -type f | xargs file --separator ":--:" | grep -i ":--:.*Mach-O" | sed "s/:.*//" | sort | uniq ' % App).split()
+  binaries_to_fix = commands.getoutput('find %s -type f | xargs file --separator ":--:" | grep -i ":--:.*Mach-O" | sed "s/:.*//" | cut -d\\  -f1 | sort | uniq ' % App).split()
 
 
   result = ""

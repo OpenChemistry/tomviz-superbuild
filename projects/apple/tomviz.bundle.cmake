@@ -41,9 +41,10 @@ install(CODE "
     # be 'fixed' using otool.
     execute_process(
        COMMAND ${CMAKE_CURRENT_LIST_DIR}/fixup_bundle.py
-               \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app\"
-               \"${install_location}/lib\"
-               \"${install_location}/plugins\")
+               --exe \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app\"
+               --search \"${install_location}/lib\"
+               --search \"${Qt5_DIR}/../../../lib\"
+               --plugins \"${Qt5_DIR}/../../../plugins\")
    "
    COMPONENT superbuild)
 
