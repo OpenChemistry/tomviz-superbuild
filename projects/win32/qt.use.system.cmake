@@ -6,37 +6,37 @@ option(PACKAGE_SYSTEM_QT
 if (NOT PACKAGE_SYSTEM_QT)
   return()
 endif()
-
-# for Windows, we add rules to pacakge system Qt.
-function(__query_qmake VAR RESULT)
-  execute_process(COMMAND "${QT_QMAKE_EXECUTABLE}" -query ${VAR}
-    RESULT_VARIABLE return_code
-    OUTPUT_VARIABLE output ERROR_VARIABLE output
-    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_STRIP_TRAILING_WHITESPACE)
-  if(NOT return_code)
-    file(TO_CMAKE_PATH "${output}" output)
-    set(${RESULT} ${output} PARENT_SCOPE)
-  endif(NOT return_code)
-endfunction(__query_qmake)
-
-# locate the bin dir and the plugins dir.
-if (EXISTS "${QT_QMAKE_EXECUTABLE}")
-  __query_qmake(QT_INSTALL_PLUGINS qt_plugins_dir)
-  __query_qmake(QT_INSTALL_BINS qt_bin_dir)
-  install(DIRECTORY "${qt_plugins_dir}/"
-          DESTINATION "bin"
-          USE_SOURCE_PERMISSIONS
-          COMPONENT Qt_Runtime
-          # skip debug dlls
-          FILES_MATCHING REGEX "^.*d4.dll$" EXCLUDE
-          PATTERN "*.dll")
-
-  install(DIRECTORY "${qt_bin_dir}/"
-          DESTINATION "bin"
-          USE_SOURCE_PERMISSIONS
-          COMPONENT Qt_Runtime
-
-          # skip debug dlls
-          FILES_MATCHING REGEX "^.*d4.dll$" EXCLUDE
-          PATTERN "*.dll")
-endif()
+set(tomvizQt5Libs
+  Core
+  Gui
+  Help
+  Network
+  Widgets
+  Sql
+  Test
+  UiTools
+  Xml)
+find_package(Qt5 COMPONENTS ${tomvizQt5Libs})
+list(APPEND tomvizQt5Libs QWindowsIntegrationPlugin)
+set(qt5_libs_file_string "set(qt5_libdirs)\n")
+foreach (lib IN LISTS tomvizQt5Libs)
+  set(qt5_libs_file_string
+    "${qt5_libs_file_string}list(APPEND qt5_libdirs $<TARGET_FILE_DIR:Qt5::${lib}>)\n")
+endforeach()
+file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/cpack/qt5_bundle.cmake"
+  CONTENT "${qt5_libs_file_string}")
+install(CODE "
+set(CMAKE_MODULE_PATH \"${CMAKE_CURRENT_BINARY_DIR}/cpack\" \${CMAKE_MODULE_PATH})
+include(qt5_bundle)
+list(REMOVE_DUPLICATES qt5_libdirs)
+foreach(dir IN LISTS qt5_libdirs)
+  file(GLOB qt_libs \"\${dir}/*.dll\")
+  foreach (lib IN LISTS qt_libs)
+    if(NOT lib MATCHES \"d.dll\$\")
+      file(INSTALL \${lib}
+        DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin\"
+        USE_SOURCE_PERMISSIONS)
+    endif()
+  endforeach()
+endforeach()
+")
