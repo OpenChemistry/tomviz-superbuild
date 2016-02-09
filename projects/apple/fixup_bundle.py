@@ -110,7 +110,6 @@ class Library(object):
 
   @classmethod
   def createFromPath(cls, path):
-    print "XXX: ", path, "YYY"
     if not os.path.exists(path):
       raise RuntimeError, "%s is not a filename" % path
     lib = Library()
@@ -168,11 +167,12 @@ def _find(ref):
   name = os.path.basename(ref)
   for loc in SearchLocations:
     output = commands.getoutput('find "%s" -name "%s"' % (loc, name)).strip()
-    if output and output.contains('\n'):
+    if output and '\n' in output:
       files = output.split('\n')
-      libfiles = [ f for f in files if len(commands.getoutput('file %s | grep -i "Mach-O.*shared library"')) > 0]
-      print libfiles
-      return libfiles[0] # And hope it is the right one
+      fileinfo = [ (f, commands.getoutput('file %s | grep -i "Mach-O"' % (f,))) for f in files]
+      libfiles = [ f[0] for f in fileinfo if len(f[1]) > 0]
+      if len(libfiles) > 0:
+        return libfiles[0] # And hope it is the right one
     if output:
       return output
   return ref
