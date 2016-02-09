@@ -17,7 +17,6 @@ set(tomvizQt5Libs
   UiTools
   Xml)
 find_package(Qt5 COMPONENTS ${tomvizQt5Libs})
-list(APPEND tomvizQt5Libs QWindowsIntegrationPlugin)
 set(qt5_libs_file_string "set(qt5_libdirs)\n")
 foreach (lib IN LISTS tomvizQt5Libs)
   set(qt5_libs_file_string
@@ -39,4 +38,9 @@ foreach(dir IN LISTS qt5_libdirs)
     endif()
   endforeach()
 endforeach()
-")
+" COMPONENT "tomviz")
+
+get_target_property(qtWindowsPluginLocation Qt5::QWindowsIntegrationPlugin LOCATION)
+install(FILES ${qtWindowsPluginLocation}
+        DESTINATION "bin/platforms"
+        COMPONENT "tomviz")
