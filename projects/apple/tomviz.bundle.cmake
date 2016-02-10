@@ -39,11 +39,13 @@ install(CODE "
 
     # at this point, the installed bundle should have the libraries that need to
     # be 'fixed' using otool.
+    # qt/plugins is needed as QtPrintSupport.framework directly links to the printsupport plugin
     execute_process(
        COMMAND ${CMAKE_CURRENT_LIST_DIR}/fixup_bundle.py
                --exe \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app\"
                --search \"${install_location}/lib\"
                --search \"${Qt5_DIR}/../../../lib\"
+               --search \"${Qt5_DIR}/../../../plugins\"
                --plugins \"${Qt5_DIR}/../../../plugins\")
    "
    COMPONENT superbuild)

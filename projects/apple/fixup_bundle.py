@@ -203,6 +203,17 @@ if __name__ == "__main__":
     print "    %s/%s" % (os.path.basename(App) ,os.path.relpath(exe, App))
   print ""
 
+  # If Qt Plugins dir is specified, copies those in right now.
+  # We need to fix paths on those too.
+  # Copy the plugins here so that their dependencies get pulled in.  This is needed
+  # since Qt's cocoa platform plugin depends on the QtPrintSupport framework that is
+  # otherwise not needed.
+  if QtPluginsDir:
+    print "------------------------------------------------------------"
+    print "Copying Qt plugins "
+    print "  %s ==> .../Contents/Plugins" % QtPluginsDir
+    commands.getoutput('cp -R "%s/" "%s/Contents/Plugins"' % (QtPluginsDir, App))
+
 
   # Find libraries inside the package already.
   libraries = commands.getoutput('find %s -type f | xargs file | grep -i "Mach-O.*shared library" | sed "s/:.*//" | cut -d\\  -f1 | sort' % App)
@@ -254,15 +265,6 @@ if __name__ == "__main__":
   print ""
 
   install_name_tool_command = " ".join(install_name_tool_command)
-
-  # If Qt Plugins dir is specified, copies those in right now.
-  # We need to fix paths on those too.
-  # Currently, we are not including plugins in the external dependency search.
-  if QtPluginsDir:
-    print "------------------------------------------------------------"
-    print "Copying Qt plugins "
-    print "  %s ==> .../Contents/Plugins" % QtPluginsDir
-    commands.getoutput('cp -R "%s/" "%s/Contents/Plugins"' % (QtPluginsDir, App))
 
   print "------------------------------------------------------------"
   print "Running 'install_name_tool' to fix paths to copied files."
