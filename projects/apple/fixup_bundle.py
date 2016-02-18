@@ -47,6 +47,9 @@ class Library(object):
     # These are names for symbolic links to this file.
     self.SymLinks = []
 
+    # This is a symlink to the library that may have been used in other libraries' otool -L output
+    self.LinkPath = None
+
     self.__depencies = None
     pass
 
@@ -115,6 +118,10 @@ class Library(object):
     lib = Library()
     lib.RealPath = os.path.realpath(path)
     lib.Id = _getid(path)
+    if not os.path.abspath(path) == lib.Id:
+        lib.LinkPath = os.path.abspath(path)
+    elif lib.RealPath != lib.Id:
+        lib.LinkPath = lib.RealPath
     # locate all symlinks to this file in the containing directory. These are used when copying.
     # We ensure that we copy all symlinks too.
     dirname = os.path.dirname(lib.RealPath)
@@ -262,6 +269,8 @@ if __name__ == "__main__":
     dep.copyToApp(App)
     new_id = dep.Id
     install_name_tool_command += ["-change", '"%s"' % old_id, '"%s"' % new_id]
+    if dep.LinkPath is not None:
+      install_name_tool_command += ["-change", '"%s"' % dep.LinkPath, '"%s"' % new_id]
   print ""
 
   install_name_tool_command = " ".join(install_name_tool_command)
