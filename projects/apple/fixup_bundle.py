@@ -90,6 +90,10 @@ class Library(object):
         shutil.copy(self.RealPath, os.path.join(app, "Contents/Libraries"))
       self.Id = "@executable_path/../Libraries/%s" % os.path.basename(self.RealPath)
       if not fakeCopy:
+        # Sometimes the library can't be modified due to it original permissions... fix them
+        import stat
+        os.chmod(os.path.join(app, "Contents/Libraries/%s" % os.path.basename(self.RealPath)),\
+                 stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
         commands.getoutput('install_name_tool -id "%s" %s' % (self.Id,
                             os.path.join(app, "Contents/Libraries/%s" % os.path.basename(self.RealPath))))
 
