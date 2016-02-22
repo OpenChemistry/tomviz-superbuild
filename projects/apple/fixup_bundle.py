@@ -158,7 +158,9 @@ def _getdependencies(path):
 def isexcluded(id):
   # we don't consider the libgfortran or libquadmath a system library since
   # it will rarely be on the installed machine
-  if re.match(r".*libgfortran.*", id) or re.match(r".*libquadmath.*", id):
+  # libgfortran depends on libgcc_s, so that one also should not be considered
+  # a system library
+  if re.match(r".*libgfortran.*", id) or re.match(r".*libquadmath.*", id) or re.match(r".*libgcc_s.*", id):
     return False
   if re.match(r"^/System/Library", id):
     return True
