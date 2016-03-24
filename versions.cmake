@@ -83,8 +83,8 @@ else()
 endif()
 
 add_revision(qt
-  URL "http://download.qt.io/official_releases/qt/5.5/5.5.1/single/qt-everywhere-opensource-src-5.5.1.tar.gz"
-  URL_MD5 59f0216819152b77536cf660b015d784)
+  URL "http://download.qt.io/official_releases/qt/5.6/5.6.0/single/qt-everywhere-opensource-src-5.6.0.tar.gz"
+  URL_MD5 7a2a867bc12384f4161809136d49d4be)
 
 # Default to build from a known ParaView revision
 option(USE_PARAVIEW_MASTER "Use ParaView master instead of known ref" OFF)
