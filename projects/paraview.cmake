@@ -15,7 +15,7 @@ endif()
 
 add_external_project(paraview
   DEPENDS qt python ffmpeg
-  DEPENDS_OPTIONAL tbb
+  DEPENDS_OPTIONAL tbb png
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
