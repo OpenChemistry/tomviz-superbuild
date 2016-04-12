@@ -7,6 +7,9 @@ set(paraview_extra_cmake_args)
 if (QT_HELP_GENERATOR)
   list(APPEND paraview_extra_cmake_args
     -DQT_HELP_GENERATOR:FILEPATH=${QT_HELP_GENERATOR})
+else()
+  list(APPEND paraview_extra_cmake_args
+    -DPARAVIEW_ENABLE_EMBEDDED_DOCUMENTATION:BOOL=OFF)
 endif()
 if (QT_XMLPATTERNS_EXECUTABLE)
   list(APPEND paraview_extra_cmake_args
@@ -15,7 +18,7 @@ endif()
 
 add_external_project(paraview
   DEPENDS qt python ffmpeg
-  DEPENDS_OPTIONAL tbb
+  DEPENDS_OPTIONAL tbb png
 
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS:BOOL=ON
