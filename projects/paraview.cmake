@@ -7,6 +7,9 @@ set(paraview_extra_cmake_args)
 if (QT_HELP_GENERATOR)
   list(APPEND paraview_extra_cmake_args
     -DQT_HELP_GENERATOR:FILEPATH=${QT_HELP_GENERATOR})
+else()
+  list(APPEND paraview_extra_cmake_args
+    -DPARAVIEW_ENABLE_EMBEDDED_DOCUMENTATION:BOOL=OFF)
 endif()
 if (QT_XMLPATTERNS_EXECUTABLE)
   list(APPEND paraview_extra_cmake_args
