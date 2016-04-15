@@ -32,33 +32,74 @@ install(CODE
       -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)"
   COMPONENT superbuild)
 
-if (qt_ENABLED AND NOT USE_SYSTEM_qt)
-  install(DIRECTORY
-    # install all qt plugins (including sqllite).
-    # FIXME: we can reconfigure Qt to be built with inbuilt sqllite support to
-    # avoid the need for plugins.
-    "${install_location}/plugins/"
-    DESTINATION "lib/tomviz"
-    COMPONENT superbuild
-    PATTERN "*.a" EXCLUDE
-    PATTERN "tomviz-${tomviz_version}" EXCLUDE
-    PATTERN "fontconfig" EXCLUDE
-    PATTERN "*.jar" EXCLUDE
-    PATTERN "*.debug.*" EXCLUDE
-    PATTERN "libboost*" EXCLUDE)
-  install(DIRECTORY "${install_location}/share/appdata"
-    DESTINATION "share"
-    USE_SOURCE_PERMISSIONS
-    COMPONENT superbuild)
-  install(DIRECTORY "${install_location}/share/applications"
-    DESTINATION "share"
-    USE_SOURCE_PERMISSIONS
-    COMPONENT superbuild)
-  install(DIRECTORY "${install_location}/share/icons"
-    DESTINATION "share"
-    USE_SOURCE_PERMISSIONS
-    COMPONENT superbuild)
+if (qt_ENABLED)
+  set(qt_plugins)
+  if (NOT USE_SYSTEM_qt)
+    file(GLOB qt_plugins ${install_location}/plugins/*)
+  else()
+    file(GLOB qt_plugins ${Qt5_DIR}/../../../plugins/*)
+  endif()
+  foreach(plugin ${qt_plugins})
+    if(IS_DIRECTORY ${plugin})
+      install(DIRECTORY ${plugin}
+        DESTINATION "plugins"
+        COMPONENT superbuild
+        PATTERN "*.a" EXCLUDE
+        PATTERN "tomviz-${tomviz_version}" EXCLUDE
+        PATTERN "fontconfig" EXCLUDE
+        PATTERN "*.jar" EXCLUDE
+        PATTERN "*.debug.*" EXCLUDE
+        PATTERN "libboost*" EXCLUDE)
+    endif()
+  endforeach()
+  if (NOT USE_SYSTEM_qt)
+    install(DIRECTORY
+      # install all qt plugins (including sqllite).
+      "${install_location}/plugins/"
+      DESTINATION ""
+      COMPONENT superbuild
+      PATTERN "*.a" EXCLUDE
+      PATTERN "tomviz-${tomviz_version}" EXCLUDE
+      PATTERN "fontconfig" EXCLUDE
+      PATTERN "*.jar" EXCLUDE
+      PATTERN "*.debug.*" EXCLUDE
+      PATTERN "libboost*" EXCLUDE)
+    install(DIRECTORY "${install_location}/share/appdata"
+      DESTINATION "share"
+      USE_SOURCE_PERMISSIONS
+      COMPONENT superbuild)
+    install(DIRECTORY "${install_location}/share/applications"
+      DESTINATION "share"
+      USE_SOURCE_PERMISSIONS
+      COMPONENT superbuild)
+    install(DIRECTORY "${install_location}/share/icons"
+      DESTINATION "share"
+      USE_SOURCE_PERMISSIONS
+      COMPONENT superbuild)
+  endif()
+  install(CODE 
+"
+file(WRITE \"\${CMAKE_INSTALL_PREFIX}/bin/qt.conf\"
+\"[Paths]
+Prefix = .
+Plugins = ../plugins
+\")" COMPONENT superbuild)
 endif()
+
+# install dependencies of Qt plugins
+install(CODE
+  "file(GLOB qt_plugins \"\${CMAKE_INSTALL_PREFIX}/plugins/*/*.so\")
+  set(qt_libraries_dir \"${Qt5_DIR}/../../..\")
+  foreach(plugin \${qt_plugins})
+    execute_process(COMMAND
+      ${CMAKE_COMMAND}
+        -Dexecutable:PATH=\${plugin}
+        -Ddependencies_root:PATH=\${qt_libraries_dir}
+        -Dtarget_root:PATH=\${CMAKE_INSTALL_PREFIX}/lib
+        -Dpv_version:STRING=${tomviz_version}
+        -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)
+  endforeach()"
+  COMPONENT superbuild)
 
 if(itk_ENABLED)
 install(DIRECTORY "${install_location}/lib/itk"
