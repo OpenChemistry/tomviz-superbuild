@@ -75,3 +75,7 @@ add_extra_cmake_args(
   -DPARAVIEW_QT_VERSION:STRING=5
   -DQt5_DIR:PATH=<INSTALL_DIR>/lib/cmake/Qt5
 )
+
+if (NOT USE_SYSTEM_qt)
+  set(Qt5_DIR "<INSTALL_DIR>/lib/cmake/Qt5")
+endif()

@@ -39,12 +39,7 @@ install(CODE
   COMPONENT superbuild)
 
 if (qt_ENABLED)
-  set(qt_plugins)
-  if (NOT USE_SYSTEM_qt)
-    file(GLOB qt_plugins ${install_location}/plugins/*)
-  else()
-    file(GLOB qt_plugins ${Qt5_DIR}/../../../plugins/*)
-  endif()
+  file(GLOB qt_plugins ${Qt5_DIR}/../../../plugins/*)
   foreach(plugin ${qt_plugins})
     if(IS_DIRECTORY ${plugin})
       install(DIRECTORY ${plugin}
@@ -58,31 +53,6 @@ if (qt_ENABLED)
         PATTERN "libboost*" EXCLUDE)
     endif()
   endforeach()
-  if (NOT USE_SYSTEM_qt)
-    install(DIRECTORY
-      # install all qt plugins (including sqllite).
-      "${install_location}/plugins/"
-      DESTINATION ""
-      COMPONENT superbuild
-      PATTERN "*.a" EXCLUDE
-      PATTERN "tomviz-${tomviz_version}" EXCLUDE
-      PATTERN "fontconfig" EXCLUDE
-      PATTERN "*.jar" EXCLUDE
-      PATTERN "*.debug.*" EXCLUDE
-      PATTERN "libboost*" EXCLUDE)
-    install(DIRECTORY "${install_location}/share/appdata"
-      DESTINATION "share"
-      USE_SOURCE_PERMISSIONS
-      COMPONENT superbuild)
-    install(DIRECTORY "${install_location}/share/applications"
-      DESTINATION "share"
-      USE_SOURCE_PERMISSIONS
-      COMPONENT superbuild)
-    install(DIRECTORY "${install_location}/share/icons"
-      DESTINATION "share"
-      USE_SOURCE_PERMISSIONS
-      COMPONENT superbuild)
-  endif()
   install(CODE 
 "
 file(WRITE \"\${CMAKE_INSTALL_PREFIX}/bin/qt.conf\"
