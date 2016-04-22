@@ -1,3 +1,8 @@
+# Building Qt 5.6 within the superbuild does not work at the moment and is unsupported.
+# This defaults to using a system installed Qt for now.  Use common-superbuild or
+# Qt's binary installers to get the system Qt 5.6.
+
+
 set (qt_depends)
 set (qt_options)
 if (APPLE)
@@ -42,6 +47,7 @@ endif ()
 
 add_external_project_or_use_system(
     qt
+    DEFAULT_TO_USE_SYSTEM
     DEPENDS zlib ${qt_depends}
     CONFIGURE_COMMAND
       ${qt_configure_command}
@@ -75,3 +81,8 @@ add_extra_cmake_args(
   -DPARAVIEW_QT_VERSION:STRING=5
   -DQt5_DIR:PATH=<INSTALL_DIR>/lib/cmake/Qt5
 )
+
+if (NOT USE_SYSTEM_qt)
+  message(FATAL_ERROR "tomviz superbuild does not currently support building Qt 5.6 from source.  Please install your own Qt, turn on USE_SYSTEM_qt and provide the superbuild with the path to that Qt install")
+  set(Qt5_DIR "<INSTALL_DIR>/lib/cmake/Qt5")
+endif()
