@@ -63,7 +63,6 @@ set(BUILD_SHARED_LIBS ON  CACHE BOOL "Enable shared libraries")
 
 include(CMakeDependentOption)
 
-#-----------------------------------------------------------------------------
 # Collect information about the build platform.
 include(CheckTypeSize)
 check_type_size(void* VOID_PTR_SIZE BUILTIN_TYPES_ONLY)
@@ -93,7 +92,6 @@ else()
   set(package_suffix "${package_suffix}-32bit")
 endif()
 
-#-----------------------------------------------------------------------------
 # Setup CMAKE_MODULE_PATH so that platform specific configurations are processed
 # before the generic ones.
 set(tomviz_MODULE_PATH)
@@ -118,7 +116,6 @@ file(DOWNLOAD ${url_prefix}/TiltSeries_NanoParticle_doi_10.1021-nl103400a.tif
   EXPECTED_MD5 1191ef22b9ab570d891b14e4ee672373)
 set(tomviz_data ${CMAKE_BINARY_DIR}/Data)
 
-#-----------------------------------------------------------------------------
 # Setup some standard variables that control various locations and flags.
 set(install_location "${CMAKE_CURRENT_BINARY_DIR}/install")
 set(download_location "${CMAKE_CURRENT_BINARY_DIR}/downloads"
@@ -156,7 +153,6 @@ string(STRIP "${ldflags}" ldflags)
 string(STRIP "${cppflags}" cppflags)
 string(STRIP "${cxxflags}" cxxflags)
 string(STRIP "${cflags}"  cflags)
-#-----------------------------------------------------------------------------
 ## Top-level options. These must be limited to a commonly used subset with
 ## default values being used for building tomviz binaries.
 #option(PV_COMMAND_LINE_TOOLS_ONLY
@@ -177,13 +173,11 @@ include(ParaViewModules)
 include(versions)
 include(DetermineTomvizVersion)
 
-#------------------------------------------------------------------------------
-# enable testing support.
+# Enable testing support.
 include(CTest)
 configure_file(
   "${SuperBuild_CMAKE_DIR}/CTestCustom.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake" @ONLY)
-#------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------
 set(CM_PROJECTS_ALL)
