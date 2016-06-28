@@ -35,6 +35,7 @@ install(CODE
       -Ddependencies_root:PATH=${install_location}
       -Dtarget_root:PATH=\${CMAKE_INSTALL_PREFIX}/lib
       -Dpv_version:STRING=${tomviz_version}
+      -Dqt_root=${Qt5_DIR}/../../../
       -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)"
   COMPONENT superbuild)
 
