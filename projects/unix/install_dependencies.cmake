@@ -8,6 +8,11 @@ include(GetPrerequisites)
 get_filename_component(exepath "${executable}" PATH)
 get_filename_component(exename "${executable}" NAME)
 
+set(dirs ${dependencies_root}/lib ${dependencies_root}/lib/paraview)
+if (qt_root)
+  list(APPEND dirs ${qt_root}/lib)
+endif()
+
 message("Determining dependencies for '${exename}'")
 get_prerequisites(
   ${executable}
@@ -15,27 +20,39 @@ get_prerequisites(
   1
   1
   ${exepath}
-  ${dependencies_root}/lib
+  "${dirs}"
   )
 
 message("Installing dependencies for '${exename}'")
+
+set(target_file_locations ${target_root} ${target_root}/paraview)
 
 # resolve symlinks.
 set (resolved_prerequisites)
 foreach(link ${prerequisites})
   if (NOT link MATCHES ".*fontconfig.*")
-    if (IS_SYMLINK ${link})
-      get_filename_component(resolved_link "${link}" REALPATH)
-      # now link may not directly point to resolved_link.
-      # so we install the resolved link as the link.
-      get_filename_component(resolved_name "${link}" NAME)
-      file(INSTALL
-        DESTINATION "${target_root}"
-        TYPE PROGRAM
-        RENAME "${resolved_name}"
-        FILES "${resolved_link}")
-    else ()
-      list(APPEND resolved_prerequisites ${link})
+    set(full_path full_path-NOTFOUND)
+    # See if we already installed it
+    get_filename_component(libname ${full_path} NAME)
+    find_file(full_path
+      NAMES "${libname}"
+      PATHS ${target_file_locations}
+      NO_DEFAULT_PATH)
+
+    if (NOT full_path)
+      if (IS_SYMLINK ${link})
+        get_filename_component(resolved_link "${link}" REALPATH)
+        # now link may not directly point to resolved_link.
+        # so we install the resolved link as the link.
+        get_filename_component(resolved_name "${link}" NAME)
+        file(INSTALL
+          DESTINATION "${target_root}"
+          TYPE PROGRAM
+          RENAME "${resolved_name}"
+          FILES "${resolved_link}")
+      else ()
+        list(APPEND resolved_prerequisites ${link})
+      endif()
     endif()
   endif()
 endforeach()
