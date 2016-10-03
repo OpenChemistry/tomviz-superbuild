@@ -47,11 +47,11 @@ endif ()
 if (WIN32)
   if (64bit_build)
     add_revision(python
-      URL "http://www.paraview.org/files/dependencies/python+deps.tar.bz2"
+      URL "http://www.tomviz.org/files/python-2.7.3-win64.tar.gz"
       URL_MD5 "4318b8f771eda5606d9ce7f0be9f82e1")
   else ()
     add_revision(python
-      URL "http://www.paraview.org/files/dependencies/python+deps-x32.tar.bz2"
+      URL "http://www.tomviz.org/files/python-2.7.3-win32.tar.gz"
       URL_MD5 "6ba441784a672e08379d23ddd61146f0")
   endif ()
 else()
