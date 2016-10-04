@@ -48,11 +48,11 @@ if (WIN32)
   if (64bit_build)
     add_revision(python
       URL "http://www.tomviz.org/files/python-2.7.3-win64.tar.gz"
-      URL_MD5 "4318b8f771eda5606d9ce7f0be9f82e1")
+      URL_MD5 "8df6359a4fc9101b51496e5e618383b1")
   else ()
     add_revision(python
       URL "http://www.tomviz.org/files/python-2.7.3-win32.tar.gz"
-      URL_MD5 "6ba441784a672e08379d23ddd61146f0")
+      URL_MD5 "4d78cef437fe6441791d14d14b5d57ee")
   endif ()
 else()
   add_revision(python
