@@ -179,19 +179,19 @@ elseif(UNIX)
     URL_MD5 "cfcc11e1f39ae078519c30084320fbd4")
 endif()
 
-set(tbb_ver "44_20150728oss")
+set(tbb_ver "2017_20160916oss")
 if (WIN32)
-  set(tbb_file "tbb${tbb_ver}_win.zip")
-  set(tbb_md5 "e7bbf293cdb5a50ca81347c80168956d")
+  set(tbb_file "tbb${tbb_ver}_win_1.zip")
+  set(tbb_md5 "d23a6de9b467a89b345de142c36b8abc")
 elseif (APPLE)
   set(tbb_file "tbb${tbb_ver}_osx.tgz")
-  set(tbb_md5 "a767d7a8b375e6b054e44e2317d806b8")
+  set(tbb_md5 "e96382f8dbf10e4edbdf1b64605ae891")
 else ()
   set(tbb_file "tbb${tbb_ver}_lin_0.tgz")
-  set(tbb_md5 "ab5df80a65adf423b14637a1f35814b2")
+  set(tbb_md5 "e668583115832dac196846c8d0fe30ec")
 endif ()
 
 add_revision(tbb
-  URL "http://www.paraview.org/files/dependencies/${tbb_file}"
+  URL "http://www.tomviz.org/files/${tbb_file}"
   URL_MD5 "${tbb_md5}")
 
