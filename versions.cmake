@@ -187,7 +187,7 @@ elseif (APPLE)
   set(tbb_file "tbb${tbb_ver}_osx.tgz")
   set(tbb_md5 "e96382f8dbf10e4edbdf1b64605ae891")
 else ()
-  set(tbb_file "tbb${tbb_ver}_lin_0.tgz")
+  set(tbb_file "tbb${tbb_ver}_lin.tgz")
   set(tbb_md5 "e668583115832dac196846c8d0fe30ec")
 endif ()
 
