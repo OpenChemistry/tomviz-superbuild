@@ -45,54 +45,32 @@ with tomviz superbuild.
 OSX:
 ***
 
-First have a build of the superbuild without ITK built.  You need to point ITK at
-the correct numpy and fftw headers.
-Check out ITK release branch or >= 4.9 for compiling for older Mac OS X support.
+Run the `make_itk_bundle_osx.sh` script in the `itk-binaries/osx` folder.  It
+will generate the ITK tarball for OSX in the current directory assuming that your
+XCode has the appropriate SDK (currently 10.9) installed.  If you want to use a
+different SDK, you will need to modify the script to point to the SDK
+you want to build ITK with.
 
-Configure ITK with
+***
+LINUX
+***
+
+Install Docker.
+
+Go to the itk-binaries/linux folder in this repository and run the following:
+
 ```
--DBUILD_SHARED_LIBS=ON
--DITK_LEGACY_SILENT=ON
--DITK_LEGACY_REMOVE=ON
--DITK_WRAP_PYTHON=ON
--DBUILD_EXAMPLES=OFF
--DBUILD_TESTING=OFF
--DCMAKE_BUILD_TYPE=Release
--DCMAKE_INSTALL_PREFIX=temp/install/dir
--DCMAKE_OSX_ARCHITECTURES=x86_64
--DCMAKE_OSX_DEPLOYMENT_TARGET=10.8
--DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
--DCMAKE_SKIP_INSTALL_RPATH=OFF
--DCMAKE_SKIP_RPATH=OFF
--DModule_BridgeNumPy=ON
--DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/lib/python2.7/site-packages/numpy/core/include
--DITK_USE_FFTWD=ON
--DITK_USE_FFTWF=ON
--DITK_USE_SYSTEM_FFTW=ON
--DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3.a
--DFFTWD_THREADS_LIB=superbuild/build/dir/install/lib/libfftw3_threads.a
--DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f.a
--DFFTWF_THREADS_LIB=superbuild/build/dir/install/lib/libfftw3f_threads.a
--DFFTW_INCLUDE_PATH=superbuild/build/dir/install/include
+docker build -t itk-binary-builder .
+docker run -t -i --rm itk-binary-builder
 ```
 
-Build ITK and install it to `temp/install/dir`.
+This will open a shell inside the container.  At this shell run the following:
 
-Run the following:
 ```
-cd temp/install/dir
-mkdir tmplib
-mv lib tmplib/itk
-mv tmplib lib
+cd ~
+./make_itk_bundle.sh
 ```
 
-This forces the itk installed libraries and such to install into a subfolder of
-the lib folder instead of directly into it.  This makes it easier to find what
-needs installing in the superbuild bundle creation code.
+This will generate the itk binaries to ~/dev/itk/itk-VERSION-linux-64bit.tar.gz.
+You can then use `scp` to put this file where you need the new binary to be.
 
-Then create an archive of the install dir.  Either use zip or:
-```
-tar czf my-tar-file.tar.gz install-of-itk
-```
-
-For Linux, use these instructions but leave out the CMAKE_OSX variables and the RPATH variables
