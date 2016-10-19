@@ -157,26 +157,26 @@ if (WIN32)
   if (64bit_build)
     add_revision(itk
       URL "http://www.tomviz.org/files/itk-4.9.0-windows-64bit.zip"
-      URL_MD5 "f5642d6b96509965d98548b0e917ca36")
+      URL_MD5 "b81cba618d3be3594438d77c92aeb569")
     add_revision(fftw
       URL "http://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
       URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
   else()
     add_revision(itk
       URL "http://www.tomviz.org/files/itk-4.9.0-windows-32bit.zip"
-      URL_MD5 "718d915d0b10409da6db99bafe14a11f")
+      URL_MD5 "d832c9ca9a76acd12cb0f77db7e37e52")
     add_revision(fftw
       URL "http://www.tomviz.org/files/fftw-3.3.4-windows-32bit.zip"
       URL_MD5 "9f58e109b8e7dcdd5640f9397735dd26")
   endif()
 elseif(APPLE)
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.9.0-macosx10.9.tar.gz"
-    URL_MD5 "0058d4ed62893d5f12360e3d13fdf6f1")
+    URL "http://www.tomviz.org/files/itk-v4.9.0-osx-64bit.tar.gz"
+    URL_MD5 "a43736a72ef51a60698119456068dca4")
 elseif(UNIX)
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.9.0patched-linux-64bit.tar.gz"
-    URL_MD5 "cfcc11e1f39ae078519c30084320fbd4")
+    URL "http://www.tomviz.org/files/itk-v4.9.0-linux-64bit.tar.gz"
+    URL_MD5 "573e1dedc9e358e5b1e494ae8edc48d2")
 endif()
 
 set(tbb_ver "2017_20160916oss")
