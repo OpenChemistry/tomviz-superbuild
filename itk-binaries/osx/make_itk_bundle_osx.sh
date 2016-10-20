@@ -60,7 +60,7 @@ make -j8 && make install
 
 cd "$workdir/install"
 mkdir tmp
-mv lib tmp/lib
+mv lib tmp/itk
 mv tmp lib
 
 cd "$workdir"
