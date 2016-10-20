@@ -172,11 +172,11 @@ if (WIN32)
 elseif(APPLE)
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-v4.9.0-osx-64bit.tar.gz"
-    URL_MD5 "a43736a72ef51a60698119456068dca4")
+    URL_MD5 "a55e2b2f63e75bf870b8e34515138d2d")
 elseif(UNIX)
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-v4.9.0-linux-64bit.tar.gz"
-    URL_MD5 "573e1dedc9e358e5b1e494ae8edc48d2")
+    URL_MD5 "d1c2da71474ae49a3980d20e7784f401")
 endif()
 
 set(tbb_ver "2017_20160916oss")
