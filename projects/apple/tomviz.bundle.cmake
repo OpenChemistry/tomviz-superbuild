@@ -1,5 +1,11 @@
 include(tomviz.bundle.common)
 
+# Make the DragNDrop installer look pretty.
+set(CPACK_DMG_BACKGROUND_IMAGE
+  "${CMAKE_CURRENT_LIST_DIR}/files/CMakeDMGBackground.tif")
+set(CPACK_DMG_DS_STORE_SETUP_SCRIPT
+  "${CMAKE_CURRENT_LIST_DIR}/files/CMakeDMGSetup.scpt")
+
 set(CPACK_GENERATOR DragNDrop)
 include(CPack)
 
