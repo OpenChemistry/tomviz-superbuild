@@ -10,7 +10,14 @@ include(ExternalProject)
 # Because of the wrapped and nested way that "make" needs to get called, it's
 # not able to utilize the top level make jobserver so it's -j level must be
 # manually controlled.
-set(PV_MAKE_NCPUS 5 CACHE STRING "Number of make jobs to use for compiling ParaView itself")
+include(ProcessorCount)
+ProcessorCount(N)
+set(_NCPUS 8)
+if(NOT N EQUAL 0)
+  set(_NCPUS ${N})
+endif()
+set(PV_MAKE_NCPUS ${_NCPUS} CACHE STRING
+    "Number of make jobs to use for compiling ParaView itself")
 mark_as_advanced(PV_MAKE_NCPUS)
 
 string(REPLACE ")" "|PROCESS_ENVIRONMENT)"
