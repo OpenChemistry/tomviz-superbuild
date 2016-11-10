@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.3)
 
+if (WIN32 AND CMAKE_VERSION VERSION_LESS 3.6.1)
+  message(FATAL_ERROR "Generating packages on Windows with Visual Studio 2015 requires a CMake version >= 3.6.1")
+endif()
+
 if(NOT WIN32)
   enable_language(Fortran)
 endif()

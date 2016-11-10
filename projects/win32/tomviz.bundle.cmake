@@ -67,6 +67,7 @@ endif()
 
 # install system runtimes.
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION "bin")
+set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
