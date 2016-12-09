@@ -1,14 +1,18 @@
 include(tomviz.bundle.common)
 
-#------------------------------------------------------------------------------
-# set NSIS install specific stuff.
+# CPack WiX support needs the license file to end in .txt inorder to automatically
+# convert to RTF for us
+install(CODE
+  "execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${TomvizSuperbuild_SOURCE_DIR}/LICENSE ${TomvizSuperbuild_BINARY_DIR}/LICENSE.txt )"
+  COMPONENT superbuild)
 
-set (CPACK_NSIS_MENU_LINKS
-  "bin/tomviz.exe" "tomviz")
+configure_file("${TomvizSuperbuild_SOURCE_DIR}/projects/win32/cpack_config_file.cmake.in"
+  "${TomvizSuperbuild_BINARY_DIR}/cpack_config_file.cmake" @ONLY)
+
+set(CPACK_PROJECT_CONFIG_FILE "${TomvizSuperbuild_BINARY_DIR}/cpack_config_file.cmake")
 
 set(CPACK_PACKAGE_EXECUTABLES "tomviz" "tomviz" ${CPACK_PACKAGE_EXECUTABLES})
 set(CPACK_CREATE_DESKTOP_LINKS "tomviz" ${CPACK_CREATE_DESKTOP_LINKS})
-set(CPACK_NSIS_MODIFY_PATH OFF)
 
 set(AppName tomviz)
 
@@ -54,15 +58,8 @@ install(DIRECTORY "${install_location}/lib/tomviz"
 if(itk_ENABLED)
 install(DIRECTORY "${install_location}/lib/itk"
         DESTINATION "lib"
-	USE_SOURCE_PERMISSIONS
-	COMPONENT ${AppName})
-endif()
-
-#------------------------------------------------------------------------------
-set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_LIST_DIR}/InstallerIcon.ico")
-
-if (64bit_build)
-  set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64")
+        USE_SOURCE_PERMISSIONS
+        COMPONENT ${AppName})
 endif()
 
 # install system runtimes.
@@ -71,15 +68,23 @@ set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
+# Build nsis package
 add_test(GenerateTomvizPackage-NSIS
         ${CMAKE_CPACK_COMMAND} -G NSIS
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
+# Build zip
 add_test(GenerateTomvizPackage-ZIP
         ${CMAKE_CPACK_COMMAND} -G ZIP
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
+# Build WIX package
+add_test(GenerateTomvizPackage-WIX
+        ${CMAKE_CPACK_COMMAND} -G WIX
+        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
+
 set_tests_properties(GenerateTomvizPackage-NSIS
                      GenerateTomvizPackage-ZIP
+                     GenerateTomvizPackage-WIX
                      PROPERTIES
                      TIMEOUT 1200)
