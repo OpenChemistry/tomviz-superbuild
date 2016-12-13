@@ -54,7 +54,7 @@ if (qt_ENABLED)
         PATTERN "libboost*" EXCLUDE)
     endif()
   endforeach()
-  install(CODE 
+  install(CODE
 "
 file(WRITE \"\${CMAKE_INSTALL_PREFIX}/bin/qt.conf\"
 \"[Paths]
@@ -81,8 +81,8 @@ install(CODE
 if(itk_ENABLED)
 install(DIRECTORY "${install_location}/lib/itk"
         DESTINATION "lib"
-	USE_SOURCE_PERMISSIONS
-	COMPONENT superbuild)
+        USE_SOURCE_PERMISSIONS
+        COMPONENT superbuild)
 endif()
 
 # install executables
