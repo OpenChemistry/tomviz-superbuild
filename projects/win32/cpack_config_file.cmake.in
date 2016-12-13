@@ -34,4 +34,14 @@ elseif(CPACK_GENERATOR MATCHES "WIX")
 
   set(CPACK_RESOURCE_FILE_LICENSE
     "@CMAKE_CURRENT_BINARY_DIR@/LICENSE.txt")
+
+  # Reset CPACK_PACKAGE_VERSION to deal with WiX restriction.
+  set(CPACK_PACKAGE_VERSION
+    "@tomviz_version_major@.@tomviz_version_minor@")
+  # WIX installers require at most a 4 component version number, where
+  # each component is an integer between 0 and 65534 inclusive
+  set(patch "@tomviz_version_patch@")
+  if(patch MATCHES "^[0-9]+$" AND patch LESS 65535)
+    set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}.${patch}")
+  endif()
 endif()
