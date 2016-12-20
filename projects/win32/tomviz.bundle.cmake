@@ -68,7 +68,12 @@ set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
-# Build nsis package
+# Build WIX package
+add_test(GenerateTomvizPackage-WIX
+        ${CMAKE_CPACK_COMMAND} -G WIX
+        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
+
+# Build NSIS package
 add_test(GenerateTomvizPackage-NSIS
         ${CMAKE_CPACK_COMMAND} -G NSIS
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
@@ -76,11 +81,6 @@ add_test(GenerateTomvizPackage-NSIS
 # Build zip
 add_test(GenerateTomvizPackage-ZIP
         ${CMAKE_CPACK_COMMAND} -G ZIP
-        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
-
-# Build WIX package
-add_test(GenerateTomvizPackage-WIX
-        ${CMAKE_CPACK_COMMAND} -G WIX
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
 set_tests_properties(GenerateTomvizPackage-NSIS

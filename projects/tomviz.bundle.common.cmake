@@ -1,9 +1,10 @@
 # Enable CPack packaging.
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "tomviz")
-set(CPACK_PACKAGE_NAME "tomviz")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Tomviz")
+set(CPACK_PACKAGE_NAME "Tomviz")
 set(CPACK_PACKAGE_VENDOR "Kitware")
 set(CPACK_PACKAGE_VERSION_MAJOR ${tomviz_version_major})
 set(CPACK_PACKAGE_VERSION_MINOR ${tomviz_version_minor})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "tomviz")
 if (tomviz_version_suffix)
   set(CPACK_PACKAGE_VERSION_PATCH ${tomviz_version_patch}-${tomviz_version_suffix})
 else()
