@@ -225,7 +225,9 @@ if __name__ == "__main__":
     print "------------------------------------------------------------"
     print "Copying Qt plugins "
     print "  %s ==> .../Contents/Plugins" % QtPluginsDir
-    commands.getoutput('cp -R "%s/" "%s/Contents/Plugins"' % (QtPluginsDir, App))
+    print commands.getoutput('mkdir "%s/Contents/Plugins"' % App)
+    print commands.getoutput('cp -vR "%s/printsupport" "%s/Contents/Plugins/printsupport"' % (QtPluginsDir, App))
+    print commands.getoutput('cp -vR "%s/platforms" "%s/Contents/Plugins/platforms"' % (QtPluginsDir, App))
 
 
   # Find libraries inside the package already.
