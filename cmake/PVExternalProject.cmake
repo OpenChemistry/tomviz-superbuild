@@ -111,13 +111,7 @@ function (PVExternalProject_Add name)
     if("${build_cmd}" MATCHES "^\\$\\(MAKE\\)")
       # GNU make recognizes the string "$(MAKE)" as recursive make, so
       # ensure that it appears directly in the makefile.
-      if (CROSS_BUILD_STAGE STREQUAL "HOST")
-        string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j${PV_MAKE_NCPUS}" build_cmd "${build_cmd}")
-      else()
-        # Don't do parallel 'make' when cross compiling or building tools for
-        # cross compiling.
-        string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j1" build_cmd "${build_cmd}")
-      endif()
+      string(REGEX REPLACE "^\\$\\(MAKE\\)" "${CMAKE_MAKE_PROGRAM} -j${PV_MAKE_NCPUS}" build_cmd "${build_cmd}")
       set_property(TARGET pv-${name} PROPERTY _EP_BUILD_COMMAND "${build_cmd}")
 
     endif()
