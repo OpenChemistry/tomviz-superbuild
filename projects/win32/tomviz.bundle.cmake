@@ -24,23 +24,6 @@ install(DIRECTORY "${install_location}/share/"
         DESTINATION "share"
         COMPONENT ${AppName})
 
-# install python since (since python dlls are not in the install location)
-if (python_ENABLED AND NOT USE_SYSTEM_python)
-  # install the Python's modules.
-  install(DIRECTORY "${SuperBuild_BINARY_DIR}/python/src/python/Lib"
-          DESTINATION "bin"
-          USE_SOURCE_PERMISSIONS
-          COMPONENT ${AppName})
-
-  # install python dlls.
-  get_filename_component(python_bin_dir "${pv_python_executable}" PATH)
-  install(DIRECTORY "${python_bin_dir}/"
-          DESTINATION "bin"
-          USE_SOURCE_PERMISSIONS
-          COMPONENT ${AppName}
-          FILES_MATCHING PATTERN "python*.dll")
-endif()
-
 # install paraview python modules and others.
 install(DIRECTORY "${install_location}/lib/paraview"
         DESTINATION "lib"
