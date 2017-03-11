@@ -56,8 +56,8 @@ if (WIN32)
   endif ()
 else()
   add_revision(python
-    URL "http://paraview.org/files/v3.98/dependencies/Python-2.7.2.tgz"
-    URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
+    URL "https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz"
+    URL_MD5 "")
 endif()
 
 foreach (fftw3kind float double long quad)
