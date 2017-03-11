@@ -131,8 +131,8 @@ endif()
 
 if (WIN32)
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.9.0-windows-64bit.zip"
-    URL_MD5 "b81cba618d3be3594438d77c92aeb569")
+    URL "http://www.tomviz.org/files/itk-4.11.0-windows-64bit.zip"
+    URL_MD5 "8357ebd1ccce7d2366a96c569e2b3d11")
   add_revision(fftw
     URL "http://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
     URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
