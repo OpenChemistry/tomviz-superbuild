@@ -31,7 +31,7 @@ install(CODE "
     # install all python modules/packages for numpy and pyfftw.
     file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\"
          USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
-         \"${install_location}/lib/python2.7/site-packages/\")
+         \"${install_location}/lib/python3.6/site-packages/\")
 
     if(${itk_ENABLED})
         execute_process(
