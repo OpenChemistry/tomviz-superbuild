@@ -170,9 +170,11 @@ if (WIN32)
       URL_MD5 "9f58e109b8e7dcdd5640f9397735dd26")
   endif()
 elseif(APPLE)
+  set(_itk_sha512 "279263ec2a298db1a0095d9611a5db01872bb2cbc5d226d91d754c3fa576a95aae90a265bc093922c3f8fccef4ad992f97d55c597d7078ce0b7fea98ad4496e8")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-v4.9.0-osx-64bit.tar.gz"
-    URL_MD5 "a55e2b2f63e75bf870b8e34515138d2d")
+    DOWNLOAD_NAME itk-v4.11.0-osx-64bit.tar.gz
+    URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
+    URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-v4.9.0-linux-64bit.tar.gz"
