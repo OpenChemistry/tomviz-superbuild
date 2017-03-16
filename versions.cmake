@@ -170,7 +170,7 @@ if (WIN32)
       URL_MD5 "9f58e109b8e7dcdd5640f9397735dd26")
   endif()
 elseif(APPLE)
-  set(_itk_sha512 "279263ec2a298db1a0095d9611a5db01872bb2cbc5d226d91d754c3fa576a95aae90a265bc093922c3f8fccef4ad992f97d55c597d7078ce0b7fea98ad4496e8")
+  set(_itk_sha512 "00b2073761fb6d456bbaf8883a0362a56c2a49228441408e82d4293b1633072fbcba8b0bed73fb3633c86467352d74dea479c4330098d79316e15e1a2bf3b95a")
   add_revision(itk
     DOWNLOAD_NAME itk-v4.11.0-osx-64bit.tar.gz
     URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
