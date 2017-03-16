@@ -38,9 +38,9 @@ install(CODE "
           COMMAND ${CMAKE_CURRENT_LIST_DIR}/fixup_itk.py
                   \"${install_location}/lib/itk\")
         message(\"Installing ITK\")
-        file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Libraries\"
+        file(INSTALL DESTINATION \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\"
              USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
-             \"${install_location}/lib/itk/\")
+             \"${install_location}/lib/itk/python3.6/site-packages/\")
     endif()
 
     # at this point, the installed bundle should have the libraries that need to
