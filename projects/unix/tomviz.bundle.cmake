@@ -7,11 +7,11 @@ install(DIRECTORY "${install_location}/lib/paraview"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
 
-install(DIRECTORY "${install_location}/lib/python2.7"
+install(DIRECTORY "${install_location}/lib/python3.6"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
-install(DIRECTORY "${install_location}/include/python2.7"
+install(DIRECTORY "${install_location}/include/python3.6"
   DESTINATION "include"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild

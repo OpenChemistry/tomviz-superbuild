@@ -12,6 +12,10 @@ if (QT_XMLPATTERNS_EXECUTABLE)
   list(APPEND tomviz_extra_cmake_args
     -DQT_XMLPATTERNS_EXECUTABLE:FILEPATH=${QT_XMLPATTERNS_EXECUTABLE})
 endif()
+if (APPLE)
+  list(APPEND tomviz_extra_cmake_args
+    -DPYBIND11_PYTHON_VERSION:STRING=3.6)
+endif()
 
 add_external_project(tomviz
   DEPENDS paraview qt
