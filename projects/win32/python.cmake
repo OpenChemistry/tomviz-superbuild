@@ -10,5 +10,4 @@ add_external_project(python
 add_extra_cmake_args(
   -DPYTHON_EXECUTABLE:FILEPATH=<INSTALL_DIR>/bin/python.exe
   -DPYTHON_INCLUDE_DIR:PATH=<INSTALL_DIR>/bin/Include
-  -DPYTHON_LIBRARY:FILEPATH=<INSTALL_DIR>/bin/libs/python36.lib
-  -DVTK_PYTHON_VERSION:STRING=3)
+  -DPYTHON_LIBRARY:FILEPATH=<INSTALL_DIR>/bin/libs/python36.lib)
