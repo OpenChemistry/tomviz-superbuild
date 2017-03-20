@@ -2,7 +2,7 @@ set (_install_location "<INSTALL_DIR>")
 
 set(SCIPY_PROCESS_ENVIRONMENT)
 list(APPEND SCIPY_PROCESS_ENVIRONMENT
-    PYTHONPATH "${_install_location}/lib/python2.7/site-packages")
+    PYTHONPATH "${_install_location}/lib/python3.6/site-packages")
 if(lapack_ENABLED)
   if(USE_SYSTEM_lapack AND NOT LAPACK_FOUND)
     find_package(LAPACK REQUIRED)

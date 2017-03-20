@@ -16,6 +16,12 @@ if (QT_XMLPATTERNS_EXECUTABLE)
     -DQT_XMLPATTERNS_EXECUTABLE:FILEPATH=${QT_XMLPATTERNS_EXECUTABLE})
 endif()
 
+set(_python_version 2)
+
+if(APPLE)
+  set(_python_version 3)
+endif()
+
 add_external_project(paraview
   DEPENDS qt python ffmpeg
   DEPENDS_OPTIONAL tbb png
@@ -31,6 +37,7 @@ add_external_project(paraview
     -DVTK_CUSTOM_LIBRARY_SUFFIX:STRING=
     -DVTK_PYTHON_FULL_THREADSAFE:BOOL=ON
     -DVTK_NO_PYTHON_THREADS:BOOL=OFF
+    -DVTK_PYTHON_VERSION:STRING=${_python_version}
     -DPARAVIEW_QT_VERSION:STRING=5
     -DPARAVIEW_BUILD_QT_GUI:BOOL=ON
     -DPARAVIEW_ENABLE_PYTHON:BOOL=ON

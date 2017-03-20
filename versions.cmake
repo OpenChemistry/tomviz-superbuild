@@ -56,8 +56,8 @@ if (WIN32)
   endif ()
 else()
   add_revision(python
-    URL "http://paraview.org/files/v3.98/dependencies/Python-2.7.2.tgz"
-    URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
+    URL "https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz"
+    URL_MD5 "")
 endif()
 
 foreach (fftw3kind float double long quad)
@@ -170,9 +170,11 @@ if (WIN32)
       URL_MD5 "9f58e109b8e7dcdd5640f9397735dd26")
   endif()
 elseif(APPLE)
+  set(_itk_sha512 "00b2073761fb6d456bbaf8883a0362a56c2a49228441408e82d4293b1633072fbcba8b0bed73fb3633c86467352d74dea479c4330098d79316e15e1a2bf3b95a")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-v4.9.0-osx-64bit.tar.gz"
-    URL_MD5 "a55e2b2f63e75bf870b8e34515138d2d")
+    DOWNLOAD_NAME itk-v4.11.0-osx-64bit.tar.gz
+    URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
+    URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-v4.9.0-linux-64bit.tar.gz"
