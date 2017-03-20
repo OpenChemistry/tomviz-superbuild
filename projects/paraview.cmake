@@ -18,7 +18,7 @@ endif()
 
 set(_python_version 2)
 
-if(APPLE)
+if(APPLE OR WIN32)
   set(_python_version 3)
 endif()
 
