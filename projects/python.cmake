@@ -12,3 +12,9 @@ add_extra_cmake_args(
   -DPYTHON_INCLUDE_DIR:PATH=<INSTALL_DIR>/include/python3.6m
   -DPYTHON_LIBRARY:FILEPATH=<INSTALL_DIR>/lib/libpython3.6m${CMAKE_SHARED_LIBRARY_SUFFIX}
   -DVTK_PYTHON_VERSION:STRING=3)
+
+if (UNIX AND NOT APPLE)
+  # Pass the -rpath flag when building python to avoid issues running the
+  # executable we built.
+  append_flags(LDFLAGS "-Wl,-rpath,${install_location}/lib" PROJECT_ONLY)
+endif()
