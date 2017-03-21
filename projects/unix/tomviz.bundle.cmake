@@ -11,7 +11,7 @@ install(DIRECTORY "${install_location}/lib/python3.6"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
-install(DIRECTORY "${install_location}/include/python3.6"
+install(DIRECTORY "${install_location}/include/python3.6m"
   DESTINATION "include"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild
