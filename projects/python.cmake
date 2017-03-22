@@ -4,6 +4,7 @@ add_external_project_or_use_system(python
                     --prefix=<INSTALL_DIR>
                     --enable-unicode=ucs4
                     --enable-shared
+  PROCESS_ENVIRONMENT MACOSX_DEPLOYMENT_TARGET 10.9
   )
 set (pv_python_executable "${install_location}/bin/python3" CACHE INTERNAL "" FORCE)
 
