@@ -61,8 +61,7 @@ add_test(GenerateTomvizPackage-ZIP
         ${CMAKE_CPACK_COMMAND} -G ZIP
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
-set_tests_properties(GenerateTomvizPackage-NSIS
-                     GenerateTomvizPackage-ZIP
+set_tests_properties(GenerateTomvizPackage-ZIP
                      GenerateTomvizPackage-WIX
                      PROPERTIES
                      TIMEOUT 1200)
