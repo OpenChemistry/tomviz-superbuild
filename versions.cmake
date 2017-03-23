@@ -143,9 +143,11 @@ elseif(APPLE)
     URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
     URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
+  set(_itk_sha512 "2d1aa00026a51bcd9072e45ffbcd4469799d2147147ce03c6d6fe1594edf982855309b63f1805d2a2eda96ca7b51e227d57da1ee3f1663701117f968c65b4a81")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-v4.9.0-linux-64bit.tar.gz"
-    URL_MD5 "d1c2da71474ae49a3980d20e7784f401")
+    DOWNLOAD_NAME itk-v4.11.0-linux-64bit.tar.gz
+    URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
+    URL_HASH SHA512=${_itk_sha512})
 endif()
 
 set(tbb_ver "2017_20160916oss")
