@@ -56,11 +56,6 @@ add_test(GenerateTomvizPackage-WIX
         ${CMAKE_CPACK_COMMAND} -G WIX
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
 
-# Build NSIS package
-add_test(GenerateTomvizPackage-NSIS
-        ${CMAKE_CPACK_COMMAND} -G NSIS
-        WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
-
 # Build zip
 add_test(GenerateTomvizPackage-ZIP
         ${CMAKE_CPACK_COMMAND} -G ZIP
