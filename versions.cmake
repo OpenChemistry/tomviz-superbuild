@@ -130,23 +130,22 @@ else()
 endif()
 
 if (WIN32)
+  set(_itk_sha512 "f53724a3f7eb8758aded361257ec7d581e4efa0e45ee138e4b6a307b4fc2a980100fdc12c82f9ee14ed539459f2f5078a696292e1dba352edbc595b5ac4d85c3")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.11.0-windows-64bit.zip"
-    URL_MD5 "8357ebd1ccce7d2366a96c569e2b3d11")
+    URL "http://www.tomviz.org/files/itk-4.12.0-windows-64bit.zip"
+    URL_HASH SHA512=${_itk_sha512})
   add_revision(fftw
     URL "http://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
     URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
 elseif(APPLE)
-  set(_itk_sha512 "00b2073761fb6d456bbaf8883a0362a56c2a49228441408e82d4293b1633072fbcba8b0bed73fb3633c86467352d74dea479c4330098d79316e15e1a2bf3b95a")
+  set(_itk_sha512 "e08c6626c778a6cc99c05253be41cefb04acf6bcf0f89c46cea9937966ef32d1cf2e69787cab57ac2463a1f375d9ab068d51de829f180652816796ba468127fc")
   add_revision(itk
-    DOWNLOAD_NAME itk-v4.11.0-osx-64bit.tar.gz
-    URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
+    URL "http://www.tomviz.org/files/itk-v4.12.0-osx-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
-  set(_itk_sha512 "2d1aa00026a51bcd9072e45ffbcd4469799d2147147ce03c6d6fe1594edf982855309b63f1805d2a2eda96ca7b51e227d57da1ee3f1663701117f968c65b4a81")
+  set(_itk_sha512 "0686689189b1d855ecbdbc67fab54250267a9d4cc9d57902df87f1ca3f259c0884c17511e95f64715a512b235e84d6deac4db83e2073bbfb79f6f437ba2b7432")
   add_revision(itk
-    DOWNLOAD_NAME itk-v4.11.0-linux-64bit.tar.gz
-    URL "https://data.kitware.com/api/v1/file/hashsum/sha512/${_itk_sha512}/download"
+    URL "http://www.tomviz.org/files/itk-v4.12.0-linux-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 endif()
 

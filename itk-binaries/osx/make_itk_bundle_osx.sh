@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -7,7 +7,7 @@ readonly basedir=$PWD
 readonly cmake_path=/usr/local/bin
 
 readonly itk_url="git://itk.org/ITK.git"
-readonly target_tag="v4.9.0"
+readonly target_tag="v4.12.0"
 
 readonly tvsb_url="https://github.com/OpenChemistry/tomviz-superbuild.git"
 
@@ -16,7 +16,9 @@ readonly workdir="$basedir/dev/itk"
 readonly tvsb_dir="$basedir/dev/tvsb"
 
 mkdir -p "$tvsb_dir/build"
-git clone "${tvsb_url}" "$tvsb_dir/src"
+if [ ! -e "$tvsb_dir/src" ]; then
+	git clone "${tvsb_url}" "$tvsb_dir/src"
+fi
 
 # Build a few dependencies from tomviz superbuild
 # This is to ensure that the ITK is compatible with our numpy and fftw
@@ -26,7 +28,9 @@ $cmake_path/cmake --build .
 
 # Build ITK
 mkdir -p "$workdir/build"
-git clone "${itk_url}" "$workdir/src"
+if [ ! -e "$workdir/src" ]; then
+	git clone "${itk_url}" "$workdir/src"
+fi
 cd "$workdir/src"
 git checkout $target_tag
 cd "$workdir/build"
@@ -42,15 +46,16 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DBUILD_EXAMPLES:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=ON \
   "-DCMAKE_INSTALL_PREFIX:PATH=$workdir/install" \
-  "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python3.6/site-packages/numpy/core/include" \
+  "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python2.7/site-packages/numpy/core/include" \
   "-DFFTWD_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3.a" \
   "-DFFTWD_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3_threads.a" \
   "-DFFTWF_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3f.a" \
   "-DFFTWF_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3f_threads.a" \
   "-DFFTW_INCLUDE_PATH:PATH=$tvsb_dir/build/install/include" \
   -DITK_WRAP_unsigned_short:BOOL=ON \
+  -DITK_USE_SYSTEM_SWIG:BOOL=ON \
   -DCMAKE_OSX_ARCHITECTURES=x86_64 \
-  -DCMAKE_OSX_DEPOLYMENT_TARGET=10.9 \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 \
   -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk \
   -DCMAKE_SKIP_INSTALL_RPATH=OFF \
   -DCMAKE_SKIP_RPATH=OFF \
