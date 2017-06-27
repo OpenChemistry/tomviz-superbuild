@@ -23,7 +23,14 @@ fi
 # Build a few dependencies from tomviz superbuild
 # This is to ensure that the ITK is compatible with our numpy and fftw
 cd "$tvsb_dir/build"
-$cmake_path/cmake -DENABLE_tomviz:BOOL=OFF -DENABLE_tbb:BOOL=OFF -DENABLE_pyfftw:BOOL=ON -DENABLE_numpy:BOOL=ON "$tvsb_dir/src"
+$cmake_path/cmake \
+  -DENABLE_tomviz:BOOL=OFF \
+  -DENABLE_tbb:BOOL=OFF \
+  -DENABLE_pyfftw:BOOL=ON \
+  -DENABLE_numpy:BOOL=ON \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 \
+  "$tvsb_dir/src"
+
 $cmake_path/cmake --build .
 
 # Build ITK
@@ -46,7 +53,10 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DBUILD_EXAMPLES:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=ON \
   "-DCMAKE_INSTALL_PREFIX:PATH=$workdir/install" \
-  "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python2.7/site-packages/numpy/core/include" \
+  "-DPYTHON_LIBRARIES:FILEPATH=$tvsb_dir/build/install/lib/libpython3.6m.dylib" \
+  "-DPYTHON_INCLUDE_DIR:PATH=$tvsb_dir/build/install/include/python3.6m" \
+  "-DPYTHON_EXECUTABLE:FILEPATH=$tvsb_dir/build/install/bin/python3" \
+  "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python3.6/site-packages/numpy/core/include" \
   "-DFFTWD_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3.a" \
   "-DFFTWD_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3_threads.a" \
   "-DFFTWF_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3f.a" \
