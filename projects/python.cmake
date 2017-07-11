@@ -1,10 +1,20 @@
+set(_proc_env "MACOSX_DEPLOYMENT_TARGET 10.9")
+
+# Horrible hack to force the configure step not to find getentropy and clock_gettime.
+# If we build on a version that has these defined ( even as weak symbols ) they will
+# be used and then we will get run time link errors when running on versions that
+# don't actually have them defined ( such as 10.11 )
+if (APPLE)
+ set(_proc_env "${_proc_env} ac_cv_func_getentropy no ac_cv_func_clock_gettime no")
+endif()
+
 add_external_project_or_use_system(python
   DEPENDS zlib
   CONFIGURE_COMMAND <SOURCE_DIR>/configure
                     --prefix=<INSTALL_DIR>
                     --enable-unicode=ucs4
                     --enable-shared
-  PROCESS_ENVIRONMENT MACOSX_DEPLOYMENT_TARGET 10.9
+  PROCESS_ENVIRONMENT ${_proc_env}
   )
 set (pv_python_executable "${install_location}/bin/python3" CACHE INTERNAL "" FORCE)
 
