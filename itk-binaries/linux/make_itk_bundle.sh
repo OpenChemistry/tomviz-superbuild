@@ -39,6 +39,9 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DBUILD_EXAMPLES:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=ON \
   "-DCMAKE_INSTALL_PREFIX:PATH=$workdir/install" \
+  "-DPYTHON_LIBRARIES:FILEPATH=$tvsb_dir/build/install/lib/libpython3.6m.so" \
+  "-DPYTHON_INCLUDE_DIR:PATH=$tvsb_dir/build/install/include/python3.6m" \
+  "-DPYTHON_EXECUTABLE:FILEPATH=$tvsb_dir/build/install/bin/python3" \
   "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python3.6/site-packages/numpy/core/include" \
   "-DFFTWD_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3.a" \
   "-DFFTWD_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3_threads.a" \
@@ -48,7 +51,7 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DITK_WRAP_unsigned_short:BOOL=ON \
   "$workdir/src"
 
-$cmake_path/cmake --build . && make install
+$cmake_path/cmake --build . -- -j8 && make install
 
 cd "$workdir/install"
 mkdir tmp
