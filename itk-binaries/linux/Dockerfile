@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
   xkb-data \
   python-virtualenv \
   pkg-config \
-  libfontconfig1-dev
+  libfontconfig1-dev \
+  vim
 
 RUN useradd -c buildslave -d /home/buildslave -M buildslave &&\
     mkdir /home/buildslave &&\

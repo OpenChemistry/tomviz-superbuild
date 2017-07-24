@@ -130,7 +130,7 @@ else()
 endif()
 
 if (WIN32)
-  set(_itk_sha512 "f53724a3f7eb8758aded361257ec7d581e4efa0e45ee138e4b6a307b4fc2a980100fdc12c82f9ee14ed539459f2f5078a696292e1dba352edbc595b5ac4d85c3")
+  set(_itk_sha512 "de4561f2c9865633d17c63e546800504e9d991e2fefe2a23c27bf3b7d9807a118aa02dfe128af72d7bd4c452dce1dac6fdb53e67dea93963774a59b27628173a")
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-4.12.0-windows-64bit.zip"
     URL_HASH SHA512=${_itk_sha512})
@@ -143,7 +143,7 @@ elseif(APPLE)
     URL "http://www.tomviz.org/files/itk-v4.12.0-osx-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
-  set(_itk_sha512 "0686689189b1d855ecbdbc67fab54250267a9d4cc9d57902df87f1ca3f259c0884c17511e95f64715a512b235e84d6deac4db83e2073bbfb79f6f437ba2b7432")
+  set(_itk_sha512 "39aa2bd22e1e2461656abd8983df7c4487978a5e47de006e9d8d8f3eb48c2db42fb4952d1230e3064e7241c6dd811d8a206b5e16f99fd6ee4aa861d3bd4bc8e6")
   add_revision(itk
     URL "http://www.tomviz.org/files/itk-v4.12.0-linux-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
