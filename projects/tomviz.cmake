@@ -25,6 +25,7 @@ add_external_project(tomviz
     -DParaView_DIR:PATH=${SuperBuild_BINARY_DIR}/paraview/src/paraview-build
     -Dtomviz_data_DIR:PATH=${tomviz_data}
     -DTOMVIZ_DOWNLOAD_WEB:BOOL=ON
+    -DSKIP_PARAVIEW_ITK_PYTHON_CHECKS:BOOL=ON
     ${tomviz_extra_cmake_args}
 
   ENABLED_DEFAULT ON
