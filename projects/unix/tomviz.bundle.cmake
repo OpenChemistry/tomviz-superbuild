@@ -79,10 +79,13 @@ install(CODE
   COMPONENT superbuild)
 
 if(itk_ENABLED)
-install(DIRECTORY "${install_location}/lib/itk"
-        DESTINATION "lib"
-        USE_SOURCE_PERMISSIONS
-        COMPONENT superbuild)
+  install(CODE
+"
+  execute_process(COMMAND
+    ${CMAKE_COMMAND}
+    -E copy_directory ${install_location}/lib/itk \${CMAKE_INSTALL_PREFIX}/lib)
+"
+)
 endif()
 
 # install executables
