@@ -7,7 +7,7 @@
 #   tomviz_version
 #   tomviz_version_long
 
-set(hardcoded_tomviz_version "1.0.1")
+set(hardcoded_tomviz_version "1.1.0")
 
 function(_set_version_vars versiontext)
   string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)[-]*(.*)" version_matches "${versiontext}")
