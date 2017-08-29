@@ -32,13 +32,13 @@ if(tomviz_FROM_SOURCE_DIR)
 
   # First, set the vars using the hard coded version if everything fails.
   _set_version_vars(${hardcoded_tomviz_version})
-  include("${TOMVIZ_SOURCE_DIR}/cmake/Git.cmake" OPTIONAL)
-  include("${TOMVIZ_SOURCE_DIR}/cmake/tomvizDetermineVersion.cmake" OPTIONAL
+  include("${tomviz_SOURCE_DIR}/cmake/Git.cmake" OPTIONAL)
+  include("${tomviz_SOURCE_DIR}/cmake/tomvizDetermineVersion.cmake" OPTIONAL
     RESULT_VARIABLE status)
   if(status)
     message(STATUS "Using git-describe to determine tomviz version")
     # the tomviz module was correctly imported.
-    determine_version("${TOMVIZ_SOURCE_DIR}" "${GIT_EXECUTABLE}" "__TMP")
+    determine_version("${tomviz_SOURCE_DIR}" "${GIT_EXECUTABLE}" "__TMP")
     if(__TMP_VERSION_FULL)
       _set_version_vars(${__TMP_VERSION_FULL})
     endif()
