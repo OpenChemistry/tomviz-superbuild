@@ -50,8 +50,8 @@ if (WIN32)
     URL_MD5 "08c5a23fe5dd095d2aa363816ba25935")
 else()
   add_revision(python
-    URL "https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz"
-    URL_MD5 "")
+    URL "http://www.tomviz.org/files/Python-3.6.0.tgz"
+    URL_MD5 "3f7062ccf8be76491884d0e47ac8b251")
 endif()
 
 foreach (fftw3kind float double long quad)
