@@ -88,6 +88,22 @@ if(itk_ENABLED)
 )
 endif()
 
+# install dependencies of python plugin libraries
+install(CODE
+  "file(GLOB_RECURSE plugin_libs \"${CMAKE_INSTALL_PREFIX}/lib/python3.6/site-packages\" *.so)
+  set(qt_libraries_dir \"${Qt5_DIR}/../../..\")
+  foreach(lib \${plugin_libs})
+    execute_process(COMMAND
+      ${CMAKE_COMMAND}
+        -Dexecutable:PATH=\${lib}
+        -Ddependencies_root:PATH=${install_location}
+        -Dtarget_root:PATH=\${CMAKE_INSTALL_PREFIX}/lib
+        -Dpv_version:STRING=${tomviz_version}
+        -Dqt_root:PATH=${Qt5_DIR}/../../../
+        -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)
+  endforeach()"
+  COMPONENT superbuild)
+
 # install executables
 foreach(executable tomviz)
   install(PROGRAMS "${install_location}/bin/${executable}"
