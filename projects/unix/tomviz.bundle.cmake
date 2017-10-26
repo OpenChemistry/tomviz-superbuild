@@ -88,36 +88,16 @@ if(itk_ENABLED)
 )
 endif()
 
-# install dependencies of numpy libraries
+# install blas and lapack (it is too slow to call the install dependencies script on numpy,
+# it causes the test to time out)
 install(CODE
-  "file(GLOB_RECURSE plugin_libs \"${CMAKE_INSTALL_PREFIX}/lib/python3.6/site-packages/numpy\" *.so)
-  set(qt_libraries_dir \"${Qt5_DIR}/../../..\")
-  foreach(lib \${plugin_libs})
-    execute_process(COMMAND
-      ${CMAKE_COMMAND}
-        -Dexecutable:PATH=\${lib}
-        -Ddependencies_root:PATH=${install_location}
-        -Dtarget_root:PATH=\${CMAKE_INSTALL_PREFIX}/lib
-        -Dpv_version:STRING=${tomviz_version}
-        -Dqt_root:PATH=${Qt5_DIR}/../../../
-        -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)
-  endforeach()"
-  COMPONENT superbuild)
-# install dependencies of scipy libraries
-install(CODE
-  "file(GLOB_RECURSE plugin_libs \"${CMAKE_INSTALL_PREFIX}/lib/python3.6/site-packages/scipy\" *.so)
-  set(qt_libraries_dir \"${Qt5_DIR}/../../..\")
-  foreach(lib \${plugin_libs})
-    execute_process(COMMAND
-      ${CMAKE_COMMAND}
-        -Dexecutable:PATH=\${lib}
-        -Ddependencies_root:PATH=${install_location}
-        -Dtarget_root:PATH=\${CMAKE_INSTALL_PREFIX}/lib
-        -Dpv_version:STRING=${tomviz_version}
-        -Dqt_root:PATH=${Qt5_DIR}/../../../
-        -P ${CMAKE_CURRENT_LIST_DIR}/install_dependencies.cmake)
-  endforeach()"
-  COMPONENT superbuild)
+  "execute_process(COMMAND
+    ${CMAKE_COMMAND}
+    -E copy_if_different ${install_location}/lib/libblas.so \${CMAKE_INSTALL_PREFIX}/lib)
+   execute_process(COMMAND
+    ${CMAKE_COMMAND}
+    -E copy_if_different ${install_location}/lib/liblapack.so \${CMAKE_INSTALL_PREFIX}/lib)"
+)
 
 # install executables
 foreach(executable tomviz)
