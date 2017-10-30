@@ -120,13 +120,16 @@ if (WIN32)
     URL "http://paraview.org/files/dependencies/intel-psxe2015-64-bit-redist.zip"
       URL_MD5 1920a6c593c454ce0f4258aabf5aefe5)
 else()
+  # since the OSX python can't build with SSL unless we add openssl to the superbuild,
+  # these are the linux + osx binaries from PYPI downloaded and uploaded to our dependencies site.
+  # We can download and install them from there
   add_revision(numpy
-    URL "http://paraview.org/files/dependencies/numpy-1.8.1+cmake+static.tar.bz2"
-    URL_MD5 1974dbb4bfa1509e492791a8cd225774)
+    URL "http://www.tomviz.org/files/numpy-1.12.1.tar.gz"
+    URL_HASH "SHA512=ca97bd95e9a1eef9db747a679387aeab8fe14549de57a8fda6e5a411bc7acdd5532414d715aa02be3e4f3dac6f4b465318e6a7d84a759f09c0d3c3a4584aa20e")
 
   add_revision(scipy
-    URL "http://www.paraview.org/files/dependencies/scipy-0.15.1.tar.gz"
-    URL_MD5 be56cd8e60591d6332aac792a5880110)
+    URL "http://www.tomviz.org/files/scipy-0.19.0.tar.gz"
+    URL_HASH "SHA512=904bbd52e76af6303b7dcba0b7fa32925ed43f596ced888a51d79b56994ca9cb5a9cb446d413495fcdbd050f785f72e28a2ea1756c483e804dd8616f8e1e3fd0")
 endif()
 
 if (WIN32)
