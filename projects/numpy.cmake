@@ -1,45 +1,13 @@
-set (_install_location "<INSTALL_DIR>")
-if (WIN32)
-  # numpy build has issues with paths containing "C:". So we set the prefix as a
-  # relative path.
-  set (_install_location "../../../install")
+set(numpy_platform_string "cp36-cp36m-manylinux1_x86_64")
+if (APPLE)
+  set(numpy_platform_string "cp36-cp36m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64")
 endif()
-
-set(NUMPY_PROCESS_ENVIRONMENT)
-if(lapack_ENABLED)
-  if(USE_SYSTEM_lapack AND NOT LAPACK_FOUND)
-    find_package(LAPACK REQUIRED)
-  endif()
-  list(APPEND NUMPY_PROCESS_ENVIRONMENT
-    MKL "None"
-    ATLAS "None"
-    BLAS "<INSTALL_DIR>/lib"
-    LAPACK "<INSTALL_DIR>/lib"
-  )
-endif()
-
-set (numpy_extra_depends)
-if (scipy_ENABLED)
-  set (numpy_extra_depends lapack)
-endif()
-
-# If any variables are set, we must have the PROCESS_ENVIRONMENT keyword
-if(NUMPY_PROCESS_ENVIRONMENT)
-  list(INSERT NUMPY_PROCESS_ENVIRONMENT 0 PROCESS_ENVIRONMENT)
-endif()
-
-# The numpy build system has this amazing "feature" where if LDFLAGS is in the environment
-# the value of the variable *overrides* the internal settings for LDFLAGS.  Even necessary
-# ones like -shared or -lgfortran.
-set(SKIP_LDFLAGS_FOR_BUILD TRUE)
 
 add_external_project(numpy
-  DEPENDS python ${numpy_extra_depends}
+  DEPENDS python
   CONFIGURE_COMMAND ""
   INSTALL_COMMAND
-    ${pv_python_executable} setup.py install --prefix=${_install_location}
+  <INSTALL_DIR>/bin/pip3 install "numpy-1.12.1-${numpy_platform_string}.whl"
   BUILD_IN_SOURCE 1
-  BUILD_COMMAND
-    ${pv_python_executable} setup.py build --fcompiler=${CMAKE_Fortran_COMPILER}
-  ${NUMPY_PROCESS_ENVIRONMENT}
+  BUILD_COMMAND ""
 )
