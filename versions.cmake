@@ -66,8 +66,8 @@ if (WIN32)
     URL_MD5 "c9c60d3f28df1c9d545152734350f9ba")
 else()
   add_revision(pyfftw
-    URL "http://www.paraview.org/files/dependencies/pyFFTW-0.9.2.tar.gz"
-    URL_MD5 34fcbc68afb8ebe5f040a02a8d20d565)
+    URL "https://www.tomviz.org/files/pyFFTW-0.10.4.tar.gz"
+    URL_HASH "SHA512=6848133e30a02ee51bb86613f53a5fdbf9b5a0fea3cab01b8ca7d365f924a966ac9b94f4ed62979d418f9f847369f8c50568ca855e472035fa37e86e630fb9fd" )
 endif()
 
 add_revision(qt
