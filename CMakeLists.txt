@@ -111,7 +111,7 @@ set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH})
 
 # Download some sample data we would like to package
-set(url_prefix "http://openchemistry.org/files/temdata")
+set(url_prefix "https://openchemistry.org/files/temdata")
 file(DOWNLOAD ${url_prefix}/Recon_NanoParticle_doi_10.1021-nl103400a.tif
   ${CMAKE_BINARY_DIR}/Data/Recon_NanoParticle_doi_10.1021-nl103400a.tif
   EXPECTED_MD5 16dcafaaceed9bd29c2de8292bc2c7b8)
