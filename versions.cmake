@@ -9,60 +9,60 @@
 # endif()
 
 add_revision(zlib
-  URL "http://www.paraview.org/files/dependencies/zlib-1.2.7.tar.gz"
+  URL "https://www.paraview.org/files/dependencies/zlib-1.2.7.tar.gz"
   URL_MD5 60df6a37c56e7c1366cca812414f7b85)
 
 add_revision(png
-  URL "http://paraview.org/files/dependencies/libpng-1.4.8.tar.gz"
+  URL "https://paraview.org/files/dependencies/libpng-1.4.8.tar.gz"
   URL_MD5 49c6e05be5fa88ed815945d7ca7d4aa9)
 
 add_revision(freetype
-  URL "http://paraview.org/files/dependencies/freetype-2.4.8.tar.gz"
+  URL "https://paraview.org/files/dependencies/freetype-2.4.8.tar.gz"
   URL_MD5 "5d82aaa9a4abc0ebbd592783208d9c76")
 
 add_revision(fontconfig
-  URL "http://paraview.org/files/dependencies/fontconfig-2.8.0.tar.gz"
+  URL "https://paraview.org/files/dependencies/fontconfig-2.8.0.tar.gz"
   URL_MD5 77e15a92006ddc2adbb06f840d591c0e)
 
 add_revision(libxml2
-  URL "http://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
+  URL "https://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
   URL_MD5 8127a65e8c3b08856093099b52599c86)
 
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
-      URL "http://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win64.tar.bz2"
+      URL "https://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win64.tar.bz2"
       URL_MD5 887217ae04ee9004e2ec121442553259)
   else ()
     add_revision(ffmpeg
-      URL "http://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win32.tar.bz2"
+      URL "https://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win32.tar.bz2"
       URL_MD5 b8b3068699e272789ca02df5c132c05c)
   endif ()
 else ()
   add_revision(ffmpeg
-    URL "http://paraview.org/files/dependencies/ffmpeg-2.3.3.tar.bz2"
+    URL "https://paraview.org/files/dependencies/ffmpeg-2.3.3.tar.bz2"
     URL_MD5 72361d3b8717b6db3ad2b9da8df7af5e)
 endif ()
 
 if (WIN32)
   add_revision(python
-    URL "http://www.tomviz.org/files/python3.6.0.tar.gz"
+    URL "https://www.tomviz.org/files/python3.6.0.tar.gz"
     URL_MD5 "08c5a23fe5dd095d2aa363816ba25935")
 else()
   add_revision(python
-    URL "http://www.tomviz.org/files/Python-3.6.0.tgz"
+    URL "https://www.tomviz.org/files/Python-3.6.0.tgz"
     URL_MD5 "3f7062ccf8be76491884d0e47ac8b251")
 endif()
 
 foreach (fftw3kind float double long quad)
   add_revision(fftw3${fftw3kind}
-    URL "http://www.paraview.org/files/dependencies/fftw-3.3.4.tar.gz"
+    URL "https://www.paraview.org/files/dependencies/fftw-3.3.4.tar.gz"
     URL_MD5 2edab8c06b24feeb3b82bbb3ebf3e7b3)
 endforeach ()
 
 if (WIN32)
   add_revision(pyfftw
-    URL "http://www.tomviz.org/files/pyfftw-0.10.4-win64.zip"
+    URL "https://www.tomviz.org/files/pyfftw-0.10.4-win64.zip"
     URL_MD5 "c9c60d3f28df1c9d545152734350f9ba")
 else()
   add_revision(pyfftw
@@ -106,15 +106,15 @@ else()
 endif()
 
 add_revision(lapack
-  URL "http://paraview.org/files/dependencies/lapack-3.4.2.tgz"
+  URL "https://paraview.org/files/dependencies/lapack-3.4.2.tgz"
   URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
 
 if (WIN32)
   add_revision(numpy
-    URL "http://www.tomviz.org/files/numpy-1.12.1rc1-py3.6-intel-win64.zip"
+    URL "https://www.tomviz.org/files/numpy-1.12.1rc1-py3.6-intel-win64.zip"
     URL_MD5 "a892b14ada262e98a347161618ed74a0")
   add_revision(scipy
-    URL "http://www.tomviz.org/files/scipy-0.19.0rc2-py3.6-intel-win64.zip"
+    URL "https://www.tomviz.org/files/scipy-0.19.0rc2-py3.6-intel-win64.zip"
     URL_MD5 "ea16b40390b91d2581ea569f3f0246c4")
   add_revision(intelredist
     URL "http://paraview.org/files/dependencies/intel-psxe2015-64-bit-redist.zip"
@@ -124,31 +124,31 @@ else()
   # these are the linux + osx binaries from PYPI downloaded and uploaded to our dependencies site.
   # We can download and install them from there
   add_revision(numpy
-    URL "http://www.tomviz.org/files/numpy-1.12.1.tar.gz"
+    URL "https://www.tomviz.org/files/numpy-1.12.1.tar.gz"
     URL_HASH "SHA512=ca97bd95e9a1eef9db747a679387aeab8fe14549de57a8fda6e5a411bc7acdd5532414d715aa02be3e4f3dac6f4b465318e6a7d84a759f09c0d3c3a4584aa20e")
 
   add_revision(scipy
-    URL "http://www.tomviz.org/files/scipy-0.19.0.tar.gz"
+    URL "https://www.tomviz.org/files/scipy-0.19.0.tar.gz"
     URL_HASH "SHA512=904bbd52e76af6303b7dcba0b7fa32925ed43f596ced888a51d79b56994ca9cb5a9cb446d413495fcdbd050f785f72e28a2ea1756c483e804dd8616f8e1e3fd0")
 endif()
 
 if (WIN32)
   set(_itk_sha512 "de4561f2c9865633d17c63e546800504e9d991e2fefe2a23c27bf3b7d9807a118aa02dfe128af72d7bd4c452dce1dac6fdb53e67dea93963774a59b27628173a")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-4.12.0-windows-64bit.zip"
+    URL "https://www.tomviz.org/files/itk-4.12.0-windows-64bit.zip"
     URL_HASH SHA512=${_itk_sha512})
   add_revision(fftw
-    URL "http://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
+    URL "https://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
     URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
 elseif(APPLE)
   set(_itk_sha512 "e08c6626c778a6cc99c05253be41cefb04acf6bcf0f89c46cea9937966ef32d1cf2e69787cab57ac2463a1f375d9ab068d51de829f180652816796ba468127fc")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-v4.12.0-osx-64bit.tar.gz"
+    URL "https://www.tomviz.org/files/itk-v4.12.0-osx-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
   set(_itk_sha512 "39aa2bd22e1e2461656abd8983df7c4487978a5e47de006e9d8d8f3eb48c2db42fb4952d1230e3064e7241c6dd811d8a206b5e16f99fd6ee4aa861d3bd4bc8e6")
   add_revision(itk
-    URL "http://www.tomviz.org/files/itk-v4.12.0-linux-64bit.tar.gz"
+    URL "https://www.tomviz.org/files/itk-v4.12.0-linux-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 endif()
 
@@ -165,6 +165,6 @@ else ()
 endif ()
 
 add_revision(tbb
-  URL "http://www.tomviz.org/files/${tbb_file}"
+  URL "https://www.tomviz.org/files/${tbb_file}"
   URL_MD5 "${tbb_md5}")
 
