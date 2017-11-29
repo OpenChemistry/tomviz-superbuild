@@ -79,7 +79,7 @@ option(USE_PARAVIEW_MASTER "Use ParaView master instead of known ref" OFF)
 if(USE_PARAVIEW_MASTER)
   set(_paraview_revision "master")
 else()
-  # Test the revision with OpenGL2 rendering before updating, update often!
+  # Test the revision locally before proposing a move
   set(_paraview_revision "f700a4d7f32ccb7e31f1da6e6fd1c6188dac2feb")
 endif()
 add_revision(paraview
