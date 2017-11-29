@@ -17,7 +17,7 @@ pull request if you would like us to consider your patch for inclusion.
 
 ![Kitware, Inc.][KitwareLogo]
 
-  [tomviz]: http://tomviz.org/ "The Tomviz project"
+  [tomviz]: https://tomviz.org/ "The Tomviz project"
   [tomviz_logo]: https://github.com/OpenChemistry/tomviz/blob/master/tomviz/icons/tomvizfull.png "tomviz"
   [tomviz_github]: https://github.com/openchemistry/tomviz "The Tomviz repository"
   [Kitware]: http://kitware.com/ "Kitware, Inc."
