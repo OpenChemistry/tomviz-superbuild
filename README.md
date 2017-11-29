@@ -7,7 +7,7 @@ branch, as well as those uploaded in releases. It is not intended to be used
 for development, the Tomviz project features a BUILDING.md file with
 instructions for setting up a development build.
 
-Most development happens in the main [Tomviz repository][tomviz_repo].
+Most development happens in the main [Tomviz repository][tomviz_github].
 
 Contributing
 ------------
