@@ -88,17 +88,6 @@ if(itk_ENABLED)
 )
 endif()
 
-# install blas and lapack (it is too slow to call the install dependencies script on numpy,
-# it causes the test to time out)
-install(CODE
-  "execute_process(COMMAND
-    ${CMAKE_COMMAND}
-    -E copy_if_different ${install_location}/lib/libblas.so \${CMAKE_INSTALL_PREFIX}/lib)
-   execute_process(COMMAND
-    ${CMAKE_COMMAND}
-    -E copy_if_different ${install_location}/lib/liblapack.so \${CMAKE_INSTALL_PREFIX}/lib)"
-)
-
 # install executables
 foreach(executable tomviz)
   install(PROGRAMS "${install_location}/bin/${executable}"
