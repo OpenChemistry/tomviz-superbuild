@@ -7,7 +7,7 @@ add_external_project(numpy
   DEPENDS python
   CONFIGURE_COMMAND ""
   INSTALL_COMMAND
-  <INSTALL_DIR>/bin/pip3 install "numpy-1.12.1-${numpy_platform_string}.whl"
+  <INSTALL_DIR>/bin/pip3 install "numpy-1.14.0-${numpy_platform_string}.whl"
   BUILD_IN_SOURCE 1
   BUILD_COMMAND ""
 )
