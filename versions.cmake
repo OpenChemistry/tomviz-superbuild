@@ -46,12 +46,12 @@ endif ()
 
 if (WIN32)
   add_revision(python
-    URL "https://www.tomviz.org/files/python3.6.0.tar.gz"
-    URL_MD5 "08c5a23fe5dd095d2aa363816ba25935")
+    URL "https://www.tomviz.org/files/python-3.6.4-win64.tar.gz"
+    URL_MD5 "e2a19a33f8e3c0de63f0171a2871e620")
 else()
   add_revision(python
-    URL "https://www.paraview.org/files/dependencies/Python-3.6.3.tgz"
-    URL_MD5 "e9180c69ed9a878a4a8a3ab221e32fa9")
+    URL "https://www.tomviz.org/files/Python-3.6.4.tgz"
+    URL_MD5 "9de6494314ea199e3633211696735f65")
 endif()
 
 foreach (fftw3kind float double long quad)
