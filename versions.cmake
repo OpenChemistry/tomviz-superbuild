@@ -47,7 +47,7 @@ endif ()
 if (WIN32)
   add_revision(python
     URL "https://www.tomviz.org/files/python-3.6.4-win64.tar.gz"
-    URL_MD5 "e2a19a33f8e3c0de63f0171a2871e620")
+    URL_MD5 "2edcf1b7a2df4fe3aa9c9aee6a6a353e")
 else()
   add_revision(python
     URL "https://www.tomviz.org/files/Python-3.6.4.tgz"
