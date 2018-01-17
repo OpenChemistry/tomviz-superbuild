@@ -31,3 +31,5 @@ if (UNIX AND NOT APPLE)
   # executable we built.
   append_flags(LDFLAGS "-Wl,-rpath,${install_location}/lib" PROJECT_ONLY)
 endif()
+
+set (python_pip_executable "<INSTALL_DIR>/bin/pip3" CACHE INTERNAL "" FORCE)

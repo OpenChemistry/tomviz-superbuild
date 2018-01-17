@@ -46,12 +46,12 @@ endif ()
 
 if (WIN32)
   add_revision(python
-    URL "https://www.tomviz.org/files/python3.6.0.tar.gz"
-    URL_MD5 "08c5a23fe5dd095d2aa363816ba25935")
+    URL "https://www.tomviz.org/files/python-3.6.4-win64.tar.gz"
+    URL_MD5 "e2a19a33f8e3c0de63f0171a2871e620")
 else()
   add_revision(python
-    URL "https://www.tomviz.org/files/Python-3.6.0.tgz"
-    URL_MD5 "3f7062ccf8be76491884d0e47ac8b251")
+    URL "https://www.tomviz.org/files/Python-3.6.4.tgz"
+    URL_MD5 "9de6494314ea199e3633211696735f65")
 endif()
 
 foreach (fftw3kind float double long quad)
@@ -109,28 +109,16 @@ add_revision(lapack
   URL "https://paraview.org/files/dependencies/lapack-3.4.2.tgz"
   URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
 
-if (WIN32)
-  add_revision(numpy
-    URL "https://www.tomviz.org/files/numpy-1.12.1rc1-py3.6-intel-win64.zip"
-    URL_MD5 "a892b14ada262e98a347161618ed74a0")
-  add_revision(scipy
-    URL "https://www.tomviz.org/files/scipy-0.19.0rc2-py3.6-intel-win64.zip"
-    URL_MD5 "ea16b40390b91d2581ea569f3f0246c4")
-  add_revision(intelredist
-    URL "http://paraview.org/files/dependencies/intel-psxe2015-64-bit-redist.zip"
-      URL_MD5 1920a6c593c454ce0f4258aabf5aefe5)
-else()
   # since the OSX python can't build with SSL unless we add openssl to the superbuild,
   # these are the linux + osx binaries from PYPI downloaded and uploaded to our dependencies site.
   # We can download and install them from there
   add_revision(numpy
-    URL "https://www.tomviz.org/files/numpy-1.12.1.tar.gz"
-    URL_HASH "SHA512=ca97bd95e9a1eef9db747a679387aeab8fe14549de57a8fda6e5a411bc7acdd5532414d715aa02be3e4f3dac6f4b465318e6a7d84a759f09c0d3c3a4584aa20e")
+    URL "https://www.tomviz.org/files/numpy-1.14.0-python3.6.tar.gz"
+    URL_HASH "SHA512=41d8bd3e83072f2040af5d995e3700aaec431f021f56c40a364f3679baa38ca3c6e66dd51749d116461ffc425c8e1f0c5c2050b3f2e1760d60d7c74744e60db2")
 
   add_revision(scipy
-    URL "https://www.tomviz.org/files/scipy-0.19.0.tar.gz"
-    URL_HASH "SHA512=904bbd52e76af6303b7dcba0b7fa32925ed43f596ced888a51d79b56994ca9cb5a9cb446d413495fcdbd050f785f72e28a2ea1756c483e804dd8616f8e1e3fd0")
-endif()
+    URL "https://www.tomviz.org/files/scipy-1.0.0-python3.6.tar.gz"
+    URL_HASH "SHA512=b76907671015e23f3f2837c165eb055533dd9ea58cf36f82af49607012ddf44ed761fab697d3a86819faac7479a1ea3b55e91066c86974ae55b3679c81cfb870")
 
 if (WIN32)
   set(_itk_sha512 "de4561f2c9865633d17c63e546800504e9d991e2fefe2a23c27bf3b7d9807a118aa02dfe128af72d7bd4c452dce1dac6fdb53e67dea93963774a59b27628173a")
