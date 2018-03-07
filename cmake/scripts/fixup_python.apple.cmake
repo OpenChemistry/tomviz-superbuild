@@ -28,7 +28,8 @@ function (superbuild_apple_install_python_module destination module search_paths
     elseif (EXISTS "${search_path}/${module}/__init__.py")
       file(GLOB modules "${search_path}/${module}/*.py" "${search_path}/${module}/*.so")
       foreach (submodule IN LISTS modules)
-        get_filename_component(submodule_name "${submodule}" NAME_WE)
+        get_filename_component(submodule_name "${submodule}" NAME)
+        string(REGEX REPLACE "\\.(py|so)$" "" submodule_name "${submodule_name}")
         superbuild_apple_install_python_module("${destination}"
           "${submodule_name}" "${search_path}/${module}" "${location}/${module}")
       endforeach ()
