@@ -222,6 +222,10 @@ class Library(object):
         if self._dependencies is None:
             collection = {}
             for dep in self._get_dependencies():
+                # scipy's fortran libraries link to themselves under /DNC... ignore these
+                # since I trust the wheels from PYPI to work.
+                if dep.startswith("/DLC"):
+                    continue
                 deplib = Library.create_from_reference(dep, self)
                 if deplib is not None and \
                    not deplib.path == self.path:
