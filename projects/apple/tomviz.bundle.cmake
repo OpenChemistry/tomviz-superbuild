@@ -57,12 +57,6 @@ install(CODE
     COMMAND ${CMAKE_CURRENT_LIST_DIR}/fixup_itk.py \"${superbuild_install_location}/lib/itk\")"
   COMPONENT superbuild)
 
-# ITK dumps a bunch of stuff in the root site_packages directory.  I've factored this list out
-# into its own file since it is huge.  This will need changing if we enable more of ITK.
-# This include brings in one variable: itk_python_modules which is a list of all the root ITK
-# python modules.
-include(itk_list)
-
 superbuild_apple_install_python(
   "\${CMAKE_INSTALL_PREFIX}"
   "tomviz.app"
@@ -71,7 +65,7 @@ superbuild_apple_install_python(
           pygments
 	  vtk
 	  vtkmodules
-          ${itk_python_modules}
+          itk
           pyfftw
           numpy
           scipy
@@ -84,6 +78,20 @@ superbuild_apple_install_python(
   SEARCH_DIRECTORIES
 	  "${superbuild_install_location}/Applications/paraview.app/Contents/Libraries"
 	  "${superbuild_install_location}/lib")
+
+# ITK dumps a bunch of stuff in the root site_packages directory.  Install these extra files.
+# This glob is a reason to keep our reorganization of ITK's install tree (move lib in the itk
+# install tree to itk/lib before putting it in with the other stuff.
+# Otherwise who knows what this glob might grab.
+install(CODE
+  "
+  file(GLOB itk_extra_files \"${superbuild_install_location}/lib/itk/python3.6/site-packages/*.py\")
+  foreach(itk_extra_file \${itk_extra_files})
+    file(INSTALL \${itk_extra_file}
+      DESTINATION \"\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\")
+  endforeach()
+  "
+  COMPONENT superbuild)
 
 # This directory is not a python module (no __init__.py) so it is skipped by the packaging script
 # as not important (junk like numpy's headers).  However, ITK's python interface is completely broken
