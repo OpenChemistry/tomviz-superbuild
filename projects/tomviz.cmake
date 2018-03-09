@@ -17,6 +17,12 @@ if (UNIX)
     -DPYBIND11_PYTHON_VERSION:STRING=3.6)
 endif()
 
+# The new fixup bundle correctly handles RPATHs... if the binary/module has them correctly set
+if (APPLE)
+  list(APPEND tomviz_extra_cmake_args
+    -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON)
+endif()
+
 add_external_project(tomviz
   DEPENDS paraview qt
 
