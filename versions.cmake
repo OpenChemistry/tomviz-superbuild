@@ -80,7 +80,7 @@ if(USE_PARAVIEW_MASTER)
   set(_paraview_revision "master")
 else()
   # Test the revision locally before proposing a move
-  set(_paraview_revision "v5.5.0")
+  set(_paraview_revision "ae4263019d571691dc88ca41da8e85f761cceea0")
 endif()
 add_revision(paraview
   GIT_REPOSITORY "https://gitlab.kitware.com/paraview/paraview.git"
