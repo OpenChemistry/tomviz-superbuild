@@ -78,6 +78,17 @@ install(CODE
   endforeach()"
   COMPONENT superbuild)
 
+# This is a hack to install fontconfig.  The above install dependencies does not get it
+# even though it is a dependency of the libqxcb platform plugin.  We should figure out why
+# the above doesn't find and install fontconfig since this could break at some point in
+# the future.
+install(DIRECTORY "${Qt5_DIR}/../../"
+  DESTINATION "lib"
+  COMPONENT superbuild
+  FILES_MATCHING
+  PATTERN "*/" EXCLUDE
+  PATTERN "libfontconfig.so.*")
+
 if(itk_ENABLED)
   install(CODE
 "
