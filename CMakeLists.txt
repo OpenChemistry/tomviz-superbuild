@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.3)
-
-if (WIN32 AND CMAKE_VERSION VERSION_LESS 3.6.1)
-  message(FATAL_ERROR "Generating packages on Windows with Visual Studio 2015 requires a CMake version >= 3.6.1")
-endif()
+cmake_minimum_required(VERSION 3.6.1)
+# We need  3.6.1 as opposed to 3.6.0 on Windows
+# and we need 3.6 everywhere for a recursive submodules fix
+# since ParaView now requires VTKm.  So I'm setting the minimum
+# to 3.6.1 everywhere
 
 if(NOT WIN32)
   enable_language(Fortran)
