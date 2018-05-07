@@ -98,7 +98,7 @@ if (tomviz_FROM_GIT)
   # Download tomviz from GIT
   add_customizable_revision(tomviz
     GIT_REPOSITORY https://github.com/openchemistry/tomviz.git
-    GIT_TAG "master")
+    GIT_TAG "1.3.0")
 else()
   if (tomviz_FROM_SOURCE_DIR)
     add_customizable_revision(tomviz
