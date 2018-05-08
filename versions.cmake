@@ -94,6 +94,8 @@ cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
   "Enable to use existing tomviz source."
   "NOT tomviz_FROM_GIT" OFF)
 
+# Force to build from a git tag for releases.
+set(tomviz_FROM_GIT ON)
 if (tomviz_FROM_GIT)
   # Download tomviz from GIT
   add_customizable_revision(tomviz
