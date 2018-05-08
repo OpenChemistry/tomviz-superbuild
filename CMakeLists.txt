@@ -172,6 +172,15 @@ if(WIN32)
   endif()
 endif()
 
+# Set from the top-level so that they can be changed more easily.
+option(tomviz_FROM_GIT "If enabled Tomviz will be cloned using git" ON)
+cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
+  "Enable to use existing tomviz source."
+  "NOT tomviz_FROM_GIT" OFF)
+
+# Force to build from a git tag for releases.
+set(tomviz_FROM_GIT ON)
+
 #-----------------------------------------------------------------------------
 include(ParaViewModules)
 include(versions)
