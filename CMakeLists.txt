@@ -87,15 +87,6 @@ elseif(WIN32)
   set(platform "win32")
 endif()
 
-# Set suffix to be used for generating archives. This ensures that the package
-# files have decent names that we can directly upload to the website.
-set(package_suffix "${CMAKE_SYSTEM_NAME}")
-if(64bit_build)
-  set(package_suffix "${package_suffix}-64bit")
-else()
-  set(package_suffix "${package_suffix}-32bit")
-endif()
-
 # Setup CMAKE_MODULE_PATH so that platform specific configurations are processed
 # before the generic ones.
 set(tomviz_MODULE_PATH)
