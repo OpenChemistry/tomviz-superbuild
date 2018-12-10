@@ -170,7 +170,7 @@ cmake_dependent_option(tomviz_FROM_SOURCE_DIR OFF
   "NOT tomviz_FROM_GIT" OFF)
 
 # Force to build from a git tag for releases.
-set(tomviz_FROM_GIT ON)
+# set(tomviz_FROM_GIT ON)
 
 #-----------------------------------------------------------------------------
 include(ParaViewModules)
