@@ -103,11 +103,11 @@ set(CMAKE_MODULE_PATH
 
 # Download some sample data we would like to package
 set(url_prefix "https://openchemistry.org/files/temdata")
-file(DOWNLOAD ${url_prefix}/Recon_NanoParticle_doi_10.1021-nl103400a.tif
-  ${CMAKE_BINARY_DIR}/Data/Recon_NanoParticle_doi_10.1021-nl103400a.tif
+file(DOWNLOAD ${url_prefix}/Recon_NanoParticle_doi_10.1021-nl103400a.emd
+  ${CMAKE_BINARY_DIR}/Data/Recon_NanoParticle_doi_10.1021-nl103400a.emd
   EXPECTED_MD5 16dcafaaceed9bd29c2de8292bc2c7b8)
-file(DOWNLOAD ${url_prefix}/TiltSeries_NanoParticle_doi_10.1021-nl103400a.tif
-  ${CMAKE_BINARY_DIR}/Data/TiltSeries_NanoParticle_doi_10.1021-nl103400a.tif
+file(DOWNLOAD ${url_prefix}/TiltSeries_NanoParticle_doi_10.1021-nl103400a.emd
+  ${CMAKE_BINARY_DIR}/Data/TiltSeries_NanoParticle_doi_10.1021-nl103400a.emd
   EXPECTED_MD5 1191ef22b9ab570d891b14e4ee672373)
 set(tomviz_data ${CMAKE_BINARY_DIR}/Data)
 
