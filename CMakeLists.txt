@@ -105,10 +105,10 @@ set(CMAKE_MODULE_PATH
 set(url_prefix "https://openchemistry.org/files/temdata")
 file(DOWNLOAD ${url_prefix}/Recon_NanoParticle_doi_10.1021-nl103400a.emd
   ${CMAKE_BINARY_DIR}/Data/Recon_NanoParticle_doi_10.1021-nl103400a.emd
-  EXPECTED_MD5 16dcafaaceed9bd29c2de8292bc2c7b8)
+  EXPECTED_MD5 880ddb1417698d2f4aa675ceab374259)
 file(DOWNLOAD ${url_prefix}/TiltSeries_NanoParticle_doi_10.1021-nl103400a.emd
   ${CMAKE_BINARY_DIR}/Data/TiltSeries_NanoParticle_doi_10.1021-nl103400a.emd
-  EXPECTED_MD5 1191ef22b9ab570d891b14e4ee672373)
+  EXPECTED_MD5 ce213127ca2ae9624d51a36e11b5a7eb)
 set(tomviz_data ${CMAKE_BINARY_DIR}/Data)
 
 # Setup some standard variables that control various locations and flags.
