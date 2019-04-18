@@ -80,7 +80,7 @@ if(USE_PARAVIEW_MASTER)
   set(_paraview_revision "master")
 else()
   # Test the revision locally before proposing a move
-  set(_paraview_revision "13d89b983295f890eb80a5b12ea6b0f0f1988fd2")
+  set(_paraview_revision "e18817ab55ee31a7533e84ab139ba7430e38d500")
 endif()
 # Locally patched ParaView repo, or main repo
 #set(_paraview_repo "https://gitlab.kitware.com/paraview/paraview.git")
