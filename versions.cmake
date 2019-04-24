@@ -31,9 +31,10 @@ add_revision(libxml2
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
-      URL "https://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win64.tar.bz2"
-      URL_MD5 887217ae04ee9004e2ec121442553259)
+      URL "https://openchemistry.org/files/tpl/ffmpeg-2.8.15-vs2015-x64.tar.gz"
+      URL_MD5 08da7cb4828c53d8c6985ee378bb7ed9)
   else ()
+    # The one below probably won't work... may need to build another
     add_revision(ffmpeg
       URL "https://paraview.org/files/dependencies/ffmpeg-kitware-20150514gitbc25918-win32.tar.bz2"
       URL_MD5 b8b3068699e272789ca02df5c132c05c)
