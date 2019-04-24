@@ -69,9 +69,10 @@ add_external_project(paraview
 
     ${paraview_extra_cmake_args}
 
-    # specify the apple app install prefix. No harm in specifying it for all
-    # platforms.
+    # Specify the apple app install prefix. No harm in specifying it for all
+    # platforms but will only affect macOS, same with install name dir.
     -DMACOSX_APP_INSTALL_PREFIX:PATH=<INSTALL_DIR>/Applications
+    -DCMAKE_INSTALL_NAME_DIR=<INSTALL_DIR>/lib
 
   LIST_SEPARATOR +
 )
