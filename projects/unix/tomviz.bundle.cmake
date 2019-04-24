@@ -1,8 +1,8 @@
 include(tomviz.bundle.common)
 include(CPack)
 
-# Install all ParaView's shared libraries.
-install(DIRECTORY "${install_location}/lib"
+# Install Python libratries and includes.
+install(DIRECTORY "${install_location}/lib/python3.6"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
