@@ -1,7 +1,7 @@
 include(tomviz.bundle.common)
 include(CPack)
 
-# install all ParaView's shared libraries.
+# Install all ParaView's shared libraries.
 install(DIRECTORY "${install_location}/lib"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
@@ -12,6 +12,12 @@ install(DIRECTORY "${install_location}/include/python3.6m"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild
   PATTERN "pyconfig.h")
+
+# Install tomviz's python modules.
+install(DIRECTORY "${install_location}/lib/tomviz"
+  DESTINATION "lib"
+  USE_SOURCE_PERMISSIONS
+  COMPONENT superbuild)
 
 install(DIRECTORY "${install_location}/share/tomviz"
   DESTINATION "share"
