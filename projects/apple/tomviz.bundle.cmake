@@ -101,6 +101,7 @@ install(DIRECTORY "${superbuild_install_location}/lib/itk/python3.6/site-package
   COMPONENT superbuild)
 
 file(GLOB qt5_plugin_paths
+ "${Qt5_DIR}/../../../plugins/styles/*.dylib"
  "${Qt5_DIR}/../../../plugins/platforms/*.dylib"
  "${Qt5_DIR}/../../../plugins/printsupport/*.dylib")
 foreach (qt5_plugin_path IN LISTS qt5_plugin_paths)

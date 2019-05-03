@@ -44,3 +44,8 @@ get_target_property(qtWindowsPluginLocation Qt5::QWindowsIntegrationPlugin LOCAT
 install(FILES ${qtWindowsPluginLocation}
         DESTINATION "bin/platforms"
         COMPONENT "tomviz")
+
+get_target_property(qtWindowsStyleLocation Qt5::QWindowsVistaStylePlugin LOCATION)
+install(FILES ${qtWindowsStyleLocation}
+        DESTINATION "bin/styles"
+        COMPONENT "tomviz")
