@@ -28,6 +28,10 @@ add_revision(libxml2
   URL "https://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
   URL_MD5 8127a65e8c3b08856093099b52599c86)
 
+add_revision(hdf5
+  URL "https://www.paraview.org/files/dependencies/hdf5-1.10.3.tar.bz2"
+  URL_MD5 56c5039103c51a40e493b43c504ce982)
+
 add_revision(cython
   URL "https://www.tomviz.org/files/Cython-0.29.7.tar.gz"
   URL_MD5 24f6a7e0e6691fbecf5880f38cdf880e)
