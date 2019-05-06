@@ -43,7 +43,7 @@ install(
 # Install the core python modules we got when building python itself (this skips site-packages
 # since that is covered later.
 install(
-  DIRECTORY "${superbuild_install_location}/lib/python3.6/"
+  DIRECTORY "${superbuild_install_location}/lib/python3.7/"
   DESTINATION "tomviz.app/Contents/Python"
   COMPONENT superbuild
   PATTERN "site-packages/*" EXCLUDE
@@ -73,8 +73,8 @@ superbuild_apple_install_python(
   MODULE_DIRECTORIES
 	  "${superbuild_install_location}/Applications/paraview.app/Contents/Python"
 	  "${superbuild_install_location}/Applications/tomviz.app/Contents/Python"
-	  "${superbuild_install_location}/lib/python3.6/site-packages"
-	  "${superbuild_install_location}/lib/itk/python3.6/site-packages"
+	  "${superbuild_install_location}/lib/python3.7/site-packages"
+	  "${superbuild_install_location}/lib/itk/python3.7/site-packages"
   SEARCH_DIRECTORIES
 	  "${superbuild_install_location}/Applications/paraview.app/Contents/Libraries"
 	  "${superbuild_install_location}/lib")
@@ -85,7 +85,7 @@ superbuild_apple_install_python(
 # Otherwise who knows what this glob might grab.
 install(CODE
   "
-  file(GLOB itk_extra_files \"${superbuild_install_location}/lib/itk/python3.6/site-packages/*.py\")
+  file(GLOB itk_extra_files \"${superbuild_install_location}/lib/itk/python3.7/site-packages/*.py\")
   foreach(itk_extra_file \${itk_extra_files})
     file(INSTALL \${itk_extra_file}
       DESTINATION \"\${CMAKE_INSTALL_PREFIX}/tomviz.app/Contents/Python/\")
@@ -96,7 +96,7 @@ install(CODE
 # This directory is not a python module (no __init__.py) so it is skipped by the packaging script
 # as not important (junk like numpy's headers).  However, ITK's python interface is completely broken
 # without it.
-install(DIRECTORY "${superbuild_install_location}/lib/itk/python3.6/site-packages/itk/Configuration"
+install(DIRECTORY "${superbuild_install_location}/lib/itk/python3.7/site-packages/itk/Configuration"
   DESTINATION "tomviz.app/Contents/Python/itk/"
   COMPONENT superbuild)
 

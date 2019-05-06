@@ -14,7 +14,7 @@ if (QT_XMLPATTERNS_EXECUTABLE)
 endif()
 if (UNIX)
   list(APPEND tomviz_extra_cmake_args
-    -DPYBIND11_PYTHON_VERSION:STRING=3.6)
+    -DPYBIND11_PYTHON_VERSION:STRING=3.7)
 endif()
 
 # The new fixup bundle correctly handles RPATHs... if the binary/module has them correctly set
