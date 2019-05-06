@@ -112,11 +112,11 @@ add_revision(lapack
   # these are the linux + osx binaries from PYPI downloaded and uploaded to our dependencies site.
   # We can download and install them from there
   add_revision(numpy
-    URL "https://www.tomviz.org/files/numpy-1.14.0-python3.7.tar.gz"
+    URL "https://www.tomviz.org/files/numpy-1.16.3-python3.7.tar.gz"
     URL_HASH "SHA512=41d8bd3e83072f2040af5d995e3700aaec431f021f56c40a364f3679baa38ca3c6e66dd51749d116461ffc425c8e1f0c5c2050b3f2e1760d60d7c74744e60db2")
 
   add_revision(scipy
-    URL "https://www.tomviz.org/files/scipy-1.0.0-python3.7.tar.gz"
+    URL "https://www.tomviz.org/files/scipy-1.2.1-python3.7.tar.gz"
     URL_HASH "SHA512=b76907671015e23f3f2837c165eb055533dd9ea58cf36f82af49607012ddf44ed761fab697d3a86819faac7479a1ea3b55e91066c86974ae55b3679c81cfb870")
 
 if (WIN32)
