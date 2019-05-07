@@ -28,6 +28,10 @@ add_revision(libxml2
   URL "https://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
   URL_MD5 8127a65e8c3b08856093099b52599c86)
 
+add_revision(cython
+  URL "https://www.tomviz.org/files/Cython-0.29.7.tar.gz"
+  URL_MD5 24f6a7e0e6691fbecf5880f38cdf880e)
+
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
