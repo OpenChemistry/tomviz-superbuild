@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   git \
   libcurl4-openssl-dev \
   curl \
+  libffi-dev \
   libxt-dev \
   libx11-dev \
   libglu1-mesa-dev \
