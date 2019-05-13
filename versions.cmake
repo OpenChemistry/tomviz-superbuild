@@ -131,6 +131,10 @@ add_revision(lapack
     URL "https://www.tomviz.org/files/scipy-1.2.1-python3.7.tar.gz"
     URL_HASH "SHA512=dba897c118d3fc7bb70c9168daf6070a05c6447f12f34dffd3240e2fa22648d120348284e407552032a008e86c6d28e7d990fd007587dc317e5d77dfcaeaba5c")
 
+add_revision(h5py
+  URL     "https://files.pythonhosted.org/packages/43/27/a6e7dcb8ae20a4dbf3725321058923fec262b6f7835179d78ccc8d98deec/h5py-2.9.0.tar.gz"
+  URL_MD5 d5cdd7248398d8f66119b27171ebf4e1)
+
 if (WIN32)
   set(_itk_sha512 "5a7c6b5d7df57f244c0c5dda56debbab025ed503baf9201505d1c437fba0cc89145a475225db0eb5dc9e7bdb116f77bf7caff3d948fa9fab1b51753135d7be0b")
   add_revision(itk
