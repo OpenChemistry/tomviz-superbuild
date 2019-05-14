@@ -186,6 +186,9 @@ configure_file(
 #-----------------------------------------------------------------------------
 set(CM_PROJECTS_ALL)
 
+# Python projects may use this
+include(SuperbuildAddProjectPython)
+
 # Include all optional projects. These are the ones user can pick and choose.
 # Some of these allow using system libraries too.
 include(zlib)
