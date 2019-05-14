@@ -260,6 +260,7 @@ endmacro()
 #------------------------------------------------------------------------------
 macro(enable_project name needed-by)
   set (${name}_ENABLED TRUE CACHE INTERNAL "" FORCE)
+  set (ENABLE_${name} TRUE)
   list (APPEND ${name}_NEEDED_BY "${needed-by}")
 endmacro()
 
