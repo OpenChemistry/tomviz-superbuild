@@ -13,5 +13,14 @@ add_extra_cmake_args(
   -DHDF5_ROOT:PATH=<INSTALL_DIR>
   -DHDF5_NO_FIND_PACKAGE_CONFIG_FILE:BOOL=ON)
 
-#superbuild_apply_patch(hdf5 fix-ext-pkg-find
-#  "Force proper logic for zlib and szip dependencies")
+set(_patch hdf5-fix-ext-pkg-find.patch)
+add_external_project_step("${_patch}"
+  COMMAND "${GIT_EXECUTABLE}"
+          apply
+          --whitespace=fix
+          -p1
+          "${SuperBuild_PROJECTS_DIR}/patches/${_patch}"
+  WORKING_DIRECTORY <SOURCE_DIR>
+  DEPENDEES update # do after update
+  DEPENDERS patch  # do before patch
+)
