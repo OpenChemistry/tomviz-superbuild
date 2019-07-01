@@ -5,7 +5,7 @@ set -e
 readonly cmake_path=/home/buildslave/misc/root/cmake/bin
 
 readonly itk_url="git://itk.org/ITK.git"
-readonly target_tag="v4.12.0"
+readonly target_tag="v5.0.0"
 
 readonly tvsb_url="https://github.com/OpenChemistry/tomviz-superbuild.git"
 
