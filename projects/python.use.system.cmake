@@ -1,5 +1,5 @@
-find_package(PythonLibs 3.6 REQUIRED)
-find_package(PythonInterp 3.6 REQUIRED)
+find_package(PythonLibs 3.7 REQUIRED)
+find_package(PythonInterp 3.7 REQUIRED)
 
 # This will add PYTHON_LIBRARY, PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR
 # variables. User can set/override these to change the Python being used.

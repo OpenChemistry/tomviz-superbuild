@@ -2,12 +2,12 @@ include(tomviz.bundle.common)
 include(CPack)
 
 # Install Python libratries and includes.
-install(DIRECTORY "${install_location}/lib/python3.6"
+install(DIRECTORY "${install_location}/lib/python3.7"
   DESTINATION "lib"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild)
 
-install(DIRECTORY "${install_location}/include/python3.6m"
+install(DIRECTORY "${install_location}/include/python3.7m"
   DESTINATION "include"
   USE_SOURCE_PERMISSIONS
   COMPONENT superbuild

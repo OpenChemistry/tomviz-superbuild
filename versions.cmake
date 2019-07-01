@@ -28,6 +28,10 @@ add_revision(libxml2
   URL "https://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
   URL_MD5 8127a65e8c3b08856093099b52599c86)
 
+add_revision(cython
+  URL "https://www.tomviz.org/files/Cython-0.29.7.tar.gz"
+  URL_MD5 24f6a7e0e6691fbecf5880f38cdf880e)
+
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
@@ -47,12 +51,12 @@ endif ()
 
 if (WIN32)
   add_revision(python
-    URL "https://www.tomviz.org/files/python-3.6.4-win64.tar.gz"
-    URL_MD5 "2edcf1b7a2df4fe3aa9c9aee6a6a353e")
+    URL "https://www.tomviz.org/files/python-3.7.3-win64.tar.gz"
+    URL_MD5 "0b0372c946b690c94afc429f1fd21710")
 else()
   add_revision(python
-    URL "https://www.tomviz.org/files/Python-3.6.4.tgz"
-    URL_MD5 "9de6494314ea199e3633211696735f65")
+    URL "https://www.tomviz.org/files/Python-3.7.3.tgz"
+    URL_MD5 "2ee10f25e3d1b14215d56c3882486fcf")
 endif()
 
 foreach (fftw3kind float double long quad)
@@ -112,12 +116,12 @@ add_revision(lapack
   # these are the linux + osx binaries from PYPI downloaded and uploaded to our dependencies site.
   # We can download and install them from there
   add_revision(numpy
-    URL "https://www.tomviz.org/files/numpy-1.14.0-python3.6.tar.gz"
-    URL_HASH "SHA512=41d8bd3e83072f2040af5d995e3700aaec431f021f56c40a364f3679baa38ca3c6e66dd51749d116461ffc425c8e1f0c5c2050b3f2e1760d60d7c74744e60db2")
+    URL "https://www.tomviz.org/files/numpy-1.16.3-python3.7.tar.gz"
+    URL_HASH "SHA512=786b369073839b2de4e4588c1c87c98004b95feb75807f73bed92cab73dba473dcdf3c96ed899985f46735ba363131ac1eaf9b4b867a568b159aca28f084c6d9")
 
   add_revision(scipy
-    URL "https://www.tomviz.org/files/scipy-1.0.0-python3.6.tar.gz"
-    URL_HASH "SHA512=b76907671015e23f3f2837c165eb055533dd9ea58cf36f82af49607012ddf44ed761fab697d3a86819faac7479a1ea3b55e91066c86974ae55b3679c81cfb870")
+    URL "https://www.tomviz.org/files/scipy-1.2.1-python3.7.tar.gz"
+    URL_HASH "SHA512=dba897c118d3fc7bb70c9168daf6070a05c6447f12f34dffd3240e2fa22648d120348284e407552032a008e86c6d28e7d990fd007587dc317e5d77dfcaeaba5c")
 
 if (WIN32)
   set(_itk_sha512 "de4561f2c9865633d17c63e546800504e9d991e2fefe2a23c27bf3b7d9807a118aa02dfe128af72d7bd4c452dce1dac6fdb53e67dea93963774a59b27628173a")
