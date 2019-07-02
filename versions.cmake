@@ -124,22 +124,22 @@ add_revision(lapack
     URL_HASH "SHA512=dba897c118d3fc7bb70c9168daf6070a05c6447f12f34dffd3240e2fa22648d120348284e407552032a008e86c6d28e7d990fd007587dc317e5d77dfcaeaba5c")
 
 if (WIN32)
-  set(_itk_sha512 "de4561f2c9865633d17c63e546800504e9d991e2fefe2a23c27bf3b7d9807a118aa02dfe128af72d7bd4c452dce1dac6fdb53e67dea93963774a59b27628173a")
+  set(_itk_sha512 "8b609adf379514875835429498c4a609474f6e9fd9320c2fc3c02b36ec998f7e0062f347727bc4573cacbbb55369b41beec30972d332b9b4af0701fab2105e1e")
   add_revision(itk
-    URL "https://www.tomviz.org/files/itk-4.12.0-windows-64bit.zip"
+    URL "https://www.tomviz.org/files/itk-5.0.0-windows-64bit.zip"
     URL_HASH SHA512=${_itk_sha512})
   add_revision(fftw
     URL "https://www.tomviz.org/files/fftw-3.3.4-windows-64bit.zip"
     URL_MD5 "90ca2a2cd26c62bc85b11ec7f165e716")
 elseif(APPLE)
-  set(_itk_sha512 "e08c6626c778a6cc99c05253be41cefb04acf6bcf0f89c46cea9937966ef32d1cf2e69787cab57ac2463a1f375d9ab068d51de829f180652816796ba468127fc")
+  set(_itk_sha512 "a9f74eb539f23fe8ec00af9ba7aea5ddd2f9d93268d791071af1e1f43603dea2202ca9b4f38fd069622d7ada92cbc4b83f53da2dd21901a05d762ce8524559dd")
   add_revision(itk
-    URL "https://www.tomviz.org/files/itk-v4.12.0-osx-64bit.tar.gz"
+    URL "https://www.tomviz.org/files/itk-v5.0.0-osx-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 elseif(UNIX)
-  set(_itk_sha512 "39aa2bd22e1e2461656abd8983df7c4487978a5e47de006e9d8d8f3eb48c2db42fb4952d1230e3064e7241c6dd811d8a206b5e16f99fd6ee4aa861d3bd4bc8e6")
+  set(_itk_sha512 "b2208467439e02f85b34bcd26822a562d7bf4f7cafaeebfed22b33e533fb4a0c713cfbdd8916a7821c0bdf2fbe8376123e43faa409ad4eeb156e555c7b749569")
   add_revision(itk
-    URL "https://www.tomviz.org/files/itk-v4.12.0-linux-64bit.tar.gz"
+    URL "https://www.tomviz.org/files/itk-v5.0.0-linux-64bit.tar.gz"
     URL_HASH SHA512=${_itk_sha512})
 endif()
 

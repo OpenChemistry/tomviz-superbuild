@@ -7,7 +7,7 @@ readonly basedir=$PWD
 readonly cmake_path=/usr/local/bin
 
 readonly itk_url="git://itk.org/ITK.git"
-readonly target_tag="v4.12.0"
+readonly target_tag="v5.0.0"
 
 readonly tvsb_url="https://github.com/OpenChemistry/tomviz-superbuild.git"
 
@@ -47,7 +47,7 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DITK_USE_FFTWD:BOOL=ON \
   -DITK_USE_FFTWF:BOOL=ON \
   -DITK_USE_SYSTEM_FFTW:BOOL=ON \
-  -DModule_BridgeNumPy:BOOL=ON \
+  -DModule_ITKBridgeNumPy:BOOL=ON \
   -DBUILD_TESTING:BOOL=OFF \
   -DITK_WRAP_PYTHON:BOOL=ON \
   -DBUILD_EXAMPLES:BOOL=OFF \

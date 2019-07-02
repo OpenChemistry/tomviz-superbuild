@@ -11,7 +11,7 @@ Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
 -DITK_LEGACY_REMOVE=ON -DITK_WRAP_PYTHON=ON -DBUILD_EXAMPLES=OFF
 -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
 -DCMAKE_INSTALL_PREFIX=temp/install/dir
--DModule_BridgeNumPy=ON
+-DModule_ITKBridgeNumPy=ON
 -DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/bin/Lib/site-packages/numpy/core/include
 -DITK_USE_FFTWD=ON
 -DITK_USE_FFTWF=ON
