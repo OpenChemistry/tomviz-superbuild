@@ -10,6 +10,6 @@ add_external_project(python
 add_extra_cmake_args(
   -DPYTHON_EXECUTABLE:FILEPATH=<INSTALL_DIR>/bin/python.exe
   -DPYTHON_INCLUDE_DIR:PATH=<INSTALL_DIR>/bin/Include
-  -DPYTHON_LIBRARY:FILEPATH=<INSTALL_DIR>/bin/libs/python36.lib)
+  -DPYTHON_LIBRARY:FILEPATH=<INSTALL_DIR>/bin/libs/python37.lib)
 
 set (python_pip_executable "<INSTALL_DIR>/bin/python.exe" "-m" "pip" CACHE INTERNAL "" FORCE)
