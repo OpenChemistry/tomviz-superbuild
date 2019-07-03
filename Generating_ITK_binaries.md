@@ -16,8 +16,8 @@ Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
 -DITK_USE_FFTWD=ON
 -DITK_USE_FFTWF=ON
 -DITK_USE_SYSTEM_FFTW=ON
--DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3.lib
--DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f.lib
+-DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3-3.lib
+-DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f-3.lib
 -DFFTW_INCLUDE_PATH=superbuild/build/dir/install/include
 `
 
