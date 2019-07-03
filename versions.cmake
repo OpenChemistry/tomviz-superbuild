@@ -124,7 +124,7 @@ add_revision(lapack
     URL_HASH "SHA512=dba897c118d3fc7bb70c9168daf6070a05c6447f12f34dffd3240e2fa22648d120348284e407552032a008e86c6d28e7d990fd007587dc317e5d77dfcaeaba5c")
 
 if (WIN32)
-  set(_itk_sha512 "8b609adf379514875835429498c4a609474f6e9fd9320c2fc3c02b36ec998f7e0062f347727bc4573cacbbb55369b41beec30972d332b9b4af0701fab2105e1e")
+  set(_itk_sha512 "5a7c6b5d7df57f244c0c5dda56debbab025ed503baf9201505d1c437fba0cc89145a475225db0eb5dc9e7bdb116f77bf7caff3d948fa9fab1b51753135d7be0b")
   add_revision(itk
     URL "https://www.tomviz.org/files/itk-5.0.0-windows-64bit.zip"
     URL_HASH SHA512=${_itk_sha512})
