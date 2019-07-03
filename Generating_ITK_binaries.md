@@ -1,25 +1,37 @@
 Making ITK binaries for tomviz superbuild:
 
-***
 Windows:
-***
+--------
 
 First have a build of the superbuild without ITK built.  You need to point ITK at
 the correct numpy and fftw headers.
 
-Configure ITK with `-DBUILD_SHARED_LIBS=ON -DITK_LEGACY_SILENT=ON
--DITK_LEGACY_REMOVE=ON -DITK_WRAP_PYTHON=ON -DBUILD_EXAMPLES=OFF
--DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
--DCMAKE_INSTALL_PREFIX=temp/install/dir
--DModule_ITKBridgeNumPy=ON
--DNUMPY_INCLUDE_DIR=superbuild/build/dir/install/bin/Lib/site-packages/numpy/core/include
--DITK_USE_FFTWD=ON
--DITK_USE_FFTWF=ON
--DITK_USE_SYSTEM_FFTW=ON
--DFFTWD_LIB=superbuild/build/dir/install/lib/libfftw3-3.lib
--DFFTWF_LIB=superbuild/build/dir/install/lib/libfftw3f-3.lib
--DFFTW_INCLUDE_PATH=superbuild/build/dir/install/include
-`
+Configure ITK like the following (changing any variables that are needed):
+
+```
+set tvsb_build_dir=superbuild/build/dir
+cmake path/to/source ^
+-DBUILD_SHARED_LIBS=ON ^
+-DITK_LEGACY_SILENT=ON ^
+-DITK_LEGACY_REMOVE=ON ^
+-DITK_WRAP_PYTHON=ON ^
+-DBUILD_EXAMPLES=OFF ^
+-DBUILD_TESTING=OFF ^
+-DCMAKE_BUILD_TYPE=Release ^
+-DCMAKE_INSTALL_PREFIX=temp/install/dir ^
+-DModule_ITKBridgeNumPy=ON ^
+-DNUMPY_INCLUDE_DIR=%tvsb_build_dir%/install/bin/Lib/site-packages/numpy/core/include ^
+-DITK_USE_FFTWD=ON ^
+-DITK_USE_FFTWF=ON ^
+-DITK_USE_SYSTEM_FFTW=ON ^
+-DFFTWD_LIB=%tvsb_build_dir%/install/lib/libfftw3-3.lib ^
+-DFFTWF_LIB=%tvsb_build_dir%/install/lib/libfftw3f-3.lib ^
+-DFFTW_INCLUDE_PATH=%tvsb_build_dir%/install/include ^
+-DPYTHON_EXECUTABLE=%tvsb_build_dir%/python/src/python/python.exe ^
+-DPYTHON_INCLUDE_DIR=%tvsb_build_dir%/python/src/python/include ^
+-DPYTHON_LIBRARY=%tvsb_build_dir%/python/src/python/libs/python37.lib ^
+-G "Ninja"
+```
 
 You may have to add `-DGIT_EXECUTABLE=/path/to/git.exe` depending on your
 install of git.
@@ -41,9 +53,8 @@ needs installing in the superbuild bundle creation code.
 Then zip up the `temp/install/dir` as the binary ditribution of itk to be used
 with tomviz superbuild.
 
-***
 OSX:
-***
+----
 
 Run the `make_itk_bundle_osx.sh` script in the `itk-binaries/osx` folder.  It
 will generate the ITK tarball for OSX in the current directory assuming that your
@@ -51,9 +62,8 @@ XCode has the appropriate SDK (currently 10.9) installed.  If you want to use a
 different SDK, you will need to modify the script to point to the SDK
 you want to build ITK with.
 
-***
-LINUX
-***
+LINUX:
+------
 
 Install Docker.
 
