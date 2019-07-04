@@ -29,7 +29,8 @@ install(DIRECTORY "${install_location}/lib"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
-        PATTERN "*.lib" EXCLUDE)
+        PATTERN "*.lib" EXCLUDE
+        PATTERN "*.a" EXCLUDE)
 
 # install system runtimes.
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION "bin")
