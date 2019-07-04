@@ -31,20 +31,6 @@ install(DIRECTORY "${install_location}/lib"
         COMPONENT ${AppName}
         PATTERN "*.lib" EXCLUDE)
 
-# install tomviz Python modules and others
-install(DIRECTORY "${install_location}/lib/tomviz"
-        DESTINATION "lib"
-        USE_SOURCE_PERMISSIONS
-        COMPONENT ${AppName}
-        PATTERN "*.lib" EXCLUDE)
-
-if(itk_ENABLED)
-install(DIRECTORY "${install_location}/lib/itk"
-        DESTINATION "lib"
-        USE_SOURCE_PERMISSIONS
-        COMPONENT ${AppName})
-endif()
-
 # install system runtimes.
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION "bin")
 set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
