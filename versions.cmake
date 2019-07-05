@@ -68,7 +68,7 @@ endforeach ()
 if (WIN32)
   add_revision(pyfftw
     URL "https://www.tomviz.org/files/pyfftw-0.10.4-win64.zip"
-    URL_MD5 "c9c60d3f28df1c9d545152734350f9ba")
+    URL_MD5 "1104e1f912df7d9e390dfec10d89afa3")
 else()
   add_revision(pyfftw
     URL "https://www.tomviz.org/files/pyFFTW-0.10.4.tar.gz"
