@@ -25,7 +25,7 @@ install(DIRECTORY "${install_location}/share/"
         COMPONENT ${AppName})
 
 # install paraview python modules and others.
-install(DIRECTORY "${install_location}/lib"
+install(DIRECTORY "${install_location}/lib/"
         DESTINATION "lib"
         USE_SOURCE_PERMISSIONS
         COMPONENT ${AppName}
