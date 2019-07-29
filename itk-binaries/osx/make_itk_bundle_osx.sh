@@ -7,7 +7,7 @@ readonly basedir=$PWD
 readonly cmake_path=/usr/local/bin
 
 readonly itk_url="git://itk.org/ITK.git"
-readonly target_tag="v5.0.0"
+readonly target_tag="v5.0.1"
 
 readonly tvsb_url="https://github.com/OpenChemistry/tomviz-superbuild.git"
 
