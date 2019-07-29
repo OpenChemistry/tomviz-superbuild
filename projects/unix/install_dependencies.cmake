@@ -13,6 +13,16 @@ if (qt_root)
   list(APPEND dirs ${qt_root}/lib)
 endif()
 
+# This function overrides the type of a file when `get_prerequesites()`
+# is called. We will use it so that *libcrypt* will be installed along
+# with the other libraries. Otherwise, it would be considered a system
+# library, and it would not be installed.
+function(gp_resolved_file_type_override filename type)
+  if(filename MATCHES "(.*)libcrypt(.*)")
+    set(type "other" PARENT_SCOPE)
+  endif()
+endfunction()
+
 message("Determining dependencies for '${exename}'")
 get_prerequisites(
   ${executable}
