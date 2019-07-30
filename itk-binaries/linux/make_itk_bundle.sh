@@ -33,6 +33,14 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DITK_LEGACY_SILENT:BOOL=ON \
   -DModule_ITKBridgeNumPy:BOOL=ON \
   -DBUILD_TESTING:BOOL=OFF \
+  -DITK_WRAP_unsigned_short:BOOL=ON \
+  -DITK_WRAP_rgb_unsigned_char:BOOL=OFF \
+  -DITK_WRAP_rgba_unsigned_char:BOOL=OFF \
+  -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+  -DITKGroup_Core:BOOL=ON \
+  -DITKGroup_Filtering:BOOL=ON \
+  -DITKGroup_Segmentation:BOOL=ON \
+  -DITKGroup_Nonunit:BOOL=ON \
   -DITK_WRAP_PYTHON:BOOL=ON \
   -DBUILD_EXAMPLES:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=ON \
@@ -41,7 +49,6 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   "-DPYTHON_INCLUDE_DIR:PATH=$tvsb_dir/build/install/include/python3.7m" \
   "-DPYTHON_EXECUTABLE:FILEPATH=$tvsb_dir/build/install/bin/python3" \
   "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python3.7/site-packages/numpy/core/include" \
-  -DITK_WRAP_unsigned_short:BOOL=ON \
   "$workdir/src"
 
 $cmake_path/cmake --build . -- -j8 && make install
