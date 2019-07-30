@@ -3,9 +3,9 @@ Making ITK binaries for tomviz superbuild:
 Windows:
 --------
 
-First have a build of the superbuild without ITK built.  You need to point ITK at
-the correct numpy and fftw headers. First, clone ITK and checkout the desired
-tag (currently v5.0.1).
+First have a build of the superbuild without ITK built. You need to point ITK
+at the correct numpy. First, clone ITK and checkout the desired tag
+(currently v5.0.1).
 
 Configure ITK like the following (changing any variables that are needed):
 
