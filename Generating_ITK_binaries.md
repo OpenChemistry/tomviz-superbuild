@@ -3,33 +3,36 @@ Making ITK binaries for tomviz superbuild:
 Windows:
 --------
 
-First have a build of the superbuild without ITK built.  You need to point ITK at
-the correct numpy and fftw headers.
+First have a build of the superbuild without ITK built. You need to point ITK
+at the correct numpy. First, clone ITK and checkout the desired tag
+(currently v5.0.1).
 
 Configure ITK like the following (changing any variables that are needed):
 
 ```
 set tvsb_build_dir=superbuild/build/dir
 cmake path/to/source ^
--DBUILD_SHARED_LIBS=ON ^
--DITK_LEGACY_SILENT=ON ^
--DITK_LEGACY_REMOVE=ON ^
--DITK_WRAP_PYTHON=ON ^
--DBUILD_EXAMPLES=OFF ^
--DBUILD_TESTING=OFF ^
 -DCMAKE_BUILD_TYPE=Release ^
--DCMAKE_INSTALL_PREFIX=temp/install/dir ^
+-DITK_LEGACY_REMOVE=ON ^
+-DITK_LEGACY_SILENT=ON ^
 -DModule_ITKBridgeNumPy=ON ^
+-DBUILD_TESTING=OFF ^
+-DITK_WRAP_unsigned_short=ON ^
+-DITK_WRAP_rgb_unsigned_char=OFF ^
+-DITK_WRAP_rgba_unsigned_char=OFF ^
+-DITK_BUILD_DEFAULT_MODULES=OFF ^
+-DITKGroup_Core=ON ^
+-DITKGroup_Filtering=ON ^
+-DITKGroup_Segmentation=ON ^
+-DITKGroup_Nonunit=ON ^
+-DCMAKE_INSTALL_PREFIX=temp/install/dir ^
 -DNUMPY_INCLUDE_DIR=%tvsb_build_dir%/install/bin/Lib/site-packages/numpy/core/include ^
--DITK_USE_FFTWD=ON ^
--DITK_USE_FFTWF=ON ^
--DITK_USE_SYSTEM_FFTW=ON ^
--DFFTWD_LIB=%tvsb_build_dir%/install/lib/libfftw3-3.lib ^
--DFFTWF_LIB=%tvsb_build_dir%/install/lib/libfftw3f-3.lib ^
--DFFTW_INCLUDE_PATH=%tvsb_build_dir%/install/include ^
 -DPYTHON_EXECUTABLE=%tvsb_build_dir%/python/src/python/python.exe ^
 -DPYTHON_INCLUDE_DIR=%tvsb_build_dir%/python/src/python/include ^
 -DPYTHON_LIBRARY=%tvsb_build_dir%/python/src/python/libs/python37.lib ^
+-DITK_WRAP_PYTHON=ON ^
+-DBUILD_EXAMPLES=OFF ^
+-DBUILD_SHARED_LIBS=ON ^
 -G "Ninja"
 ```
 
