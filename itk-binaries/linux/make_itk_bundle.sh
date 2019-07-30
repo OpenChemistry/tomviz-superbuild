@@ -31,8 +31,6 @@ cd "$workdir/build"
 $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   -DITK_LEGACY_REMOVE:BOOL=ON \
   -DITK_LEGACY_SILENT:BOOL=ON \
-  -DITK_USE_FFTWD:BOOL=ON \
-  -DITK_USE_FFTWF:BOOL=ON \
   -DModule_ITKBridgeNumPy:BOOL=ON \
   -DBUILD_TESTING:BOOL=OFF \
   -DITK_WRAP_PYTHON:BOOL=ON \
@@ -43,11 +41,6 @@ $cmake_path/cmake -DCMAKE_BUILD_TYPE:STRING=Release \
   "-DPYTHON_INCLUDE_DIR:PATH=$tvsb_dir/build/install/include/python3.7m" \
   "-DPYTHON_EXECUTABLE:FILEPATH=$tvsb_dir/build/install/bin/python3" \
   "-DNUMPY_INCLUDE_DIR:PATH=$tvsb_dir/build/install/lib/python3.7/site-packages/numpy/core/include" \
-  "-DFFTWD_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3.a" \
-  "-DFFTWD_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3_threads.a" \
-  "-DFFTWF_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3f.a" \
-  "-DFFTWF_THREADS_LIB:FILEPATH=$tvsb_dir/build/install/lib/libfftw3f_threads.a" \
-  "-DFFTW_INCLUDE_PATH:PATH=$tvsb_dir/build/install/include" \
   -DITK_WRAP_unsigned_short:BOOL=ON \
   "$workdir/src"
 
