@@ -17,9 +17,9 @@ mkdir -p "$tvsb_dir/build"
 git clone "${tvsb_url}" "$tvsb_dir/src"
 
 # Build a few dependencies from tomviz superbuild
-# This is to ensure that the ITK is compatible with our numpy and fftw
+# This is to ensure that the ITK is compatible with our numpy
 cd "$tvsb_dir/build"
-$cmake_path/cmake -DENABLE_tomviz:BOOL=OFF -DENABLE_tbb:BOOL=OFF -DENABLE_pyfftw:BOOL=ON -DENABLE_numpy:BOOL=ON "$tvsb_dir/src"
+$cmake_path/cmake -DENABLE_tomviz:BOOL=OFF -DENABLE_tbb:BOOL=OFF -DENABLE_numpy:BOOL=ON "$tvsb_dir/src"
 $cmake_path/cmake --build .
 
 # Build ITK
