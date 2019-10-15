@@ -17,7 +17,7 @@ if (QT_XMLPATTERNS_EXECUTABLE)
 endif()
 
 add_external_project(paraview
-  DEPENDS qt python ffmpeg
+  DEPENDS qt python ffmpeg pygments
   DEPENDS_OPTIONAL tbb png
 
   CMAKE_ARGS

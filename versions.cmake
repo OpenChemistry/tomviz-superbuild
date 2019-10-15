@@ -32,6 +32,10 @@ add_revision(cython
   URL "https://www.tomviz.org/files/Cython-0.29.7.tar.gz"
   URL_MD5 24f6a7e0e6691fbecf5880f38cdf880e)
 
+add_revision(pygments
+  URL "https://www.tomviz.org/files/Pygments-2.4.2.tar.gz"
+  URL_MD5 5ecc3fbb2a783e917b369271fc0e6cd1)
+
 if (WIN32)
   if (64bit_build)
     add_revision(ffmpeg
