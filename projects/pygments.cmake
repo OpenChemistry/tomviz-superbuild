@@ -13,7 +13,7 @@ add_external_project(pygments
   DEPENDS python
   CONFIGURE_COMMAND ""
   BUILD_COMMAND
-    env
+    "${CMAKE_COMMAND}" -E env
         CPPFLAGS=-I<INSTALL_DIR>/include
         LDFLAGS=-L<INSTALL_DIR>/lib
     ${pv_python_executable} setup.py build
@@ -21,6 +21,5 @@ add_external_project(pygments
   INSTALL_COMMAND
     ${install_command_env}
   ${pv_python_executable} setup.py install
-     --prefix=<INSTALL_DIR>
   ${process_environment}
 )

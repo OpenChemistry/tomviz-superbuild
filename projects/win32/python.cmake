@@ -7,6 +7,8 @@ add_external_project(python
       "-Dinstall_dir:PATH=<INSTALL_DIR>"
       -P "${CMAKE_CURRENT_LIST_DIR}/python.install.cmake")
 
+set (pv_python_executable "${install_location}/bin/python.exe" CACHE INTERNAL "" FORCE)
+
 add_extra_cmake_args(
   -DPYTHON_EXECUTABLE:FILEPATH=<INSTALL_DIR>/bin/python.exe
   -DPYTHON_INCLUDE_DIR:PATH=<INSTALL_DIR>/bin/Include
