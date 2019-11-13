@@ -21,6 +21,5 @@ add_external_project(pygments
   INSTALL_COMMAND
     ${install_command_env}
   ${pv_python_executable} setup.py install
-     --prefix=<INSTALL_DIR>
   ${process_environment}
 )
