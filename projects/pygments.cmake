@@ -20,6 +20,6 @@ add_external_project(pygments
   BUILD_IN_SOURCE 1
   INSTALL_COMMAND
     ${install_command_env}
-  ${pv_python_executable} setup.py install
+  ${python_pip_executable} install .
   ${process_environment}
 )
