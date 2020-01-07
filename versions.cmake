@@ -163,3 +163,16 @@ add_revision(tbb
   URL "https://www.tomviz.org/files/${tbb_file}"
   URL_MD5 "${tbb_md5}")
 
+
+add_revision(marshmallow
+  URL "https://github.com/marshmallow-code/marshmallow/archive/3.3.0.tar.gz"
+  URL_MD5 fd7fdb99469207bae96a5d5cc2fa1a5b)
+
+add_revision(jsonpointer
+  URL "https://github.com/stefankoegl/python-json-pointer/archive/v2.0.tar.gz"
+  URL_MD5 95f8263020e8262adf5c627a29561466)
+
+# Note this is a patched version of python-json-patch
+add_revision(jsonpatch
+  URL "https://github.com/cjh1/python-json-patch/archive/tomviz.zip"
+  URL_MD5 699ac8f584b6f01479de5eb7d1d19f30)

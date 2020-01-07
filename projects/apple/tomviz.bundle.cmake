@@ -63,13 +63,16 @@ superbuild_apple_install_python(
   MODULES tomviz
           paraview
           pygments
-	  vtk
-	  vtkmodules
+          vtk
+          vtkmodules
           itk
           pyfftw
           numpy
           scipy
           pyfftw
+          marshmallow
+          jsonpointer
+          jsonpatch
   MODULE_DIRECTORIES
 	  "${superbuild_install_location}/Applications/paraview.app/Contents/Python"
 	  "${superbuild_install_location}/Applications/tomviz.app/Contents/Python"

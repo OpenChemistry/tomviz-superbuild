@@ -212,6 +212,9 @@ include(tbb)
 include(pyfftw)
 include(paraview)
 include(tomviz)
+include(marshmallow)
+include(jsonpointer)
+include(jsonpatch)
 
 process_dependencies()
 
