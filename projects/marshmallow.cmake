@@ -9,7 +9,6 @@ set(extra_install_args
 
 add_external_project(marshmallow
   DEPENDS python
-  ENABLED_DEFAULT ON
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   BUILD_IN_SOURCE 1
