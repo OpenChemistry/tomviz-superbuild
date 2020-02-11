@@ -6,6 +6,7 @@ endif()
 
 add_external_project(jsonpatch
   DEPENDS jsonpointer
+  ENABLED_DEFAULT ON
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   BUILD_IN_SOURCE 1
@@ -14,5 +15,4 @@ add_external_project(jsonpatch
     ${pv_python_executable} setup.py install
       --single-version-externally-managed --root=/
       ${process_environment}
-  ENABLED_DEFAULT ON
 )

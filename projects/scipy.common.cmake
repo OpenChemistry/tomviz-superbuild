@@ -5,6 +5,4 @@ add_external_project(scipy
   ${python_pip_executable} install "scipy-1.2.1-${scipy_platform_string}.whl"
   BUILD_IN_SOURCE 1
   BUILD_COMMAND ""
-
-  ENABLED_DEFAULT ON
 )
