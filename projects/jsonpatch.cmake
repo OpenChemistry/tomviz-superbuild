@@ -6,7 +6,6 @@ endif()
 
 add_external_project(jsonpatch
   DEPENDS jsonpointer
-  ENABLED_DEFAULT ON
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   BUILD_IN_SOURCE 1
