@@ -103,7 +103,7 @@ macro(add_external_project _name)
     set(${cm-project}_DEPENDS_ANY "")
     set(${cm-project}_DEPENDS_OPTIONAL "")
     set(${cm-project}_CAN_USE_SYSTEM 0)
-    set(${cm-project}_ENABLED_DEFAULT ON)
+    set(${cm-project}_ENABLED_DEFAULT OFF)
     set (doing "")
 
     set (project_arguments "${ARGN}") #need quotes to keep empty list items
