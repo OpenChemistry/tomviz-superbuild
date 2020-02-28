@@ -1,1 +1,1 @@
-superbuild_add_project_python(cython)
+superbuild_add_project_python(cython INSTALL_WITH_PIP ON)
