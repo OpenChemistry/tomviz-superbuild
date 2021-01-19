@@ -172,7 +172,6 @@ add_revision(jsonpointer
   URL "https://github.com/stefankoegl/python-json-pointer/archive/v2.0.tar.gz"
   URL_MD5 95f8263020e8262adf5c627a29561466)
 
-# Note this is a patched version of python-json-patch
 add_revision(jsonpatch
-  URL "https://github.com/cjh1/python-json-patch/archive/tomviz.zip"
-  URL_MD5 699ac8f584b6f01479de5eb7d1d19f30)
+  URL "https://github.com/stefankoegl/python-json-patch/archive/v1.21.zip"
+  URL_MD5 27073971f1fd0b78d63bdd29e1cdb703)
