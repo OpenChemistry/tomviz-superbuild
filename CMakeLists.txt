@@ -186,6 +186,9 @@ configure_file(
 #-----------------------------------------------------------------------------
 set(CM_PROJECTS_ALL)
 
+# Python projects may use this
+include(SuperbuildAddProjectPython)
+
 # Include all optional projects. These are the ones user can pick and choose.
 # Some of these allow using system libraries too.
 include(zlib)
@@ -194,6 +197,7 @@ if(UNIX AND NOT APPLE)
   include(fontconfig)
   include(png)
 endif()
+include(hdf5)
 include(libxml2)
 include(ffmpeg)
 include(qt)
@@ -206,6 +210,9 @@ endif()
 include(numpy)
 include(lapack)
 include(scipy)
+include(six)
+include(pkgconfig)
+include(h5py)
 include(itk)
 include(fftw)
 include(tbb)

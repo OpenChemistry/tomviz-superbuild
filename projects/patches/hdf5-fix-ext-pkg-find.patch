@@ -1,0 +1,43 @@
+diff -u -U5 -r hdf5-1.10.3/CMakeFilters.cmake hdf5-1.10.3.fix-ext-pkg-find/CMakeFilters.cmake
+--- hdf5-1.10.3/CMakeFilters.cmake	2018-08-09 17:36:31.000000000 -0400
++++ hdf5-1.10.3.fix-ext-pkg-find/CMakeFilters.cmake	2019-03-15 11:53:03.238932850 -0400
+@@ -39,13 +39,13 @@
+ #-----------------------------------------------------------------------------
+ option (HDF5_ENABLE_Z_LIB_SUPPORT "Enable Zlib Filters" OFF)
+ if (HDF5_ENABLE_Z_LIB_SUPPORT)
+   if (NOT H5_ZLIB_HEADER)
+     if (NOT ZLIB_USE_EXTERNAL)
+-      find_package (ZLIB NAMES ${ZLIB_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS static shared)
++      #find_package (ZLIB NAMES ${ZLIB_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS static shared)
+       if (NOT ZLIB_FOUND)
+-        find_package (ZLIB) # Legacy find
++        find_package (ZLIB MODULE) # Legacy find
+         if (ZLIB_FOUND)
+           set (LINK_COMP_LIBS ${LINK_COMP_LIBS} ${ZLIB_LIBRARIES})
+           set (LINK_COMP_SHARED_LIBS ${LINK_COMP_SHARED_LIBS} ${ZLIB_LIBRARIES})
+         endif ()
+       endif ()
+@@ -90,16 +90,21 @@
+ #-----------------------------------------------------------------------------
+ option (HDF5_ENABLE_SZIP_SUPPORT "Use SZip Filter" OFF)
+ if (HDF5_ENABLE_SZIP_SUPPORT)
+   option (HDF5_ENABLE_SZIP_ENCODING "Use SZip Encoding" OFF)
+   if (NOT SZIP_USE_EXTERNAL)
+-    find_package (SZIP NAMES ${SZIP_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS static shared)
++    #find_package (SZIP NAMES ${SZIP_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS static shared)
+     if (NOT SZIP_FOUND)
+-      find_package (SZIP) # Legacy find
++      if (WIN32)
++        find_package (SZIP CONFIG) # Legacy find
++      else ()
++        find_package (SZIP) # Legacy find
++      endif ()
+       if (SZIP_FOUND)
+         set (LINK_COMP_LIBS ${LINK_COMP_LIBS} ${SZIP_LIBRARIES})
+         set (LINK_COMP_SHARED_LIBS ${LINK_COMP_SHARED_LIBS} ${SZIP_LIBRARIES})
++        set (SZIP_INCLUDE_DIR ${SZIP_INCLUDE_DIRS})
+       endif ()
+     endif ()
+   endif ()
+   if (SZIP_FOUND)
+     set (H5_HAVE_FILTER_SZIP 1)

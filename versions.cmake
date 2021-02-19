@@ -28,6 +28,10 @@ add_revision(libxml2
   URL "https://paraview.org/files/dependencies/libxml2-2.7.8.tar.gz"
   URL_MD5 8127a65e8c3b08856093099b52599c86)
 
+add_revision(hdf5
+  URL "https://www.paraview.org/files/dependencies/hdf5-1.10.3.tar.bz2"
+  URL_MD5 56c5039103c51a40e493b43c504ce982)
+
 add_revision(cython
   URL "https://www.tomviz.org/files/Cython-0.29.7.tar.gz"
   URL_MD5 24f6a7e0e6691fbecf5880f38cdf880e)
@@ -126,6 +130,18 @@ add_revision(lapack
   add_revision(scipy
     URL "https://www.tomviz.org/files/scipy-1.2.1-python3.7.tar.gz"
     URL_HASH "SHA512=dba897c118d3fc7bb70c9168daf6070a05c6447f12f34dffd3240e2fa22648d120348284e407552032a008e86c6d28e7d990fd007587dc317e5d77dfcaeaba5c")
+
+add_revision(six
+  URL     "https://files.pythonhosted.org/packages/dd/bf/4138e7bfb757de47d1f4b6994648ec67a51efe58fa907c1e11e350cddfca/six-1.12.0.tar.gz"
+  URL_MD5 9ae5d1feed8c0215f4ae4adcd9207fcb)
+
+add_revision(pkgconfig
+  URL     "https://files.pythonhosted.org/packages/6e/a9/ff67ef67217dfdf2aca847685fe789f82b931a6957a3deac861297585db6/pkgconfig-1.5.1.tar.gz"
+  URL_MD5 9f9cdb224ec0a1e59efcc7cac4b91972)
+
+add_revision(h5py
+  URL     "https://files.pythonhosted.org/packages/43/27/a6e7dcb8ae20a4dbf3725321058923fec262b6f7835179d78ccc8d98deec/h5py-2.9.0.tar.gz"
+  URL_MD5 d5cdd7248398d8f66119b27171ebf4e1)
 
 if (WIN32)
   set(_itk_sha512 "5a7c6b5d7df57f244c0c5dda56debbab025ed503baf9201505d1c437fba0cc89145a475225db0eb5dc9e7bdb116f77bf7caff3d948fa9fab1b51753135d7be0b")
