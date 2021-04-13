@@ -17,7 +17,7 @@ if (QT_XMLPATTERNS_EXECUTABLE)
 endif()
 
 add_external_project(paraview
-  DEPENDS qt python ffmpeg pygments
+  DEPENDS qt python ffmpeg pygments holoplay
   DEPENDS_OPTIONAL tbb png
 
   CMAKE_ARGS
@@ -41,7 +41,11 @@ add_external_project(paraview
     -DPARAVIEW_ENABLE_FFMPEG:BOOL=ON
     -DCMAKE_CXX_STANDARD:STRING=11
     -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=ON
+    -DPARAVIEW_ENABLE_LOOKINGGLASS:BOOL=ON
+    -DPARAVIEW_PLUGIN_ENABLE_LookingGlass:BOOL=ON
     -DVTK_SMP_IMPLEMENTATION_TYPE:STRING=${VTK_SMP_IMPLEMENTATION_TYPE}
+    -DHoloPlayCore_INCLUDE_DIR:PATH=${HoloPlayCore_INCLUDE_DIR}
+    -DHoloPlayCore_LIBRARY:PATH=${HoloPlayCore_LIBRARY}
 
     ${paraview_extra_cmake_args}
 
