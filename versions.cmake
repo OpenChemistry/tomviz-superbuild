@@ -175,3 +175,8 @@ add_revision(jsonpointer
 add_revision(jsonpatch
   URL "https://github.com/stefankoegl/python-json-patch/archive/v1.21.zip"
   URL_MD5 27073971f1fd0b78d63bdd29e1cdb703)
+
+set(_holoplay_sha256 "8626082ddc89dbbd018e6113e069eb64c9f8e540db06c4c7e85162dc38b5ddad")
+add_revision(holoplay
+  URL "https://www.paraview.org/files/dependencies/HoloPlayCore-0.1.1-Open-20200923.tar.gz"
+  URL_HASH SHA256=${_holoplay_sha256})
