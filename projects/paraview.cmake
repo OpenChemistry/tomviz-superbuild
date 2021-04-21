@@ -36,6 +36,7 @@ add_external_project(paraview
     -DPARAVIEW_USE_QTHELP:BOOL=OFF
     -DPARAVIEW_USE_VTKM:BOOL=OFF
     -DPARAVIEW_PLUGINS_DEFAULT:BOOL=OFF
+    -DVTK_MODULE_ENABLE_ParaView_VTKExtensionsExtractionPython:STRING=YES
     # Disable for now as kits requires CMake 3.12
     #    -DPARAVIEW_ENABLE_KITS:BOOL=ON
     -DPARAVIEW_ENABLE_FFMPEG:BOOL=ON
