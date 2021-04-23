@@ -32,6 +32,9 @@ add_external_project(tomviz
     -Dtomviz_data_DIR:PATH=${tomviz_data}
     -DTOMVIZ_DOWNLOAD_WEB:BOOL=ON
     -DSKIP_PARAVIEW_ITK_PYTHON_CHECKS:BOOL=ON
+    -DHoloPlayCore_INCLUDE_DIR:PATH=${HoloPlayCore_INCLUDE_DIR}
+    -DHoloPlayCore_LIBRARY:PATH=${HoloPlayCore_LIBRARY}
+
     ${tomviz_extra_cmake_args}
 
   ENABLED_DEFAULT ON
