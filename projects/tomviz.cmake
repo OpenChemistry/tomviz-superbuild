@@ -23,6 +23,15 @@ if (APPLE)
     -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON)
 endif()
 
+# Set the looking glass plugin path relative to the executable directory
+if (APPLE)
+  set(_tomviz_looking_glass_plugin_path "../Plugins/LookingGlass.so")
+elseif (UNIX)
+  set(_tomviz_looking_glass_plugin_path "../lib/paraview-5.9/plugins/LookingGlass/LookingGlass.so")
+else ()
+  set(_tomviz_looking_glass_plugin_path "paraview-5.9/plugins/LookingGlass/LookingGlass.dll")
+endif()
+
 add_external_project(tomviz
   DEPENDS paraview qt
 
@@ -34,6 +43,8 @@ add_external_project(tomviz
     -DSKIP_PARAVIEW_ITK_PYTHON_CHECKS:BOOL=ON
     -DHoloPlayCore_INCLUDE_DIR:PATH=${HoloPlayCore_INCLUDE_DIR}
     -DHoloPlayCore_LIBRARY:PATH=${HoloPlayCore_LIBRARY}
+    -Dtomviz_ENABLE_LOOKING_GLASS:BOOL=ON
+    -Dtomviz_LOOKING_GLASS_PLUGIN_PATH:PATH=${_tomviz_looking_glass_plugin_path}
 
     ${tomviz_extra_cmake_args}
 
