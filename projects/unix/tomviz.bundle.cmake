@@ -95,6 +95,15 @@ if(itk_ENABLED)
 )
 endif()
 
+# Copy over paraview plugins
+install(CODE
+"
+  execute_process(COMMAND
+    ${CMAKE_COMMAND}
+    -E copy_directory ${install_location}/lib/paraview-5.9/plugins \${CMAKE_INSTALL_PREFIX}/lib/paraview-5.9/plugins)
+"
+)
+
 # install executables
 foreach(executable tomviz)
   install(PROGRAMS "${install_location}/bin/${executable}"
