@@ -96,6 +96,51 @@ install(CODE
   "
   COMPONENT superbuild)
 
+install(CODE
+  "
+  set(_pv_plugins_to_install
+    LookingGlass
+  )
+
+  # Skip these names when installing plugins
+  set(_skip_names_list
+    vtk
+  )
+
+  set(_pv_plugin_paths)
+
+  foreach(plugin \${_pv_plugins_to_install})
+    file(GLOB plugin_files \"${superbuild_install_location}/lib/paraview-5.9/plugins/\${plugin}/*\")
+    foreach(plugin_path \${plugin_files})
+      get_filename_component(_name_without_dir \${plugin_path} NAME)
+      list (FIND _skip_names_list \${_name_without_dir} _index)
+      if (\${_index} GREATER -1)
+        continue()
+      endif()
+      list(APPEND _pv_plugin_paths \${plugin_path})
+    endforeach()
+  endforeach()
+
+  set(_name \"tomviz.app\")
+  foreach(plugin_path \${_pv_plugin_paths})
+    execute_process(
+      COMMAND \"${_superbuild_install_cmake_dir}/scripts/fixup_bundle.apple.py\"
+              --bundle      \"\${_name}\"
+              --destination \"\${CMAKE_INSTALL_PREFIX}\"
+              --manifest    \"${CMAKE_BINARY_DIR}/\${_name}.manifest\"
+              --location    \"Contents/Plugins\"
+              --type        module
+              \"\${plugin_path}\"
+      RESULT_VARIABLE res
+      ERROR_VARIABLE  err)
+
+    if (res)
+      message(FATAL_ERROR \"Failed to install \${_name}:\n\${err}\")
+    endif ()
+  endforeach()
+  "
+  COMPONENT superbuild)
+
 # This directory is not a python module (no __init__.py) so it is skipped by the packaging script
 # as not important (junk like numpy's headers).  However, ITK's python interface is completely broken
 # without it.
