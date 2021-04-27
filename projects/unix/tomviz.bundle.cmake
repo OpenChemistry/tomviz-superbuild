@@ -111,6 +111,12 @@ foreach(executable tomviz)
     COMPONENT superbuild)
 endforeach()
 
+# Modern Linux (such as Ubuntu 20.04) comes with libffi7 instead of libffi6
+# For now, install libffi so it isn't missing.
+# FIXME: this hard-coded path may cause issues if we change build computers
+file(GLOB libffi_files "/usr/lib/x86_64-linux-gnu/libffi.so*")
+install(FILES ${libffi_files} DESTINATION "lib")
+
 add_test(GenerateTomvizPackage
         ${CMAKE_CPACK_COMMAND} -G TGZ
         WORKING_DIRECTORY ${Superbuild_BINARY_DIR})
