@@ -40,12 +40,16 @@ foreach(dir IN LISTS qt5_libdirs)
 endforeach()
 " COMPONENT "tomviz")
 
-get_target_property(qtWindowsPluginLocation Qt5::QWindowsIntegrationPlugin LOCATION)
-install(FILES ${qtWindowsPluginLocation}
-        DESTINATION "bin/platforms"
-        COMPONENT "tomviz")
 
-get_target_property(qtWindowsStyleLocation Qt5::QWindowsVistaStylePlugin LOCATION)
-install(FILES ${qtWindowsStyleLocation}
-        DESTINATION "bin/styles"
-        COMPONENT "tomviz")
+function(install_qt5_plugin plugin destination)
+  get_target_property(plugin_location ${plugin} LOCATION)
+  install(FILES ${plugin_location}
+          DESTINATION ${destination}
+          COMPONENT "tomviz")
+endfunction()
+
+install_qt5_plugin(Qt5::QWindowsIntegrationPlugin "bin/platforms")
+install_qt5_plugin(Qt5::QWindowsVistaStylePlugin "bin/styles")
+install_qt5_plugin(Qt5::QSvgIconPlugin "bin/iconengines")
+install_qt5_plugin(Qt5::QSvgPlugin "bin/imageformats")
+install_qt5_plugin(Qt5::QSQLiteDriverPlugin "bin/sqldrivers")

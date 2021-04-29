@@ -148,10 +148,7 @@ install(DIRECTORY "${superbuild_install_location}/lib/itk/python3.7/site-package
   DESTINATION "tomviz.app/Contents/Python/itk/"
   COMPONENT superbuild)
 
-file(GLOB qt5_plugin_paths
- "${Qt5_DIR}/../../../plugins/styles/*.dylib"
- "${Qt5_DIR}/../../../plugins/platforms/*.dylib"
- "${Qt5_DIR}/../../../plugins/printsupport/*.dylib")
+file(GLOB qt5_plugin_paths "${Qt5_DIR}/../../../plugins/*/*.dylib")
 foreach (qt5_plugin_path IN LISTS qt5_plugin_paths)
   get_filename_component(qt5_plugin_group "${qt5_plugin_path}" DIRECTORY)
   get_filename_component(qt5_plugin_group "${qt5_plugin_group}" NAME)
@@ -161,7 +158,7 @@ foreach (qt5_plugin_path IN LISTS qt5_plugin_paths)
     "tomviz.app"
     "${qt5_plugin_path}"
     "Contents/Plugins/${qt5_plugin_group}"
-    SEARCH_DIRECTORIES  "${library_paths}")
+    SEARCH_DIRECTORIES "${library_paths}")
 endforeach ()
 
 add_test(GenerateTomvizPackage
