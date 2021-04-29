@@ -13,6 +13,7 @@ set(tomvizQt5Libs
   Network
   Widgets
   Sql
+  Svg
   Test
   UiTools
   Xml)

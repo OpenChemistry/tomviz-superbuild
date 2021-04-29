@@ -148,7 +148,13 @@ install(DIRECTORY "${superbuild_install_location}/lib/itk/python3.7/site-package
   DESTINATION "tomviz.app/Contents/Python/itk/"
   COMPONENT superbuild)
 
-file(GLOB qt5_plugin_paths "${Qt5_DIR}/../../../plugins/*/*.dylib")
+file(GLOB qt5_plugin_paths
+ "${Qt5_DIR}/../../../plugins/styles/*.dylib"
+ "${Qt5_DIR}/../../../plugins/platforms/*.dylib"
+ "${Qt5_DIR}/../../../plugins/iconengines/*.dylib"
+ "${Qt5_DIR}/../../../plugins/imageformats/*.dylib"
+ "${Qt5_DIR}/../../../plugins/sqldrivers/libqsqlite.dylib"
+ "${Qt5_DIR}/../../../plugins/printsupport/*.dylib")
 foreach (qt5_plugin_path IN LISTS qt5_plugin_paths)
   get_filename_component(qt5_plugin_group "${qt5_plugin_path}" DIRECTORY)
   get_filename_component(qt5_plugin_group "${qt5_plugin_group}" NAME)
