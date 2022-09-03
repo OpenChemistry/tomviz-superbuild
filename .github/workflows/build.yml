@@ -1,0 +1,203 @@
+name: build
+
+on:
+  push:
+    branches: [ master ]
+    tags: ['*']
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-package:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: 'Linux',
+            os: ubuntu-latest,
+            generator: 'Unix Makefiles',
+            package: 'tar.gz',
+            c: 'gcc',
+            cxx: 'g++',
+            fc: 'gfortran',
+            cmake: '/cmake/bin/cmake',
+            ctest: '/cmake/bin/ctest'
+
+          }
+        - {
+            name: 'MacOSX',
+            os: macos-10.15,
+            package: 'dmg',
+            generator: 'Unix Makefiles',
+            c: 'clang',
+            cxx: 'clang++',
+            fc: 'gfortran-9',
+            cmake: 'cmake',
+            ctest: 'ctest'
+          }
+        - {
+            name: 'Windows',
+            os: windows-2019,
+            generator: 'Ninja',
+            package: 'msi',
+            c: 'cl',
+            cxx: 'cl',
+            fc: 'gfortran',
+            cmake: 'cmake',
+            ctest: 'ctest'
+          }
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        path: tomviz-superbuild
+
+    - name: Check out tomviz
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: true
+        repository: OpenChemistry/tomviz
+        ref: master
+        path: tomviz
+
+    - name: Install Qt
+      if: ${{ matrix.config.name != 'Linux'}}
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '5.12.6'
+
+    - name: Install Python
+      if: ${{ matrix.config.name != 'Linux'}}
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.7.5'
+
+    - name: Setup Ninja
+      if: ${{ matrix.config.name != 'Linux'}}
+      uses: ashutoshvarma/setup-ninja@master
+
+    - name: Setup MSVC (Windows)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        toolset: '14.0'
+
+    - name: Setup cmake
+      if: ${{ matrix.config.name != 'Linux'}}
+      uses: jwlawson/actions-setup-cmake@v1.12
+      with:
+        cmake-version: '3.15.7'
+
+    - name: Set compiler variables
+      run: |
+          echo 'CC=${{ matrix.config.c }}' >> $GITHUB_ENV
+          echo 'CXX=${{ matrix.config.cxx }}' >> $GITHUB_ENV
+          echo 'FC=${{ matrix.config.fc }}' >> $GITHUB_ENV
+
+    - name: Symlink openssl so Python build can find it (MacOSX)
+      if: ${{ matrix.config.name == 'MacOSX'}}
+      run: |
+          sudo ln -s /usr/local/opt/openssl@1.1  /usr/local/ssl
+
+    - name: Make build directory
+      run: |
+          mkdir build
+
+    - name: Setup Xcode (MacOSX)
+      if: ${{ matrix.config.name == 'MacOSX'}}
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '11.2.1'
+
+    - name: Setup configure, build and package commands
+      run: |
+        echo "CONFIGURE_COMMAND=${{ matrix.config.cmake }} --no-warn-unused-cli \
+          -DCTEST_USE_LAUNCHERS:BOOL=1 \
+          -DENABLE_lapack:BOOL=ON \
+          -DCMAKE_BUILD_TYPE:STRING=Release \
+          -DUSE_SYSTEM_qt:BOOL=ON \
+          -DENABLE_paraview:BOOL=ON \
+          -DQt5_DIR:PATH=\$QT5_DIR \
+          -DENABLE_qt:BOOL=ON \
+          -DENABLE_jsonpatch:BOOL=ON \
+          -Ddownload_location:PATH=\$GITHUB_WORKSPACE/superbuild-downloads \
+          -DBUILD_SHARED_LIBS:BOOL=ON \
+          -DENABLE_pyfftw:BOOL=ON \
+          -DENABLE_itk:BOOL=ON \
+          -DENABLE_tbb:BOOL=ON \
+          -DENABLE_scipy:BOOL=ON \
+          -DENABLE_python:BOOL=ON \
+          -DBUILD_TESTING:BOOL=ON \
+          -DENABLE_numpy:BOOL=ON \
+          -DENABLE_tomviz:BOOL=ON \
+          -Dtomviz_FROM_GIT:BOOL=OFF \
+          -Dtomviz_FROM_SOURCE_DIR:BOOL=ON \
+          -Dtomviz_SOURCE_DIR:PATH=\$GITHUB_WORKSPACE/tomviz \
+          -Dtomviz_SOURCE_SELECTION:STRING=source \
+          -DENABLE_marshmallow:BOOL=ON \
+          -DCTEST_USE_LAUNCHERS:BOOL=TRUE \
+          -G'${{matrix.config.generator}}' \
+          ../tomviz-superbuild" \
+          >> $GITHUB_ENV
+        echo "BUILD_COMMAND=${{ matrix.config.cmake }} --build . --config  'Release'" >> $GITHUB_ENV
+        echo "PACKAGE_COMMAND=${{ matrix.config.ctest }}" >> $GITHUB_ENV
+
+    - name: Run superbuild
+      if: ${{ matrix.config.name != 'Linux' }}
+      working-directory: build
+      run: |
+          ${{ env.CONFIGURE_COMMAND }}
+          ${{ env.BUILD_COMMAND }}
+          ${{ env.PACKAGE_COMMAND }}
+
+    - name: Run superbuild (Linux container)
+      if: ${{ matrix.config.name == 'Linux' }}
+      uses: addnab/docker-run-action@v3
+      with:
+          image: openchemistry/tomviz-superbuild-debian:latest
+          options: -v ${{ github.workspace }}:/github/workspace -e GITHUB_WORKSPACE=/github/workspace -e QT5_DIR=/root/support/qt5/lib/cmake/Qt5 -w /github/workspace/build
+          run: |
+              ${{ env.CONFIGURE_COMMAND }}
+              ${{ env.BUILD_COMMAND }}
+              ${{ env.PACKAGE_COMMAND }}
+
+    - name: Upload InstallOutput.log
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: InstallOutput.log
+        path: ${{ github.workspace }}/build/_CPack_Packages/*/InstallOutput.log
+
+    - name: Upload WIX log (Windows)
+      if: ${{ failure() && matrix.config.name == 'Windows'}}
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: wix.log
+        path: ${{ github.workspace }}/build/_CPack_Packages/WIX/wix.log
+
+    - name: Get version for the artifact names
+      id: describe
+      working-directory: ${{ github.workspace }}/tomviz
+      run: echo "::set-output name=version::$(git describe --tag)"
+
+    - name: Upload package Zip
+      if: ${{ matrix.config.name == 'Windows'}}
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: Tomviz-${{ steps.describe.outputs.version }}.zip
+        path: ${{ github.workspace }}/build/Tomviz*.zip
+
+    - name: Upload package
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: Tomviz-${{ steps.describe.outputs.version }}.${{ matrix.config.package }}
+        path: ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
+
+
