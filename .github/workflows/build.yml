@@ -84,10 +84,10 @@ jobs:
       if: ${{ matrix.config.name != 'Linux'}}
       uses: ashutoshvarma/setup-ninja@master
 
-    # - name: Setup MSVC (Windows)
-    #   uses: ilammy/msvc-dev-cmd@v1
-    #   with:
-    #     toolset: '14.0'
+    - name: Setup MSVC (Windows)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        vsversion: '16.0'
 
     - name: Setup cmake
       if: ${{ matrix.config.name != 'Linux'}}
