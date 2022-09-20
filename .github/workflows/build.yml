@@ -147,7 +147,7 @@ jobs:
           ../tomviz-superbuild" \
           >> $GITHUB_ENV
         echo "BUILD_COMMAND=${{ matrix.config.cmake }} --build . --config  'Release'" >> $GITHUB_ENV
-        echo "PACKAGE_COMMAND=${{ matrix.config.ctest }}" >> $GITHUB_ENV
+        echo "PACKAGE_COMMAND=${{ matrix.config.ctest }} --verbose" >> $GITHUB_ENV
 
     - name: Run superbuild
       if: ${{ matrix.config.name != 'Linux' }}
