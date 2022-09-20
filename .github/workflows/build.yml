@@ -161,12 +161,12 @@ jobs:
       if: ${{ matrix.config.name == 'Linux' }}
       uses: addnab/docker-run-action@v3
       with:
-          image: openchemistry/tomviz-superbuild-debian:latest
+          image: openchemistry/tomviz-superbuild-centos:latest
           options: -v ${{ github.workspace }}:/github/workspace -e GITHUB_WORKSPACE=/github/workspace -e QT5_DIR=/root/support/qt5/lib/cmake/Qt5 -w /github/workspace/build
           run: |
-              ${{ env.CONFIGURE_COMMAND }}
-              ${{ env.BUILD_COMMAND }}
-              ${{ env.PACKAGE_COMMAND }}
+              scl enable devtoolset-7 "${{ env.CONFIGURE_COMMAND }}"
+              scl enable devtoolset-7 "${{ env.BUILD_COMMAND }}"
+              scl enable devtoolset-7 "${{ env.PACKAGE_COMMAND }}"
 
     - name: Upload InstallOutput.log
       if: ${{ failure() }}
