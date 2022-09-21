@@ -110,7 +110,7 @@ install(CODE
   set(_pv_plugin_paths)
 
   foreach(plugin \${_pv_plugins_to_install})
-    file(GLOB plugin_files \"${superbuild_install_location}/lib/paraview-5.9/plugins/\${plugin}/*\")
+    file(GLOB plugin_files \"${superbuild_install_location}/lib/paraview-5.11/plugins/\${plugin}/*\")
     foreach(plugin_path \${plugin_files})
       get_filename_component(_name_without_dir \${plugin_path} NAME)
       list (FIND _skip_names_list \${_name_without_dir} _index)

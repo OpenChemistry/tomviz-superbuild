@@ -27,9 +27,9 @@ endif()
 if (APPLE)
   set(_tomviz_looking_glass_plugin_path "../Plugins/LookingGlass.so")
 elseif (UNIX)
-  set(_tomviz_looking_glass_plugin_path "../lib/paraview-5.9/plugins/LookingGlass/LookingGlass.so")
+  set(_tomviz_looking_glass_plugin_path "../lib/paraview-5.11/plugins/LookingGlass/LookingGlass.so")
 else ()
-  set(_tomviz_looking_glass_plugin_path "paraview-5.9/plugins/LookingGlass/LookingGlass.dll")
+  set(_tomviz_looking_glass_plugin_path "paraview-5.11/plugins/LookingGlass/LookingGlass.dll")
 endif()
 
 add_external_project(tomviz
