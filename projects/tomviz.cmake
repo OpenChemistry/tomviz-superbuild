@@ -27,15 +27,16 @@ endif()
 if (APPLE)
   set(_tomviz_looking_glass_plugin_path "../Plugins/LookingGlass.so")
 elseif (UNIX)
-  set(_tomviz_looking_glass_plugin_path "../lib/paraview-5.9/plugins/LookingGlass/LookingGlass.so")
+  set(_tomviz_looking_glass_plugin_path "../lib/paraview-5.11/plugins/LookingGlass/LookingGlass.so")
 else ()
-  set(_tomviz_looking_glass_plugin_path "paraview-5.9/plugins/LookingGlass/LookingGlass.dll")
+  set(_tomviz_looking_glass_plugin_path "paraview-5.11/plugins/LookingGlass/LookingGlass.dll")
 endif()
 
 add_external_project(tomviz
   DEPENDS paraview qt
 
   CMAKE_ARGS
+    -DCMAKE_INSTALL_LIBDIR:STRING=lib
     -DBUILD_SHARED_LIBS:BOOL=ON
     -DParaView_DIR:PATH=${SuperBuild_BINARY_DIR}/paraview/src/paraview-build
     -Dtomviz_data_DIR:PATH=${tomviz_data}

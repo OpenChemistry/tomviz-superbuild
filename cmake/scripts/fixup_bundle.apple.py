@@ -234,7 +234,7 @@ class Library(object):
         return self._dependencies
 
     def _find_library(self, ref):
-        print 'WARNING: dependency from %s to %s requires a search path' % (self.path, ref)
+        print('WARNING: dependency from %s to %s requires a search path' % (self.path, ref))
         for loc in self._search_paths:
             path = os.path.join(loc, ref)
             if os.path.exists(path):

@@ -100,7 +100,7 @@ install(CODE
 "
   execute_process(COMMAND
     ${CMAKE_COMMAND}
-    -E copy_directory ${install_location}/lib/paraview-5.9/plugins \${CMAKE_INSTALL_PREFIX}/lib/paraview-5.9/plugins)
+    -E copy_directory ${install_location}/lib/paraview-5.11/plugins \${CMAKE_INSTALL_PREFIX}/lib/paraview-5.11/plugins)
 "
 )
 
