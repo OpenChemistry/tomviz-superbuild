@@ -6,6 +6,8 @@ on:
     tags: ['*']
   pull_request:
     branches: [ master ]
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build-package:
@@ -200,4 +202,17 @@ jobs:
         name: Tomviz-${{ steps.describe.outputs.version }}.${{ matrix.config.package }}
         path: ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
 
+    - name: Create nightly date
+      if: github.event.schedule == '0 0 * * *'
+      run: bash tomviz-superbuild/.github/scripts/create_nightly_date.sh
 
+    - name: Upload nightly
+      if: github.event.schedule == '0 0 * * *'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Nightly for "${{ env.NIGHTLY_DATE }}"
+        tag_name: "Nightly_${{ env.NIGHTLY_DATE }}"
+        prerelease: true
+        files: |
+          ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
+          ${{ github.workspace }}/build/Tomviz*.zip
