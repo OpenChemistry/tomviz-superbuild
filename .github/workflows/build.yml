@@ -216,3 +216,21 @@ jobs:
         files: |
           ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
           ${{ github.workspace }}/build/Tomviz*.zip
+
+    - name: Remove latest nightly
+      if: github.event.schedule == '0 0 * * *'
+      run: bash tomviz-superbuild/.github/scripts/delete_nightly_release.sh
+
+    - name: Rename packages to latest
+      if: github.event.schedule == '0 0 * * *'
+      run: bash tomviz-superbuild/.github/scripts/rename_packages_to_latest.sh
+
+    - name: Upload latest nightly
+      if: github.event.schedule == '0 0 * * *'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Nightly
+        body: Nightly for "${{ env.NIGHTLY_DATE }}"
+        tag_name: "nightly"
+        prerelease: true
+        files: ${{ github.workspace }}/build/tomviz-latest.*
