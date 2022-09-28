@@ -232,8 +232,8 @@ jobs:
       if: github.event.schedule == '0 0 * * *'
       uses: softprops/action-gh-release@v1
       with:
-        name: Nightly
+        name: Latest
         body: Nightly for "${{ env.NIGHTLY_DATE }}"
-        tag_name: "nightly"
+        tag_name: "latest"
         prerelease: true
         files: ${{ github.workspace }}/build/tomviz-latest.*
