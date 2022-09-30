@@ -24,7 +24,7 @@ if [[ ! -z "$hub_output" ]] && [[ "$hub_output" != *"$NIGHTLY_DATE"* ]]; then
   echo "Deleting previous latest"
 
   # It has not already been created. Delete the old one, if present.
-  hub release delete Latest
+  hub release delete latest
   hub push origin latest --delete
   git tag -d latest
 else
