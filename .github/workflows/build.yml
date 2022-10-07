@@ -116,7 +116,7 @@ jobs:
       if: ${{ matrix.config.name == 'MacOSX'}}
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '11.2.1'
+        xcode-version: '13.2.1'
 
     - name: Setup configure, build and package commands
       run: |
