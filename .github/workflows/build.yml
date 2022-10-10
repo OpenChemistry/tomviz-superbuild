@@ -8,6 +8,11 @@ on:
     branches: [ master ]
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      tomviz_release_tag:
+        description: 'The Tomviz tag to use (for releases)'
+        required: true
 
 jobs:
   build-package:
@@ -67,7 +72,8 @@ jobs:
         fetch-depth: 0
         submodules: true
         repository: OpenChemistry/tomviz
-        ref: master
+        # If the tomviz tag was provided, use that. Otherwise, use master.
+        ref: ${{ github.event.inputs.tomviz_release_tag || 'master' }}
         path: tomviz
 
     - name: Install Qt
@@ -237,3 +243,15 @@ jobs:
         tag_name: "latest"
         prerelease: true
         files: ${{ github.workspace }}/build/tomviz-latest.*
+
+    - name: Prepare release
+      if: github.event_name == 'workflow_dispatch'
+      run: bash tomviz-superbuild/.github/scripts/prepare_release.sh
+
+    - name: Upload release
+      if: github.event_name == 'workflow_dispatch'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ github.event.inputs.tomviz_release_tag }}
+        tag_name: ${{ github.event.inputs.tomviz_release_tag }}
+        files: ${{ github.workspace }}/release/*
