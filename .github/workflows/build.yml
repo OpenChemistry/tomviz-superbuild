@@ -209,11 +209,11 @@ jobs:
         path: ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
 
     - name: Create nightly date
-      if: github.event.schedule == '0 0 * * *'
+      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       run: bash tomviz-superbuild/.github/scripts/create_nightly_date.sh
 
     - name: Upload nightly
-      if: github.event.schedule == '0 0 * * *'
+      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       uses: softprops/action-gh-release@v1
       with:
         name: Nightly for "${{ env.NIGHTLY_DATE }}"
@@ -224,18 +224,18 @@ jobs:
           ${{ github.workspace }}/build/Tomviz*.zip
 
     - name: Remove latest nightly
-      if: github.event.schedule == '0 0 * * *'
+      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       env:
         # Expose the GitHub token for hub to use it
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: bash tomviz-superbuild/.github/scripts/delete_nightly_release.sh
 
     - name: Rename packages to latest
-      if: github.event.schedule == '0 0 * * *'
+      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       run: bash tomviz-superbuild/.github/scripts/rename_packages_to_latest.sh
 
     - name: Upload latest nightly
-      if: github.event.schedule == '0 0 * * *'
+      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       uses: softprops/action-gh-release@v1
       with:
         name: Latest
