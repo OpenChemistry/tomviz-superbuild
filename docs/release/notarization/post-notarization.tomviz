@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+# Anything that starts with FIXME_ needs to be filled in
+
+if [ $# -ne 1 ]
+then
+  echo "Usage: $0 /path/to/file.dmg"
+  exit 1
+fi
+
+if [ -z "$MY_APPLE_ID" ]
+then
+  echo "Please set MY_APPLE_ID environment variable and run again."
+  exit 1
+fi
+
+if [ -z "$MY_APPLE_PASSWORD" ]
+then
+  echo "Please set MY_APPLE_PASSWORD environment variable and run again. It should be a Tomviz-specific password created for your account at appleid.apple.com"
+  exit 1
+fi
+
+umask 022
+
+pkg="$1"
+pkg_base="$(basename ${pkg} .dmg)"
+vers="$(echo ${pkg_base} | sed -E -n 's|tomviz-([^-]*(-RC[^-]*)?).*|\1|p')"
+app_name="tomviz.app"
+vol_name="/Volumes/${pkg_base}"
+app_dir="${vol_name}/${app_name}"
+cert_name_app='Developer ID Application: FIXME_DEVELOPER_ID_APPLICATION'
+cert_name_inst='Developer ID Installer: FIXME_DEVELOPER_ID_INSTALLER'
+readonly sla_xml="sla.xml"
+
+echo "Stapling"
+xcrun stapler staple -v "${app_dir}"
+
+echo "Verifying .app is signed and notarized"
+spctl -a -vvv -t install ${app_dir}
+if [ $? -ne 0 ]
+then
+  echo "app is not notarized"
+  exit 1
+fi
+
+# This section does not yet work
+#echo "Insert SLA into PKG with productbuild"
+#curl https://gitlab.kitware.com/paraview/paraview-superbuild/-/raw/master/projects/files/paraview.license.txt > paraview.license.txt
+
+#echo '<?xml version="1.0" encoding="utf-8"?>
+#<installer-gui-script minSpecVersion="1">
+#  <pkg-ref id="org.paraview.ParaView"/>
+#  <license file="paraview.license.txt" />
+#  <options customize="never" require-scripts="false"/>
+#  <choices-outline>
+#    <line choice="default">
+#      <line choice="org.paraview.ParaView"/>
+#    </line>
+#  </choices-outline>
+#  <choice id="default"/>
+#  <choice id="org.paraview.ParaView" visible="false">
+#    <pkg-ref id="org.paraview.ParaView"/>
+#  </choice>
+#  <pkg-ref id="org.paraview.ParaView" version="'${vers}'" onConclusion="none">'${pkg_base}'.pkg</pkg-ref>
+#</installer-gui-script>' > distribution.dist
+# NOTE - the following is needed to add a license, but signing the package with producebuild doesn't work (keychain access error)
+#productbuild --sign "${cert_name_inst}" --distribution distribution.dist --resources . --package-path ${pkg_base}.pkg tmp.pkg
+#mv tmp.pkg ${pkg_base}.pkg
+
+echo "Convert to intermediate format needed for rez tool."
+hdiutil detach "${vol_name}"
+hdiutil resize -size min tmp-udrw.dmg
+
+# Re-compress
+hdiutil convert tmp-udrw.dmg -format UDZO -imagekey zlib-level=9 -ov -o ${pkg_base}.dmg
+rm tmp-udrw.dmg
+
+echo "Inserting SLA into new image"
+hdiutil udifrez -xml "${sla_xml}" 'WHY_IS_THIS_ARGUMENT_NEEDED' "${pkg_base}.dmg"
