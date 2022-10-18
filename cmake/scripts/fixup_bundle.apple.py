@@ -260,6 +260,11 @@ class Library(object):
         for path in paths:
             if os.path.exists(path):
                 return cls.create_from_path(path, parent=loader)
+        if ref.startswith('/System/Library/Frameworks/') or \
+           ref.startswith('/usr/lib/'):
+            # These files do not exist on-disk as of macOS 11. This is Apple
+            # magic and assumed to be a system library.
+            return None
         search_path = loader._find_library(ref)
         if os.path.exists(search_path):
             return cls.create_from_path(search_path, parent=loader)
