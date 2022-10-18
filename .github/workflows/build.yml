@@ -95,7 +95,7 @@ jobs:
       if: ${{ matrix.config.name != 'Linux'}}
       uses: jwlawson/actions-setup-cmake@v1.12
       with:
-        cmake-version: '3.15.7'
+        cmake-version: '3.19.0'
 
     - name: Set compiler variables
       run: |
