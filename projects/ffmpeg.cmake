@@ -19,7 +19,7 @@ add_external_project(
                     --disable-network
                     --disable-yasm
                     ${shared_args}
-                    --cc=${CMAKE_C_COMPILER}
+                    # --cc=${CMAKE_C_COMPILER}
                     \"--extra-cflags=${cppflags}\"
                     \"--extra-ldflags=${ldflags}\"
                     ${extra_commands}"
