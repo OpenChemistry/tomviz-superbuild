@@ -214,7 +214,8 @@ jobs:
 
     - name: Upload nightly
       if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
-      uses: softprops/action-gh-release@v1
+      # Fix version until this is fixed: https://github.com/softprops/action-gh-release/issues/280
+      uses: softprops/action-gh-release@v0.1.13
       with:
         name: Nightly for "${{ env.NIGHTLY_DATE }}"
         tag_name: "Nightly_${{ env.NIGHTLY_DATE }}"
@@ -236,7 +237,8 @@ jobs:
 
     - name: Upload latest nightly
       if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
-      uses: softprops/action-gh-release@v1
+      # Fix version until this is fixed: https://github.com/softprops/action-gh-release/issues/280
+      uses: softprops/action-gh-release@v0.1.13
       with:
         name: Latest
         body: Nightly for "${{ env.NIGHTLY_DATE }}"
