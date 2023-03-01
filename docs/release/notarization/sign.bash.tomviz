@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+# Anything that starts with FIXME_ needs to be filled in
+
+if [ $# -ne 1 ]
+then
+  echo "Usage: $0 /path/to/file.dmg"
+  exit 1
+fi
+
+if [ -z "$MY_APPLE_ID" ]
+then
+  echo "Please set MY_APPLE_ID environment variable and run again."
+  exit 1
+fi
+
+if [ -z "$MY_APPLE_PASSWORD" ]
+then
+  echo "Please set MY_APPLE_PASSWORD environment variable and run again. It should be a Tomviz-specific password created for your account at appleid.apple.com"
+  exit 1
+fi
+
+umask 022
+rm -f tmp-*.dmg
+
+pkg="$1"
+pkg_base="$(basename ${pkg} .dmg)"
+vers="$(echo ${pkg_base} | sed -E -n 's|tomviz-([^-]*(-RC[^-]*)?).*|\1|p')"
+app_name="tomviz.app"
+vol_name="/Volumes/${pkg_base}"
+app_dir="${vol_name}/${app_name}"
+cert_name_app='Developer ID Application: FIXME_DEVELOPER_ID_APPLICATION'
+cert_name_inst='Developer ID Installer: FIXME_DEVELOPER_ID_INSTALLER'
+readonly sla_xml="sla.xml"
+
+echo "Backing up the original unsigned dmg"
+cp -v ${pkg} ${pkg/.dmg/.unsigned.dmg}
+
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+   <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+   <true/>
+   <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+   <true/>
+</dict>
+</plist>' > entitlements.xml
+
+echo "Extract SLA"
+hdiutil udifderez -xml "$pkg" > "$sla_xml"
+# Prune unneeded sections
+plutil -remove 'blkx' "$sla_xml"
+plutil -remove 'plst' "$sla_xml"
+
+echo "Convert from read-only original image to read-write"
+hdiutil convert ${pkg} -format UDRW -o tmp-udrw.dmg
+
+echo "Making image bigger to avoid running out of space when signing"
+hdiutil resize -size 10G tmp-udrw.dmg
+
+echo "Mount"
+hdiutil attach tmp-udrw.dmg
+
+echo "Collect python executables"
+python_exes=`find "${app_dir}" -name "python*" -type f`
+
+echo "Collect tomviz executables"
+tomviz_exes=`find "${app_dir}" -name "tomviz*" -type f`
+
+echo "Cleanup frameworks"
+for D in ${app_dir}/Contents/Frameworks/*.framework
+do
+  echo "  $(basename ${D})"
+  rm -f ${D}/*.prl
+  mkdir -p ${D}/Versions/Current/Resources
+  if [ -e ${D}/Contents/Info.plist ]
+  then
+    mv ${D}/Contents/Info.plist ${D}/Versions/Current/Resources
+  fi
+  rm -rf ${D}/Contents
+done
+chmod -R ugo+rX ${app_dir}
+
+echo "Collecting binaries"
+so_files=`find "${app_dir}" -name "*.so" -type f`
+echo "Collected so files:"
+echo "${so_files}"
+dylib_files=`find "${app_dir}" -name "*.dylib" -type f`
+echo "Collected dylib files:"
+echo "${dylib_files}"
+
+echo "Signing App ${app_dir}"
+echo codesign --verify --force --timestamp --options=runtime --verbose --deep -s "${cert_name_app}" --entitlements entitlements.xml "${app_dir}"
+# Important: .app bundle needs to be signed last here
+codesign --verify --force --timestamp --options=runtime --verbose --deep -s "${cert_name_app}" --entitlements entitlements.xml \
+  ${so_files} ${dylib_files} ${python_exes} ${tomviz_exes} "${app_dir}"
+
+echo "Creating temporary App zip"
+ditto -c -k --keepParent "${app_dir}/" "tmp-app.zip"
+
+echo "Requesting notarization"
+xcrun altool --notarize-app --primary-bundle-id "org.tomviz.Tomviz" --username "${MY_APPLE_ID}" --password "${MY_APPLE_PASSWORD}" --asc-provider "FIXME_ASC_PROVIDER" --file "tmp-app.zip"
+
+echo "Notarization requested.  Type 'done' when notarization email arrives."
+while read line; do test "$line" == "done" && break; done
+
+bash post-notarization.tomviz $1
