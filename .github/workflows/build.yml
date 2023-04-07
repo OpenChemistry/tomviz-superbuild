@@ -41,7 +41,7 @@ jobs:
             generator: 'Unix Makefiles',
             c: 'clang',
             cxx: 'clang++',
-            fc: 'gfortran-9',
+            fc: 'gfortran-10',
             cmake: 'cmake',
             ctest: 'ctest'
           }
