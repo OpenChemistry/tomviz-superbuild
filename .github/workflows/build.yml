@@ -41,7 +41,7 @@ jobs:
             generator: 'Unix Makefiles',
             c: 'clang',
             cxx: 'clang++',
-            fc: 'gfortran-10',
+            fc: 'gfortran-9',
             cmake: 'cmake',
             ctest: 'ctest'
           }
@@ -113,6 +113,11 @@ jobs:
       if: ${{ matrix.config.name == 'MacOSX'}}
       run: |
           sudo ln -s /usr/local/opt/openssl@1.1  /usr/local/ssl
+
+    - name: Install gfortan-9 (MacOSX)
+      if: ${{ matrix.config.name == 'MacOSX'}}
+      run: |
+          brew install gcc@9
 
     - name: Make build directory
       run: |
