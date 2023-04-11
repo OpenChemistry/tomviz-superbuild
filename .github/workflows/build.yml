@@ -217,8 +217,8 @@ jobs:
       if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
       run: bash tomviz-superbuild/.github/scripts/create_nightly_date.sh
 
-    - name: Upload nightly
-      if: github.event.schedule == '0 0 * * *' && github.repository == 'openchemistry/tomviz-superbuild'
+    - name: Upload nightly (first of the month)
+      if: github.event.schedule == '0 0 1 * *' && github.repository == 'openchemistry/tomviz-superbuild'
       # Fix version until this is fixed: https://github.com/softprops/action-gh-release/issues/280
       uses: softprops/action-gh-release@v0.1.13
       with:
