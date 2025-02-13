@@ -36,7 +36,7 @@ jobs:
           }
         - {
             name: 'MacOSX',
-            os: macos-11,
+            os: macos-13,
             package: 'dmg',
             generator: 'Unix Makefiles',
             c: 'clang',
