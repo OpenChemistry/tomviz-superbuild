@@ -183,14 +183,14 @@ jobs:
 
     - name: Upload InstallOutput.log
       if: ${{ failure() }}
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v4
       with:
         name: InstallOutput.log
         path: ${{ github.workspace }}/build/_CPack_Packages/*/InstallOutput.log
 
     - name: Upload WIX log (Windows)
       if: ${{ failure() && matrix.config.name == 'Windows'}}
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v4
       with:
         name: wix.log
         path: ${{ github.workspace }}/build/_CPack_Packages/WIX/wix.log
@@ -202,13 +202,13 @@ jobs:
 
     - name: Upload package Zip
       if: ${{ matrix.config.name == 'Windows'}}
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v4
       with:
         name: Tomviz-${{ steps.describe.outputs.version }}.zip
         path: ${{ github.workspace }}/build/Tomviz*.zip
 
     - name: Upload package
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v4
       with:
         name: Tomviz-${{ steps.describe.outputs.version }}.${{ matrix.config.package }}
         path: ${{ github.workspace }}/build/Tomviz*.${{ matrix.config.package }}
